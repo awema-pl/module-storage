@@ -37,7 +37,7 @@
                                 <tb-column name="image_url" label="{{ _p('storage::pages.user.manufacturer.image_url', 'Image web address') }}">
                                     <template slot-scope="col">
                                         <template v-if="col.data.image_url">
-                                            <img class="manufacturer-image tf-img" :src="col.data.image_url" alt="col.data.name"/>
+                                            <img class="manufacturer-image tf-img" :src="col.data.image_url" :alt="col.data.name"/>
                                         </template>
                                     </template>
                                 </tb-column>

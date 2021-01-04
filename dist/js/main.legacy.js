@@ -1,6 +1,6 @@
 /**
  * Bundle of AWEMA storage transpiled and polyfilled
- * Generated: 2021-01-04 10:39:00
+ * Generated: 2021-01-04 23:38:58
  * Version: 1.0.0
  */
 

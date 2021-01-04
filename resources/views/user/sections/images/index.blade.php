@@ -33,39 +33,21 @@
                                         @{{ col.data.warehouse.name }}
                                     </template>
                                 </tb-column>
-                                <tb-column name="name" label="{{ _p('storage::pages.user.image.name', 'Name') }}">
+                                <tb-column name="product" label="{{ _p('storage::pages.user.image.product', 'Product') }}">
                                     <template slot-scope="col">
-                                        <div>@{{ col.data.name }}</div>
-                                        <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.image.default_category', 'Default category') }}:</span> @{{ col.data.default_category.crumbs }}
-                                        </div>
-                                        <div v-if="col.data.manufacturer" class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.image.manufacturer', 'Manufacturer') }}:</span> @{{ col.data.manufacturer.name }}
-                                        </div>
-                                        <div class="tf-size-small">
-                                            <span v-if="col.data.ean">
-                                                <span class="cl-caption">{{ _p('storage::pages.user.image.ean', 'EAN') }}:</span> @{{ col.data.ean }}
-                                            </span>
-                                            <span v-if="col.data.sku" :class="{'ml-4': col.data.ean}">
-                                                <span class="cl-caption">{{ _p('storage::pages.user.image.sku', 'SKU') }}:</span> @{{ col.data.sku }}
-                                            </span>
-                                        </div>
+                                        @{{ col.data.product.name }}
                                     </template>
                                 </tb-column>
-                                <tb-column name="information" label="{{ _p('storage::pages.user.image.information', 'Information') }}">
+                                <tb-column name="variant" label="{{ _p('storage::pages.user.image.variant', 'Variant') }}">
                                     <template slot-scope="col">
-                                        <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.image.stock', 'Stock') }}:</span> @{{ col.data.stock }}
-                                        </div>
-                                        <div class="tf-size-small">
-                                           <span class="cl-caption">{{ _p('storage::pages.user.image.availability', 'Availability') }}:</span> @{{ col.data.availability_name }}
-                                        </div>
-                                        <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.image.brutto_price', 'Brutto price') }}:</span> @{{ col.data.brutto_price }}
-                                        </div>
-                                        <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.image.tax_rate', 'Tax rate') }}:</span> @{{ col.data.tax_rate }}%
-                                        </div>
+                                        @{{ col.data.variant.name }}
+                                    </template>
+                                </tb-column>
+                                <tb-column name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}">
+                                    <template slot-scope="col">
+                                        <template v-if="col.data.url">
+                                            <img class="manufacturer-image tf-img" :src="col.data.url" :alt="(col.data.variant) ? col.data.variant.name : col.data.name"/>
+                                        </template>
                                     </template>
                                 </tb-column>
                                 <tb-column name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></tb-column>
@@ -111,25 +93,18 @@
                             placeholder-text=" " label="{{ _p('storage::pages.user.image.warehouse', 'Warehouse') }}">
                  </fb-select>
                  <div class="mt-10" v-if="AWEMA._store.state.forms['add'] && AWEMA._store.state.forms['add'].fields.warehouse_id">
-                     <fb-select name="default_category_id" :multiple="false" open-fetch options-value="id" options-name="name"
-                                :url="'{{ route('storage.user.category.select_category_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
-                                placeholder-text=" " label="{{ _p('storage::pages.user.image.default_category', 'Default category') }}">
+                     <fb-select name="product_id" :multiple="false" open-fetch options-value="id" options-name="name"
+                                :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
+                                placeholder-text=" " label="{{ _p('storage::pages.user.image.product', 'Product') }}">
                      </fb-select>
-                     <fb-select name="manufacturer_id" :multiple="false" open-fetch options-value="id" options-name="name"
-                                :url="'{{ route('storage.user.manufacturer.select_manufacturer_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
-                                placeholder-text=" " label="{{ _p('storage::pages.user.image.manufacturer', 'Manufacturer') }}">
+                     <fb-input name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}"></fb-input>
+                    <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>
+                 </div>
+                 <div class="mt-10" v-if="AWEMA._store.state.forms['add'] && AWEMA._store.state.forms['add'].fields.product_id">
+                     <fb-select name="variant_id" :multiple="false" open-fetch options-value="id" options-name="name"
+                                :url="'{{ route('storage.user.variant.select_variant_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&product_id=' + AWEMA._store.state.forms['add'].fields.product_id + '&q=%s'"
+                                placeholder-text=" " label="{{ _p('storage::pages.user.image.variant', 'Variant') }}">
                      </fb-select>
-                     <fb-input name="name" label="{{ _p('storage::pages.user.image.name', 'Name') }}"></fb-input>
-                     <fb-input name="ean" label="{{ _p('storage::pages.user.image.ean', 'EAN') }}"></fb-input>
-                     <fb-input name="sku" label="{{ _p('storage::pages.user.image.sku', 'SKU') }}"></fb-input>
-                     <fb-input name="stock" type="number" min="0" label="{{ _p('storage::pages.user.image.stock', 'Stock') }}"></fb-input>
-                     <fb-select name="availability" :multiple="false" open-fetch options-value="id" options-name="name"
-                                :url="'{{ route('storage.user.image.select_availability') }}'"
-                                placeholder-text=" " label="{{ _p('storage::pages.user.image.availability', 'Availability') }}">
-                     </fb-select>
-                     <fb-input name="brutto_price" type="number" min="0" max="99999999" step="0.0001" label="{{ _p('storage::pages.user.image.brutto_price', 'Brutto price') }}"></fb-input>
-                     <fb-input name="tax_rate" type="number" min="0" max="100" label="{{ _p('storage::pages.user.image.tax_rate', 'Tax rate') }}"></fb-input>
-                     <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>
                  </div>
             </div>
         </form-builder>
@@ -147,28 +122,20 @@
                 </fb-select>
 
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_image'] && AWEMA._store.state.forms['edit_image'].fields.warehouse_id">
-                    <fb-select name="default_category_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.category.select_category_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_image'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editImage.default_category && AWEMA._store.state.editImage.default_category.id) + '&q=%s'"
-                               placeholder-text=" " label="{{ _p('storage::pages.user.image.default_category', 'Default category') }}"
-                               :auto-fetch-value="AWEMA._store.state.editImage.default_category && AWEMA._store.state.editImage.default_category.id">
+                    <fb-select name="product_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
+                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_description'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id) + '&q=%s'"
+                               placeholder-text=" " label="{{ _p('storage::pages.user.image.product', 'Product') }}"
+                               :auto-fetch-value="AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id">
                     </fb-select>
-                    <fb-select name="manufacturer_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.manufacturer.select_manufacturer_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_image'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editImage.manufacturer && AWEMA._store.state.editImage.manufacturer.id) + '&q=%s'"
-                               placeholder-text=" " label="{{ _p('storage::pages.user.image.manufacturer', 'Manufacturer') }}"
-                               :auto-fetch-value="AWEMA._store.state.editImage.manufacturer && AWEMA._store.state.editImage.manufacturer.id">
-                    </fb-select>
-                    <fb-input name="name" label="{{ _p('storage::pages.user.image.name', 'Name') }}"></fb-input>
-                    <fb-input name="ean" label="{{ _p('storage::pages.user.image.ean', 'EAN') }}"></fb-input>
-                    <fb-input name="sku" label="{{ _p('storage::pages.user.image.sku', 'SKU') }}"></fb-input>
-                    <fb-input name="stock" type="number" min="0" label="{{ _p('storage::pages.user.image.stock', 'Stock') }}"></fb-input>
-                    <fb-select name="availability" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.image.select_availability') }}'"
-                               placeholder-text=" " label="{{ _p('storage::pages.user.image.availability', 'Availability') }}"
-                               :auto-fetch-value="AWEMA._store.state.editImage.availability">
-                    </fb-select>
-                    <fb-input name="brutto_price" type="number" min="0" max="99999999" step="0.0001" label="{{ _p('storage::pages.user.image.brutto_price', 'Brutto price') }}"></fb-input>
-                    <fb-input name="tax_rate" type="number" min="0" max="100" label="{{ _p('storage::pages.user.image.tax_rate', 'Tax rate') }}"></fb-input>
+                    <fb-input name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}"></fb-input>
                     <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>
+                </div>
+                <div class="mt-10" v-if="AWEMA._store.state.forms['edit_image'] && AWEMA._store.state.forms['edit_image'].fields.product_id">
+                    <fb-select name="variant_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
+                               :url="'{{ route('storage.user.variant.select_variant_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_image'].fields.warehouse_id + '&product_id=' + AWEMA._store.state.forms['edit_image'].fields.product_id + '&include_id=' + (AWEMA._store.state.editImage.variant && AWEMA._store.state.editImage.variant.id) + '&q=%s'"
+                               placeholder-text=" " label="{{ _p('storage::pages.user.image.variant', 'Variant') }}"
+                               :auto-fetch-value="AWEMA._store.state.editImage.variant && AWEMA._store.state.editImage.variant.id">
+                    </fb-select>
                 </div>
             </div>
         </form-builder>
