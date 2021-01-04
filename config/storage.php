@@ -59,6 +59,36 @@ return [
                     'verified'
                 ]
             ],
+            'manufacturer' => [
+                'active' => true,
+                'prefix' => '/storage/manufacturers',
+                'name_prefix' => 'storage.user.manufacturer.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+            'product' => [
+                'active' => true,
+                'prefix' => '/storage/products',
+                'name_prefix' => 'storage.user.product.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+            'category_product' => [
+                'active' => true,
+                'prefix' => '/storage/categories-products',
+                'name_prefix' => 'storage.user.category_product.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
         ],
     ],
 

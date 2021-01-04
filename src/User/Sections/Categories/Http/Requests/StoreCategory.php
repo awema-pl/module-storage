@@ -42,8 +42,8 @@ class StoreCategory extends FormRequest
         return [
             'warehouse_id' => _p('storage::requests.user.category.attributes.warehouse_id', 'warehouse'),
             'name' => _p('storage::requests.user.category.attributes.name', 'name'),
-            'parent_id' => _p('storage::requests.user.category.attributes.parent_id', 'Parent category'),
-            'external_id' => _p('storage::requests.user.category.attributes.external_id', 'External ID'),
+            'parent_id' => _p('storage::requests.user.category.attributes.parent_id', 'parent category'),
+            'external_id' => _p('storage::requests.user.category.attributes.external_id', 'external ID'),
         ];
     }
 

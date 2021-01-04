@@ -31,14 +31,23 @@ class Storage implements StorageContract
             if ($this->isActiveAdminInstallationRoutes() && (!$this->isMigrated())) {
                 $this->adminInstallationRoutes();
             }
+            if ($this->isActiveAdminSettingRoutes()) {
+                $this->adminSettingRoutes();
+            }
             if ($this->isActiveUserWarehouseRoutes()) {
                 $this->userWarehouseRoutes();
             }
             if ($this->isActiveUserCategoryRoutes()) {
                 $this->userCategoryRoutes();
             }
-            if ($this->isActiveAdminSettingRoutes()) {
-                $this->adminSettingRoutes();
+            if ($this->isActiveUserManufacturerRoutes()) {
+                $this->userManufacturerRoutes();
+            }
+            if ($this->isActiveUserProductRoutes()) {
+                $this->userProductRoutes();
+            }
+            if ($this->isActiveUserCategoryProductRoutes()) {
+                $this->userCategoryProductRoutes();
             }
         }
     }
@@ -142,6 +151,96 @@ class Storage implements StorageContract
     }
 
     /**
+     * User product routes
+     */
+    protected function userProductRoutes()
+    {
+        $prefix = config('storage.routes.user.product.prefix');
+        $namePrefix = config('storage.routes.user.product.name_prefix');
+        $middleware = config('storage.routes.user.product.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@store')
+                ->name('store');
+            $this->router
+                ->get('/products', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@delete')
+                ->name('delete');
+            $this->router
+                ->get('/select-availability', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@selectAvailability')
+                ->name('select_availability');
+            $this->router
+                ->get('/select-product-id', '\AwemaPL\Storage\User\Sections\Products\Http\Controllers\ProductController@selectProductId')
+                ->name('select_product_id');
+        });
+    }
+
+    /**
+     * User category product routes
+     */
+    protected function userCategoryProductRoutes()
+    {
+        $prefix = config('storage.routes.user.category_product.prefix');
+        $namePrefix = config('storage.routes.user.category_product.name_prefix');
+        $middleware = config('storage.routes.user.category_product.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\CategoriesProducts\Http\Controllers\CategoryProductController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\CategoriesProducts\Http\Controllers\CategoryProductController@store')
+                ->name('store');
+            $this->router
+                ->get('/products', '\AwemaPL\Storage\User\Sections\CategoriesProducts\Http\Controllers\CategoryProductController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\CategoriesProducts\Http\Controllers\CategoryProductController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\CategoriesProducts\Http\Controllers\CategoryProductController@delete')
+                ->name('delete');
+        });
+    }
+
+    /**
+     * User manufacturer routes
+     */
+    protected function userManufacturerRoutes()
+    {
+        $prefix = config('storage.routes.user.manufacturer.prefix');
+        $namePrefix = config('storage.routes.user.manufacturer.name_prefix');
+        $middleware = config('storage.routes.user.manufacturer.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@store')
+                ->name('store');
+            $this->router
+                ->get('/manufacturers', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@delete')
+                ->name('delete');
+            $this->router
+                ->get('/select-manufacturer-id', '\AwemaPL\Storage\User\Sections\Manufacturers\Http\Controllers\ManufacturerController@selectManufacturerId')
+                ->name('select_manufacturer_id');
+        });
+    }
+
+    /**
      * Can installation
      *
      * @return bool
@@ -221,6 +320,36 @@ class Storage implements StorageContract
     private function isActiveUserCategoryRoutes()
     {
         return config('storage.routes.user.category.active');
+    }
+
+    /**
+     * Is active user manufacturer routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserManufacturerRoutes()
+    {
+        return config('storage.routes.user.manufacturer.active');
+    }
+
+    /**
+     * Is active user product routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserProductRoutes()
+    {
+        return config('storage.routes.user.product.active');
+    }
+
+    /**
+     * Is active user category product routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserCategoryProductRoutes()
+    {
+        return config('storage.routes.user.category_product.active');
     }
 
     /**

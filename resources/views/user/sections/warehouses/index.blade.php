@@ -1,6 +1,6 @@
 @extends('indigo-layout::main')
 
-@section('meta_title', _p('storage::pages.user.warehouse.meta_title', 'Shops') . ' - ' . config('app.name'))
+@section('meta_title', _p('storage::pages.user.warehouse.meta_title', 'Warehouses') . ' - ' . config('app.name'))
 @section('meta_description', _p('storage::pages.user.warehouse.meta_description', 'User warehouses in the system.'))
 
 @push('head')
@@ -12,13 +12,13 @@
 @endsection
 
 @section('create_button')
-    <button class="frame__header-add" @click="AWEMA.emit('modal::add:open')" title="{{ _p('storage::pages.user.warehouse.add_warehouse', 'Connect warehouse') }}"><i class="icon icon-plus"></i></button>
+    <button class="frame__header-add" @click="AWEMA.emit('modal::add:open')" title="{{ _p('storage::pages.user.warehouse.add_warehouse', 'Add warehouse') }}"><i class="icon icon-plus"></i></button>
 @endsection
 
 @section('content')
     <div class="grid">
         <div class="cell-1-1 cell--dsm">
-            <h4>{{ _p('storage::pages.user.warehouse.warehouses', 'Warehouse') }}</h4>
+            <h4>{{ _p('storage::pages.user.warehouse.warehouses', 'Warehouses') }}</h4>
             <div class="card">
                 <div class="card-body">
                     <content-wrapper :url="$url.urlFromOnlyQuery('{{ route('storage.user.warehouse.scope')}}', ['page', 'limit'], $route.query)"
@@ -60,7 +60,7 @@
 
 @section('modals')
 
-    <modal-window name="add" class="modal_formbuilder" title="{{ _p('storage::pages.user.warehouse.add_warehouse', 'Connect warehouse') }}">
+    <modal-window name="add" class="modal_formbuilder" title="{{ _p('storage::pages.user.warehouse.add_warehouse', 'Add warehouse') }}">
         <form-builder name="add" url="{{ route('storage.user.warehouse.store') }}" send-text="{{ _p('storage::pages.user.warehouse.add', 'Add') }}"
                       @sended="AWEMA.emit('content::warehouses_table:update')">
              <div v-if="AWEMA._store.state.forms['add']">

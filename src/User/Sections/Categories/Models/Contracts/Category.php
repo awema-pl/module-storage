@@ -2,6 +2,8 @@
 
 namespace AwemaPL\Storage\User\Sections\Categories\Models\Contracts;
 
+use Illuminate\Support\Collection;
+
 interface Category
 {
     /**
@@ -38,4 +40,18 @@ interface Category
      * @return string
      */
     public function parentCrumbs();
+
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products();
+
+    /**
+     * Get parent categories
+     *
+     * @return Collection
+     */
+    public function getParentCategories();
 }

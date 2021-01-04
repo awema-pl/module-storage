@@ -19,6 +19,7 @@ class EloquentCategory extends JsonResource
             'id' => $this->id,
             'warehouse' => EloquentWarehouse::make($this->warehouse),
             'name' => $this->name,
+            'crumbs' => $this->crumbs(),
             'parent'=>EloquentCategory::make($this->parent),
             'parent_crumbs' => $this->parentCrumbs(),
             'external_id' => $this->external_id,

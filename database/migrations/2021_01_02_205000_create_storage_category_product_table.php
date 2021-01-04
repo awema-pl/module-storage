@@ -28,7 +28,8 @@ class CreateStorageCategoryProductTable extends Migration
 
         Schema::table(config('storage.database.tables.storage_category_product'), function (Blueprint $table) {
             $table->foreignId('category_id')
-                ->constrained(config('storage.database.tables.users'));
+                ->constrained(config('storage.database.tables.storage_categories'))
+                ->onDelete('cascade');
         });
 
         Schema::table(config('storage.database.tables.storage_category_product'), function (Blueprint $table) {

@@ -2,10 +2,12 @@
 
 namespace AwemaPL\Storage\User\Sections\Categories\Models;
 
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use AwemaPL\Storage\User\Sections\Categories\Models\Contracts\Category as CategoryContract;
+use Illuminate\Support\Collection;
 
 class Category extends Model implements CategoryContract
 {
@@ -85,10 +87,9 @@ class Category extends Model implements CategoryContract
      * @return string
      */
     public function crumbs(){
-        $name = $this->parentCrumbs();
-        $name .= !empty($name) ? '/' : '';
-        $name .= $this->name;
-        return $name;
+        $parentCrumbs = $this->parentCrumbs();
+        $parentCrumbs .= !empty($parentCrumbs) ? '/' : '';
+        return $parentCrumbs . $this->name;
     }
 
     /**
@@ -97,19 +98,39 @@ class Category extends Model implements CategoryContract
      * @return string
      */
     public function parentCrumbs(){
-        $name = '';
+        return $this->getParentCategories()->reduce(function($crumbs, $parentCategory){
+            return sprintf('%s%s%s', $parentCategory->name, !empty($crumbs) ? '/' : '', $crumbs);
+        }, '');
+    }
+
+    /**
+     * Get the products for the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Get parent categories
+     *
+     * @return Collection
+     */
+    public function getParentCategories(){
+        $parentCategories = collect();
         $parent = $this->parent;
         for($i = 0 ; $i < 30 ; $i++){ // instead while loop
             if ($parent){
                 if ($parent->id === $parent->parent_id){
                     throw new \InvalidArgumentException("Category ID is equal to parent category ID ($parent->id).");
                 }
-                $name = sprintf('%s%s%s', $parent->name, !empty($name) ? '/' : '', $name);
+                $parentCategories->push($parent);
                 $parent = $parent->parent;
             } else {
                 break;
             }
         }
-        return $name;
+        return $parentCategories;
     }
 }

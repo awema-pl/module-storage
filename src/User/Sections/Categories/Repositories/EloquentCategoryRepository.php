@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\Categories\Repositories;
 
+use AwemaPL\Storage\Common\Exceptions\StorageException;
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
 use AwemaPL\Storage\User\Sections\Categories\Scopes\EloquentCategoryScopes;
@@ -54,6 +55,7 @@ class EloquentCategoryRepository extends BaseRepository implements CategoryRepos
      */
     public function update(array $data, $id, $attribute = 'id')
     {
+        unset($data['warehouse_id']);
         return parent::update($data, $id, $attribute);
     }
 
@@ -63,6 +65,11 @@ class EloquentCategoryRepository extends BaseRepository implements CategoryRepos
      * @param int $id
      */
     public function delete($id){
+        $category = $this->find($id);
+        if ($category->products()->exists()){
+            throw new StorageException('You cannot delete a category that contains products.', StorageException::ERROR_CATEGORY_CONTAINS_PRODUCTS, 409, null,
+                _p('storage::exceptions.user.category.cannot_delete_category_contains_products', 'You cannot delete a category that contains products.'), null, false);
+        }
         $this->destroy($id);
     }
 

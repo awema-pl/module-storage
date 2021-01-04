@@ -2,7 +2,10 @@
 
 return [
     'storage' =>'Magazynowanie',
+    'settings' =>'Ustawienia',
     'warehouses' => 'Magazyny',
     'categories' => 'Kategorie',
-    'settings' =>'Ustawienia',
+    'manufacturers' => 'Producenci',
+    'products' => 'Produkty',
+    'categories_products'=>'Produkty w kategoriach',
 ];

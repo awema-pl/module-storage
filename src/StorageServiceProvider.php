@@ -5,13 +5,23 @@ namespace AwemaPL\Storage;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Policies\CategoryPolicy;
-use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
-use AwemaPL\Storage\User\Sections\Categories\Repositories\EloquentCategoryRepository;
+use AwemaPL\Storage\User\Sections\CategoriesProducts\Repositories\Contracts\CategoryProductRepository;
+use AwemaPL\Storage\User\Sections\CategoriesProducts\Repositories\EloquentCategoryProductRepository;
+use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
+use AwemaPL\Storage\User\Sections\Manufacturers\Policies\ManufacturerPolicy;
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Storage\User\Sections\Products\Policies\ProductPolicy;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
-use AwemaPL\Storage\User\Sections\Warehouses\Repositories\Contracts\WarehouseRepository;
-use AwemaPL\Storage\User\Sections\Warehouses\Repositories\EloquentWarehouseRepository;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\EloquentSettingRepository;
+use AwemaPL\Storage\User\Sections\Warehouses\Repositories\Contracts\WarehouseRepository;
+use AwemaPL\Storage\User\Sections\Warehouses\Repositories\EloquentWarehouseRepository;
+use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
+use AwemaPL\Storage\User\Sections\Categories\Repositories\EloquentCategoryRepository;
+use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\Contracts\ManufacturerRepository;
+use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\EloquentManufacturerRepository;
+use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
+use AwemaPL\Storage\User\Sections\Products\Repositories\EloquentProductRepository;
 use AwemaPL\Storage\User\Sections\Warehouses\Policies\WarehousePolicy;
 use AwemaPL\BaseJS\AwemaProvider;
 use AwemaPL\Storage\Listeners\EventSubscriber;
@@ -21,6 +31,8 @@ use AwemaPL\Storage\Admin\Sections\Installations\Http\Middleware\Installation;
 use AwemaPL\Storage\Admin\Sections\Installations\Http\Middleware\RouteMiddleware;
 use AwemaPL\Storage\Contracts\Storage as StorageContract;
 use Illuminate\Support\Facades\Event;
+use AwemaPL\Storage\User\Sections\Products\Services\Contracts\Availability as AvailabilityContract;
+use AwemaPL\Storage\User\Sections\Products\Services\Availability;
 
 class StorageServiceProvider extends AwemaProvider
 {
@@ -33,6 +45,8 @@ class StorageServiceProvider extends AwemaProvider
     protected $policies = [
         Warehouse::class => WarehousePolicy::class,
         Category::class => CategoryPolicy::class,
+        Manufacturer::class=>ManufacturerPolicy::class,
+        Product::class =>ProductPolicy::class,
     ];
 
     public function boot()
@@ -82,6 +96,9 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(SettingRepository::class, EloquentSettingRepository::class);
         $this->app->bind(WarehouseRepository::class, EloquentWarehouseRepository::class);
         $this->app->bind(CategoryRepository::class, EloquentCategoryRepository::class);
+        $this->app->bind(ManufacturerRepository::class, EloquentManufacturerRepository::class);
+        $this->app->bind(ProductRepository::class, EloquentProductRepository::class);
+        $this->app->bind(CategoryProductRepository::class, EloquentCategoryProductRepository::class);
     }
 
     /**
@@ -91,7 +108,7 @@ class StorageServiceProvider extends AwemaProvider
      */
     protected function registerServices()
     {
-
+        $this->app->bind(AvailabilityContract::class, Availability::class);
     }
 
     /**

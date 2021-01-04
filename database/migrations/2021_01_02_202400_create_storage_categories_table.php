@@ -28,6 +28,8 @@ class CreateStorageCategoriesTable extends Migration
                 ->constrained(config('storage.database.tables.storage_warehouses'))
                 ->onDelete('cascade');
         });
+
+        DB::statement('ALTER TABLE '.config('storage.database.tables.storage_categories').' ADD CONSTRAINT QK2T0F7JI74353OA05H4SE CHECK (id != parent_id);');
     }
 
     public function down()

@@ -21,6 +21,21 @@ return [
                         'link' => '/storage/categories',
                         'key' => 'storage::menus.categories',
                     ],
+                    [
+                        'name' => 'Manufacturers',
+                        'link' => '/storage/manufacturers',
+                        'key' => 'storage::menus.manufacturers',
+                    ],
+                    [
+                        'name' => 'Products',
+                        'link' => '/storage/products',
+                        'key' => 'storage::menus.products',
+                    ],
+                    [
+                        'name' => 'Products in categories',
+                        'link' => '/storage/categories-products',
+                        'key' => 'storage::menus.categories_products',
+                    ],
                 ],
                 'children' => [
                     [
@@ -33,6 +48,22 @@ return [
                         'link' => '/storage/categories',
                         'key' => 'storage::menus.categories',
                     ],
+                    [
+                        'name' => 'Manufacturers',
+                        'link' => '/storage/manufacturers',
+                        'key' => 'storage::menus.manufacturers',
+                    ],
+                    [
+                        'name' => 'Products',
+                        'link' => '/storage/products',
+                        'key' => 'storage::menus.products',
+                    ],
+                    [
+                        'name' => 'Products in categories',
+                        'link' => '/storage/categories-products',
+                        'key' => 'storage::menus.categories_products',
+                    ],
+
                 ],
             ]
         ],

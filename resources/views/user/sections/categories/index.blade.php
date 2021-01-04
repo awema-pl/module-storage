@@ -1,6 +1,6 @@
 @extends('indigo-layout::main')
 
-@section('meta_title', _p('storage::pages.user.category.meta_title', 'Shops') . ' - ' . config('app.name'))
+@section('meta_title', _p('storage::pages.user.category.meta_title', 'Categories') . ' - ' . config('app.name'))
 @section('meta_description', _p('storage::pages.user.category.meta_description', 'User warehouse categories on the system.'))
 
 @push('head')
@@ -12,13 +12,13 @@
 @endsection
 
 @section('create_button')
-    <button class="frame__header-add" @click="AWEMA.emit('modal::add:open')" title="{{ _p('storage::pages.user.category.add_category', 'Connect category') }}"><i class="icon icon-plus"></i></button>
+    <button class="frame__header-add" @click="AWEMA.emit('modal::add:open')" title="{{ _p('storage::pages.user.category.add_category', 'Add category') }}"><i class="icon icon-plus"></i></button>
 @endsection
 
 @section('content')
     <div class="grid">
         <div class="cell-1-1 cell--dsm">
-            <h4>{{ _p('storage::pages.user.category.categories', 'Category') }}</h4>
+            <h4>{{ _p('storage::pages.user.category.categories', 'Categories') }}</h4>
             <div class="card">
                 <div class="card-body">
                     <content-wrapper :url="$url.urlFromOnlyQuery('{{ route('storage.user.category.scope')}}', ['page', 'limit'], $route.query)"
@@ -73,7 +73,7 @@
 
 @section('modals')
 
-    <modal-window name="add" class="modal_formbuilder" title="{{ _p('storage::pages.user.category.add_category', 'Connect category') }}">
+    <modal-window name="add" class="modal_formbuilder" title="{{ _p('storage::pages.user.category.add_category', 'Add category') }}">
         <form-builder name="add" url="{{ route('storage.user.category.store') }}" send-text="{{ _p('storage::pages.user.category.add', 'Add') }}"
                       @sended="AWEMA.emit('content::categories_table:update')">
              <div v-if="AWEMA._store.state.forms['add']">
@@ -98,7 +98,7 @@
                       @sended="AWEMA.emit('content::categories_table:update')"
                       send-text="{{ _p('storage::pages.user.category.save', 'Save') }}" store-data="editCategory">
             <div v-if="AWEMA._store.state.forms['edit_category']">
-                <fb-select name="warehouse_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
+                <fb-select name="warehouse_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name" disabled="disabled"
                            :url="'{{ route('storage.user.warehouse.select_warehouse_id') }}?q=%s'"
                            placeholder-text=" " label="{{ _p('storage::pages.user.category.warehouse', 'Warehouse') }}"
                            :auto-fetch-value="AWEMA._store.state.editCategory.warehouse && AWEMA._store.state.editCategory.warehouse.id">
