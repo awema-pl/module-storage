@@ -11,7 +11,7 @@ class CreateStorageDescriptionsTable extends Migration
     {
         Schema::create(config('storage.database.tables.storage_descriptions'), function (Blueprint $table) {
             $table->id();
-            $table->string('key')->default('default')->index();
+            $table->string('type')->default('default')->index();
             $table->mediumText('value');
             $table->timestamps();
         });
@@ -35,14 +35,14 @@ class CreateStorageDescriptionsTable extends Migration
         });
 
         Schema::table(config('storage.database.tables.storage_descriptions'), function (Blueprint $table) {
-            $table->unique(['product_id', 'key'], 'UPHHD69H02XDMUYF9WMYPR');
+            $table->unique(['product_id', 'type'], 'UPHHD69H02XDMUYF9WMYPR');
         });
     }
 
     public function down()
     {
         Schema::table(config('storage.database.tables.storage_descriptions'), function (Blueprint $table) {
-            $table->dropUnique(['product_id', 'key']);
+            $table->dropUnique(['product_id', 'type']);
         });
 
         Schema::table(config('storage.database.tables.storage_descriptions'), function (Blueprint $table) {

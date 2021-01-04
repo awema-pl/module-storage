@@ -8,4 +8,8 @@ return [
     'manufacturers' => 'Producenci',
     'products' => 'Produkty',
     'categories_products'=>'Produkty w kategoriach',
+    'descriptions' => 'Opisy',
+    'variants' => 'Warianty',
+    'images' => 'Obrazki',
+    'features' => 'Cechy',
 ];

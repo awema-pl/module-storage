@@ -89,6 +89,46 @@ return [
                     'verified'
                 ]
             ],
+            'description' => [
+                'active' => true,
+                'prefix' => '/storage/descriptions',
+                'name_prefix' => 'storage.user.description.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+            'variant' => [
+                'active' => true,
+                'prefix' => '/storage/variants',
+                'name_prefix' => 'storage.user.variant.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+            'image' => [
+                'active' => true,
+                'prefix' => '/storage/images',
+                'name_prefix' => 'storage.user.image.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+            'feature' => [
+                'active' => true,
+                'prefix' => '/storage/features',
+                'name_prefix' => 'storage.user.feature.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
         ],
     ],
 

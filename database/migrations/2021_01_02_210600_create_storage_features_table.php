@@ -11,7 +11,7 @@ class CreateStorageFeaturesTable extends Migration
     {
         Schema::create(config('storage.database.tables.storage_features'), function (Blueprint $table) {
             $table->id();
-            $table->string('key')->nullable()->index();
+            $table->string('type')->nullable()->index();
             $table->string('name')->index();
             $table->text('value');
             $table->timestamps();
@@ -37,19 +37,20 @@ class CreateStorageFeaturesTable extends Migration
 
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {
             $table->foreignId('variant_id')
+                ->nullable()
                 ->constrained(config('storage.database.tables.storage_variants'))
                 ->onDelete('cascade');
         });
 
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {
-            $table->unique(['product_id', 'key', 'name'], 'RK1Y0Y011L0R19F7HG0ZDT');
+            $table->unique(['product_id', 'variant_id', 'type', 'name'], 'RK1Y0Y011L0R19F7HG0ZDT');
         });
     }
 
     public function down()
     {
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {
-            $table->dropUnique(['product_id', 'key', 'name']);
+            $table->dropUnique(['product_id', 'variant_id', 'type', 'name']);
         });
 
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {

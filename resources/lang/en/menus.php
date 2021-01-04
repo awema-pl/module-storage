@@ -7,5 +7,9 @@ return [
     "categories" => "Categories",
     "manufacturers" => "Manufacturers",
     "products" => "Products",
-    "categories_products" => "Products in categories"
+    "categories_products" => "Products in categories",
+    "descriptions" => "Descriptions",
+    "variants" => "Variants",
+    "images" => "Images",
+    "features" => "Features"
 ];

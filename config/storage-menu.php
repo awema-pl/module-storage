@@ -36,6 +36,26 @@ return [
                         'link' => '/storage/categories-products',
                         'key' => 'storage::menus.categories_products',
                     ],
+                    [
+                        'name' => 'Descriptions',
+                        'link' => '/storage/descriptions',
+                        'key' => 'storage::menus.descriptions',
+                    ],
+                    [
+                        'name' => 'Variants',
+                        'link' => '/storage/variants',
+                        'key' => 'storage::menus.variants',
+                    ],
+                    [
+                        'name' => 'Images',
+                        'link' => '/storage/images',
+                        'key' => 'storage::menus.images',
+                    ],
+                    [
+                        'name' => 'Features',
+                        'link' => '/storage/features',
+                        'key' => 'storage::menus.features',
+                    ],
                 ],
                 'children' => [
                     [
@@ -63,7 +83,26 @@ return [
                         'link' => '/storage/categories-products',
                         'key' => 'storage::menus.categories_products',
                     ],
-
+                    [
+                        'name' => 'Descriptions',
+                        'link' => '/storage/descriptions',
+                        'key' => 'storage::menus.descriptions',
+                    ],
+                    [
+                        'name' => 'Variants',
+                        'link' => '/storage/variants',
+                        'key' => 'storage::menus.variants',
+                    ],
+                    [
+                        'name' => 'Images',
+                        'link' => '/storage/images',
+                        'key' => 'storage::menus.images',
+                    ],
+                    [
+                        'name' => 'Features',
+                        'link' => '/storage/features',
+                        'key' => 'storage::menus.features',
+                    ],
                 ],
             ]
         ],

@@ -31,5 +31,25 @@ return [
             'success_updated_category_product' => 'Pomyślnie zapisano produkt w kategorii.',
             'success_deleted_category_product' => 'Pomyślnie usunięto produkt z kategorii.',
         ],
+        'description' => [
+            'success_added_description' => 'Pomyślnie dodano opis.',
+            'success_updated_description' => 'Pomyślnie zapisano opis.',
+            'success_deleted_description' => 'Pomyślnie usunięto opis.',
+        ],
+        'variant' => [
+            'success_added_variant' => 'Pomyślnie dodano wariant.',
+            'success_updated_variant' => 'Pomyślnie zapisano wariant.',
+            'success_deleted_variant' => 'Pomyślnie usunięto wariant.',
+        ],
+        'image' => [
+            'success_added_image' => 'Pomyślnie dodano obrazek.',
+            'success_updated_image' => 'Pomyślnie zapisano obrazek.',
+            'success_deleted_image' => 'Pomyślnie usunięto obrazek.',
+        ],
+        'feature' => [
+            'success_added_feature' => 'Pomyślnie dodano cechę.',
+            'success_updated_feature' => 'Pomyślnie zapisano cechę.',
+            'success_deleted_feature' => 'Pomyślnie usunięto cechę.',
+        ],
     ],
 ];

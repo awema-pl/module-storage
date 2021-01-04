@@ -9,14 +9,17 @@ class CreateStorageVariantsTable extends Migration
 {
     public function up()
     {
+        /** @var Availability $availability */
+        $availability = app(Availability::class);
         Schema::create(config('storage.database.tables.storage_variants'), function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('ean')->nullable()->index();
             $table->string('sku')->nullable()->index();
-            $table->integer('stock')->default(0);
-            $table->string('availability')->default('1')->index();
+            $table->integer('stock');
+            $table->string('availability')->default($availability->getDefault())->index();
             $table->decimal('brutto_price', 12, 4);
+            $table->string('external_id')->nullable()->index();
             $table->timestamps();
         });
 

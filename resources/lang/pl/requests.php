@@ -75,5 +75,55 @@ return [
                 'category_product_already_exist' =>'Ten produkt jest już w kategorii.',
             ]
         ],
+        'description'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'product_id' => 'produkt',
+                'type' => 'typ',
+                'value' => 'opis',
+            ],
+            'messages'=>[
+                'type_already_exist' =>'Ten typ opisu już istnieje.',
+            ]
+        ],
+        'variant'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'product_id' => 'produkt',
+                'name' => 'nazwa',
+                'ean' => 'EAN',
+                'sku' => 'SKU',
+                'stock' => 'stan magazynowy',
+                'availability' => 'dostępność',
+                'brutto_price' => 'cena brutto',
+                'external_id'=>'zewnętrzny ID',
+            ],
+            'messages'=>[
+                'number_outside_range' =>'Podana liczba nie mieści się w dozwolonym przedziale.',
+            ]
+        ],
+        'image'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'product_id' => 'produkt',
+                'variant_id' => 'produkt',
+                'url' => 'adres www',
+                'external_id'=>'zewnętrzny ID',
+            ],
+            'messages'=>[]
+        ],
+        'feature'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'product_id' => 'produkt',
+                'variant_id' => 'produkt',
+                'type' => 'typ',
+                'name'=>'nazwa',
+                'value' =>'wartość',
+            ],
+            'messages'=>[
+                'feature_already_exist' =>'Ta cecha już istnieje.',
+            ]
+        ],
     ],
 ];
