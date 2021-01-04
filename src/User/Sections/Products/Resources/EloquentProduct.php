@@ -24,7 +24,7 @@ class EloquentProduct extends JsonResource
         return [
             'id' => $this->id,
             'warehouse' => EloquentWarehouse::make($this->warehouse),
-            'category' => EloquentCategory::make($this->category),
+            'default_category' => EloquentCategory::make($this->defaultCategory),
             'manufacturer' => EloquentManufacturer::make($this->manufacturer),
             'name' => $this->name,
             'ean' => $this->ean,

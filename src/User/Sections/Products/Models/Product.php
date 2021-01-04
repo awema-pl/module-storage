@@ -9,6 +9,7 @@ use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use AwemaPL\Storage\User\Sections\Products\Models\Contracts\Product as ProductContract;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model implements ProductContract
 {
@@ -23,7 +24,7 @@ class Product extends Model implements ProductContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'category_id', 'manufacturer_id', 'name', 'ean','sku','stock','availability',
+       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'name', 'ean','sku','stock','availability',
        'brutto_price','tax_rate', 'external_id',
     ];
 
@@ -35,7 +36,7 @@ class Product extends Model implements ProductContract
     protected $casts = [
         'user_id' => 'integer',
         'warehouse_id' => 'integer',
-        'category_id' => 'integer',
+        'default_category_id' => 'integer',
         'manufacturer_id' => 'integer',
         'stock' => 'integer',
         'brutto_price' => 'float',
@@ -79,11 +80,11 @@ class Product extends Model implements ProductContract
     }
 
     /**
-     * Get the category that owns the product.
+     * Get the default category that owns the product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category(){
+    public function defaultCategory(){
         return $this->belongsTo(Category::class);
     }
 
@@ -97,29 +98,12 @@ class Product extends Model implements ProductContract
     }
 
     /**
-     * Assign categories products
+     * The categories that belong to the product.
+     *
+     * @return BelongsToMany
      */
-    public function assignCategoriesProducts(){
-        $newCategoryIds = $this->category->getParentCategories()->pluck('id')->toArray();
-        array_push($newCategoryIds, $this->category_id);
-        throw new \Exception(json_encode($newCategoryIds));
-        $categoriesProducts = CategoryProduct::where('product_id', $this->id)->get();
-        foreach ($categoriesProducts as $categoryProduct){
-            if (!in_array($categoryProduct->id, $newCategoryIds)){
-                $categoryProduct->delete();
-            } else {
-                $newCategoryIds = array_diff($newCategoryIds, [$categoryProduct->id]);
-            }
-        }
-        $insertBatch = [];
-        foreach ($newCategoryIds as $newCategoryId){
-            array_push($insertBatch,[
-                'user_id' =>$this->user_id,
-                'warehouse_id' =>$this->warehouse_id,
-                'category_id'=>$newCategoryId,
-                'product_id' =>$this->id,
-            ]);
-            CategoryProduct::insert($insertBatch);
-        }
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, config('storage.database.tables.storage_category_product'))->withTimestamps();;
     }
 }

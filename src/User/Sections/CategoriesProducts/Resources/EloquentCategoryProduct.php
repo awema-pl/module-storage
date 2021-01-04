@@ -22,7 +22,7 @@ class EloquentCategoryProduct extends JsonResource
             'warehouse' => EloquentWarehouse::make($this->warehouse),
             'category' => EloquentCategory::make($this->category),
             'product' => EloquentProduct::make($this->product),
-            'created_at' =>$this->created_at->format('Y-m-d H:i:s'),
+            'created_at' =>optional($this->created_at)->format('Y-m-d H:i:s'),
         ];
     }
 }

@@ -22,7 +22,8 @@ return [
         ],
         "category_product" => [
             "success_added_category_product" => "Success added category product.",
-            "success_updated_category_product" => "Success updated category product."
+            "success_updated_category_product" => "Success updated category product.",
+            "success_deleted_category_product" => "Success deleted category product."
         ]
     ]
 ];

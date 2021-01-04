@@ -25,12 +25,12 @@ class UpdateProduct extends FormRequest
     {
         return [
             'warehouse_id' => 'required|integer',
-            'category_id' => 'required|integer',
+            'default_category_id' => 'required|integer',
             'manufacturer_id' => 'nullable|integer',
             'name' => 'required|string|max:255',
             'ean' => 'nullable|string|max:255',
             'sku' => 'nullable|string|max:255',
-            'stock' => 'nullable|integer',
+            'stock' => 'required|integer',
             'availability' => 'nullable|string|max:255',
             'brutto_price' => 'required|integer|between:0,99999999.9999',
             'tax_rate' => 'required|integer|between:0,100',
@@ -48,7 +48,7 @@ class UpdateProduct extends FormRequest
     {
         return [
             'warehouse_id' => _p('storage::requests.user.product.attributes.warehouse_id', 'warehouse'),
-            'category_id' =>  _p('storage::requests.user.product.attributes.category_id', 'category'),
+            'default_category_id' =>  _p('storage::requests.user.product.attributes.default_category_id', 'default category'),
             'manufacturer_id' =>  _p('storage::requests.user.product.attributes.manufacturer_id', 'manufacturer'),
             'name' =>  _p('storage::requests.user.product.attributes.name', 'name'),
             'ean' => _p('storage::requests.user.product.attributes.ean', 'EAN'),

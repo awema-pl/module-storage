@@ -35,7 +35,7 @@
                                     <template slot-scope="col">
                                         <div>@{{ col.data.name }}</div>
                                         <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.product.category', 'Category') }}:</span> @{{ col.data.category.crumbs }}
+                                            <span class="cl-caption">{{ _p('storage::pages.user.product.default_category', 'Default category') }}:</span> @{{ col.data.default_category.crumbs }}
                                         </div>
                                         <div v-if="col.data.manufacturer" class="tf-size-small">
                                             <span class="cl-caption">{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}:</span> @{{ col.data.manufacturer.name }}
@@ -109,9 +109,9 @@
                             placeholder-text=" " label="{{ _p('storage::pages.user.product.warehouse', 'Warehouse') }}">
                  </fb-select>
                  <div class="mt-10" v-if="AWEMA._store.state.forms['add'] && AWEMA._store.state.forms['add'].fields.warehouse_id">
-                     <fb-select name="category_id" :multiple="false" open-fetch options-value="id" options-name="name"
+                     <fb-select name="default_category_id" :multiple="false" open-fetch options-value="id" options-name="name"
                                 :url="'{{ route('storage.user.category.select_category_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
-                                placeholder-text=" " label="{{ _p('storage::pages.user.product.category', 'Category') }}">
+                                placeholder-text=" " label="{{ _p('storage::pages.user.product.default_category', 'Default category') }}">
                      </fb-select>
                      <fb-select name="manufacturer_id" :multiple="false" open-fetch options-value="id" options-name="name"
                                 :url="'{{ route('storage.user.manufacturer.select_manufacturer_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
@@ -145,10 +145,10 @@
                 </fb-select>
 
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_product'] && AWEMA._store.state.forms['edit_product'].fields.warehouse_id">
-                    <fb-select name="category_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.category.select_category_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_product'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editProduct.category && AWEMA._store.state.editProduct.category.id) + '&q=%s'"
-                               placeholder-text=" " label="{{ _p('storage::pages.user.product.category', 'Category') }}"
-                               :auto-fetch-value="AWEMA._store.state.editProduct.category && AWEMA._store.state.editProduct.category.id">
+                    <fb-select name="default_category_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
+                               :url="'{{ route('storage.user.category.select_category_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_product'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editProduct.default_category && AWEMA._store.state.editProduct.default_category.id) + '&q=%s'"
+                               placeholder-text=" " label="{{ _p('storage::pages.user.product.default_category', 'Default category') }}"
+                               :auto-fetch-value="AWEMA._store.state.editProduct.default_category && AWEMA._store.state.editProduct.default_category.id">
                     </fb-select>
                     <fb-select name="manufacturer_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
                                :url="'{{ route('storage.user.manufacturer.select_manufacturer_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_product'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editProduct.manufacturer && AWEMA._store.state.editProduct.manufacturer.id) + '&q=%s'"

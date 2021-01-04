@@ -43,7 +43,8 @@ return [
                 "tax_rate" => "tax rate",
                 "external_id" => "external ID",
                 "category_id" => "category",
-                "manufacturer_id" => "manufacturer"
+                "manufacturer_id" => "manufacturer",
+                "default_category_id" => "default category"
             ]
         ],
         "category_product" => [

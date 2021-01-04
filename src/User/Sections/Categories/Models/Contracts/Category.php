@@ -44,7 +44,7 @@ interface Category
     /**
      * Get the products for the category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function products();
 

@@ -17,7 +17,7 @@ class CreateStorageProductsTable extends Migration
             $table->string('name');
             $table->string('ean')->nullable()->index();
             $table->string('sku')->nullable()->index();
-            $table->integer('stock')->default(0);
+            $table->integer('stock');
             $table->string('availability')->default($availability->getDefault())->index();
             $table->decimal('brutto_price', 12, 4);
             $table->integer('tax_rate')->nullable()->index();
@@ -38,7 +38,7 @@ class CreateStorageProductsTable extends Migration
         });
 
         Schema::table(config('storage.database.tables.storage_products'), function (Blueprint $table) {
-            $table->foreignId('category_id')
+            $table->foreignId('default_category_id')
                 ->constrained(config('storage.database.tables.storage_categories'))
                 ->onDelete('restrict');
         });

@@ -51,8 +51,11 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     public function create(array $data)
     {
         $data['user_id'] = $data['user_id'] ?? Auth::id();
-       $product = Product::create($data);
-       $product->assignCategoriesProducts();
+       $product =  Product::create($data);
+       $product->categories()->attach($data['default_category_id'], [
+           'user_id' =>$data['user_id'],
+           'warehouse_id' =>$data['warehouse_id'],
+       ]);
        return $product;
     }
 
@@ -69,12 +72,14 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     {
         unset($data['warehouse_id']);
         $product = $this->find($id);
-        $categoryChanged = $product->category_id !== (int) $data['category_id'];
-        $updated = parent::update($data, $id, $attribute);
-        if ($updated && $categoryChanged){
-            $product->assignCategoriesProducts();
+        $defaultCategoryId = (int) $data['default_category_id'] ?? null;
+        if ($defaultCategoryId && $product->default_category_id !== $defaultCategoryId && !$product->categories->contains($defaultCategoryId) ){
+            $product->categories()->attach($data['default_category_id'], [
+                'user_id' =>$data['user_id'] ?? Auth::id(),
+                'warehouse_id' =>$product->warehouse_id,
+            ]);
         }
-        return $updated;
+        return parent::update($data, $id, $attribute);
     }
 
     /**

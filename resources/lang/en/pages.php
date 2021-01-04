@@ -144,7 +144,8 @@ return [
                 "phone" => "phone",
                 "unavailable" => "unavailable"
             ],
-            "information" => "Information"
+            "information" => "Information",
+            "default_category" => "Default category"
         ],
         "category_product" => [
             "meta_title" => "Products in categories",
@@ -161,7 +162,8 @@ return [
             "edit_category_product" => "Edit product",
             "save" => "Save",
             "are_you_sure_delete" => "Are you sure delete?",
-            "confirm" => "Confirm"
+            "confirm" => "Confirm",
+            "categories_products" => "Products in categories"
         ]
     ]
 ];

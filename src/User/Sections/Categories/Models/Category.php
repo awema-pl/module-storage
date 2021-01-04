@@ -106,10 +106,10 @@ class Category extends Model implements CategoryContract
     /**
      * Get the products for the category.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, config('storage.database.tables.storage_category_product'));
     }
 
     /**

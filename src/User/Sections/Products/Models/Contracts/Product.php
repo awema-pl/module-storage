@@ -2,6 +2,9 @@
 
 namespace AwemaPL\Storage\User\Sections\Products\Models\Contracts;
 
+use AwemaPL\Storage\User\Sections\Categories\Models\Category;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+
 interface Product
 {
     /**
@@ -19,11 +22,11 @@ interface Product
     public function warehouse();
 
     /**
-     * Get the category that owns the product.
+     * Get the default category that owns the product.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function category();
+    public function defaultCategory();
 
     /**
      * Get the manufacturer that owns the product.
@@ -33,8 +36,9 @@ interface Product
     public function manufacturer();
 
     /**
-     * Assign categories products
+     * The categories that belong to the product.
+     *
+     * @return BelongsToMany
      */
-    public function assignCategoriesProducts();
-
+    public function categories();
 }

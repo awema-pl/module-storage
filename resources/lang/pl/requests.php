@@ -50,7 +50,7 @@ return [
         'product'=>[
             'attributes' => [
                 'warehouse_id' => 'magazyn',
-                'category_id' => 'kategoria',
+                'default_category_id' => 'kategoria domyślna',
                 'manufacturer_id' => 'producent',
                 'name' => 'nazwa',
                 'ean' => 'EAN',
