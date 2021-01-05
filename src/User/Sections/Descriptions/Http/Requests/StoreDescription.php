@@ -1,10 +1,11 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Http\Requests;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreProduct extends FormRequest
+class StoreDescription extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,16 +26,11 @@ class StoreProduct extends FormRequest
     {
         return [
             'warehouse_id' => 'required|integer',
-            'default_category_id' => 'required|integer',
-            'manufacturer_id' => 'nullable|integer',
-            'name' => 'required|string|max:255',
-            'ean' => 'nullable|string|max:255',
-            'sku' => 'nullable|string|max:255',
-            'stock' => 'required|integer',
-            'availability' => 'nullable|string|max:255',
-            'brutto_price' => 'required|integer|between:0,99999999.9999',
-            'tax_rate' => 'required|integer|between:0,100',
-            'external_id' => 'nullable|string|max:255',
+            'product_id' => 'required|integer',
+            'type' => ['required', 'string', 'max:255', Rule::unique(config('storage.database.tables.storage_descriptions'))->where(function ($query) {
+                return $query->where('product_id', $this->product_id);
+            })],
+            'value' => 'nullable|string|max:16777215',
         ];
     }
 
@@ -47,17 +43,10 @@ class StoreProduct extends FormRequest
     public function attributes()
     {
         return [
-            'warehouse_id' => _p('storage::requests.user.product.attributes.warehouse_id', 'warehouse'),
-            'default_category_id' =>  _p('storage::requests.user.product.attributes.default_category_id', 'default category'),
-            'manufacturer_id' =>  _p('storage::requests.user.product.attributes.manufacturer_id', 'manufacturer'),
-            'name' =>  _p('storage::requests.user.product.attributes.name', 'name'),
-            'ean' => _p('storage::requests.user.product.attributes.ean', 'EAN'),
-            'sku' =>  _p('storage::requests.user.product.attributes.sku', 'SKU'),
-            'stock' => _p('storage::requests.user.product.attributes.stock', 'stock'),
-            'availability' => _p('storage::requests.user.product.attributes.availability', 'availability'),
-            'brutto_price' =>  _p('storage::requests.user.product.attributes.brutto_price', 'brutto price'),
-            'tax_rate' =>  _p('storage::requests.user.product.attributes.tax_rate', 'tax rate'),
-            'external_id' =>  _p('storage::requests.user.product.attributes.external_id', 'external ID'),
+            'warehouse_id' => _p('storage::requests.user.description.attributes.warehouse_id', 'warehouse'),
+            'product_id' =>  _p('storage::requests.user.description.attributes.product_id', 'product'),
+            'type' =>  _p('storage::requests.user.description.attributes.type', 'type'),
+            'value' =>  _p('storage::requests.user.description.attributes.value', 'description'),
         ];
     }
 
@@ -69,7 +58,7 @@ class StoreProduct extends FormRequest
     public function messages()
     {
         return [
-            'name.between' => _p('storage::requests.user.product.messages.number_outside_range', 'The given number is outside the allowed range.'),
+            'type.unique' => _p('storage::requests.user.description.messages.type_already_exists', 'This description type already exists.'),
         ];
     }
 }

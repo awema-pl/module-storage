@@ -34,7 +34,7 @@
                                     </template>
                                 </tb-column>
                                 <tb-column name="name" label="{{ _p('storage::pages.user.manufacturer.name', 'Name') }}"></tb-column>
-                                <tb-column name="image_url" label="{{ _p('storage::pages.user.manufacturer.image_url', 'Image web address') }}">
+                                <tb-column name="image_url" label="{{ _p('storage::pages.user.manufacturer.image', 'Image') }}">
                                     <template slot-scope="col">
                                         <template v-if="col.data.image_url">
                                             <img class="manufacturer-image tf-img" :src="col.data.image_url" :alt="col.data.name"/>

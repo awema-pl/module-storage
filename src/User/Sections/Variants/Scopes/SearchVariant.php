@@ -1,9 +1,9 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Scopes;
+namespace AwemaPL\Storage\User\Sections\Variants\Scopes;
 use AwemaPL\Repository\Scopes\ScopeAbstract;
 
-class SearchProduct extends ScopeAbstract
+class SearchVariant extends ScopeAbstract
 {
     /**
      * Scope

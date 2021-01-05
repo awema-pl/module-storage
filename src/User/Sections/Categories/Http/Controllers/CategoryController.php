@@ -51,6 +51,7 @@ class CategoryController extends Controller
         return EloquentCategory::collection(
             $this->categories->scope($request)
                 ->isOwner()
+                 ->with('warehouse')
                 ->latest()->smartPaginate()
         );
     }

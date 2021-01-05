@@ -44,7 +44,7 @@ return [
                 'image_url' => 'adres www obrazka',
             ],
             'messages'=>[
-                'manufacturer_already_exist' =>'Ten producent już istnieje.',
+                'manufacturer_already_exists' =>'Ten producent już istnieje.',
             ]
         ],
         'product'=>[
@@ -72,7 +72,7 @@ return [
                 'product_id' => 'produkt',
             ],
             'messages'=>[
-                'category_product_already_exist' =>'Ten produkt jest już w kategorii.',
+                'category_product_already_exists' =>'Ten produkt jest już w kategorii.',
             ]
         ],
         'description'=>[
@@ -83,7 +83,7 @@ return [
                 'value' => 'opis',
             ],
             'messages'=>[
-                'type_already_exist' =>'Ten typ opisu już istnieje.',
+                'type_already_exists' =>'Ten typ opisu już istnieje.',
             ]
         ],
         'variant'=>[

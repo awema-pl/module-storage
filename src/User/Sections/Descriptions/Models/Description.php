@@ -1,17 +1,18 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Models;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Models;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
-use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
+use AwemaPL\Storage\User\Sections\CategoriesDescriptions\Models\CategoryDescription;
 use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
-use AwemaPL\Storage\User\Sections\Products\Models\Contracts\Product as ProductContract;
+use AwemaPL\Storage\User\Sections\Descriptions\Models\Contracts\Description as DescriptionContract;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Product extends Model implements ProductContract
+class Description extends Model implements DescriptionContract
 {
     use EncryptableDbAttribute;
 
@@ -24,8 +25,7 @@ class Product extends Model implements ProductContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'name', 'ean','sku','stock','availability',
-       'brutto_price','tax_rate', 'external_id',
+       'user_id', 'warehouse_id', 'product_id', 'type', 'value',
     ];
 
     /**
@@ -36,11 +36,7 @@ class Product extends Model implements ProductContract
     protected $casts = [
         'user_id' => 'integer',
         'warehouse_id' => 'integer',
-        'default_category_id' => 'integer',
-        'manufacturer_id' => 'integer',
-        'stock' => 'integer',
-        'brutto_price' => 'float',
-        'tax_rate' => 'integer',
+        'product_id' => 'integer',
     ];
 
     /**
@@ -57,11 +53,11 @@ class Product extends Model implements ProductContract
      */
     public function getTable()
     {
-        return config('storage.database.tables.storage_products');
+        return config('storage.database.tables.storage_descriptions');
     }
 
     /**
-     * Get the user that owns the product.
+     * Get the user that owns the description.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -70,7 +66,7 @@ class Product extends Model implements ProductContract
     }
 
     /**
-     * Get the warehouse that owns the product.
+     * Get the warehouse that owns the description.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -80,30 +76,12 @@ class Product extends Model implements ProductContract
     }
 
     /**
-     * Get the default category that owns the product.
+     * Get the product that owns the description.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function defaultCategory(){
-        return $this->belongsTo(Category::class);
+    public function product(){
+        return $this->belongsTo(Product::class);
     }
 
-    /**
-     * Get the manufacturer that owns the product.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function manufacturer(){
-        return $this->belongsTo(Manufacturer::class);
-    }
-
-    /**
-     * The categories that belong to the product.
-     *
-     * @return BelongsToMany
-     */
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, config('storage.database.tables.storage_category_product'))->withTimestamps();;
-    }
 }

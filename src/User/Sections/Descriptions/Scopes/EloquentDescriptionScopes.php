@@ -1,12 +1,10 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Scopes;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Scopes;
 
 use AwemaPL\Repository\Scopes\ScopesAbstract;
 
-class EloquentProductScopes extends ScopesAbstract
+class EloquentDescriptionScopes extends ScopesAbstract
 {
-    protected $scopes = [
-        'q' =>SearchProduct::class,
-    ];
+    protected $scopes = [];
 }

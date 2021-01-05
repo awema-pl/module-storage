@@ -56,7 +56,7 @@ class UpdateManufacturer extends FormRequest
     public function messages()
     {
         return [
-            'name.unique' => _p('storage::requests.user.manufacturer.messages.manufacturer_already_exist', 'This producer already exists.'),
+            'name.unique' => _p('storage::requests.user.manufacturer.messages.manufacturer_already_exists', 'This producer already exists.'),
         ];
     }
 }

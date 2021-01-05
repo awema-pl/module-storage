@@ -1,16 +1,16 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Repositories\Contracts;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts;
 
-use AwemaPL\Storage\User\Sections\Products\Repositories\EloquentProductRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\EloquentDescriptionRepository;
 use AwemaPL\Storage\Sections\Options\Http\Requests\UpdateOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-interface ProductRepository
+interface DescriptionRepository
 {
     /**
-     * Create product
+     * Create description
      *
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Model
@@ -18,7 +18,7 @@ interface ProductRepository
     public function create(array $data);
 
     /**
-     * Scope product
+     * Scope description
      *
      * @param Request $request
      * @return \Illuminate\Database\Eloquent\Model
@@ -26,7 +26,7 @@ interface ProductRepository
     public function scope($request);
     
     /**
-     * Update product
+     * Update description
      *
      * @param array $data
      * @param int $id
@@ -36,7 +36,7 @@ interface ProductRepository
     public function update(array $data, $id);
     
     /**
-     * Delete product
+     * Delete description
      *
      * @param int $id
      */
@@ -52,17 +52,9 @@ interface ProductRepository
     public function find($id, $columns = ['*']);
 
     /**
-     * Select availability
+     * Select type
      *
      * @return array
      */
-    public function selectAvailability();
-
-    /**
-     * Select product ID
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function selectProductId($request);
+    public function selectType();
 }

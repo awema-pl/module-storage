@@ -40,10 +40,12 @@
                                 </tb-column>
                                 <tb-column name="variant" label="{{ _p('storage::pages.user.image.variant', 'Variant') }}">
                                     <template slot-scope="col">
-                                        @{{ col.data.variant.name }}
+                                        <template v-if="col.data.variant">
+                                            @{{ col.data.variant.name }}
+                                        </template>
                                     </template>
                                 </tb-column>
-                                <tb-column name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}">
+                                <tb-column name="url" label="{{ _p('storage::pages.user.image.image', 'Image') }}">
                                     <template slot-scope="col">
                                         <template v-if="col.data.url">
                                             <img class="manufacturer-image tf-img" :src="col.data.url" :alt="(col.data.variant) ? col.data.variant.name : col.data.name"/>
@@ -123,9 +125,9 @@
 
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_image'] && AWEMA._store.state.forms['edit_image'].fields.warehouse_id">
                     <fb-select name="product_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_description'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id) + '&q=%s'"
+                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_image'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editImage.product && AWEMA._store.state.editImage.product.id) + '&q=%s'"
                                placeholder-text=" " label="{{ _p('storage::pages.user.image.product', 'Product') }}"
-                               :auto-fetch-value="AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id">
+                               :auto-fetch-value="AWEMA._store.state.editImage.product && AWEMA._store.state.editImage.product.id">
                     </fb-select>
                     <fb-input name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}"></fb-input>
                     <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>

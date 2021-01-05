@@ -43,14 +43,14 @@ class CreateStorageFeaturesTable extends Migration
         });
 
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {
-            $table->unique(['product_id', 'variant_id', 'type', 'name'], 'RK1Y0Y011L0R19F7HG0ZDT');
+            $table->unique(['product_id', 'variant_id', 'name'], 'RK1Y0Y011L0R19F7HG0ZDT');
         });
     }
 
     public function down()
     {
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {
-            $table->dropUnique(['product_id', 'variant_id', 'type', 'name']);
+            $table->dropUnique(['product_id', 'variant_id', 'name']);
         });
 
         Schema::table(config('storage.database.tables.storage_features'), function (Blueprint $table) {

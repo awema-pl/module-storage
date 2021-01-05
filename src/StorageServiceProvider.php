@@ -5,12 +5,30 @@ namespace AwemaPL\Storage;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Policies\CategoryPolicy;
+use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
+use AwemaPL\Storage\User\Sections\CategoriesProducts\Policies\CategoryProductPolicy;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Repositories\Contracts\CategoryProductRepository;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Repositories\EloquentCategoryProductRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
+use AwemaPL\Storage\User\Sections\Descriptions\Policies\DescriptionPolicy;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\EloquentDescriptionRepository;
+use AwemaPL\Storage\User\Sections\Features\Models\Feature;
+use AwemaPL\Storage\User\Sections\Features\Policies\FeaturePolicy;
+use AwemaPL\Storage\User\Sections\Features\Repositories\Contracts\FeatureRepository;
+use AwemaPL\Storage\User\Sections\Features\Repositories\EloquentFeatureRepository;
+use AwemaPL\Storage\User\Sections\Images\Models\Image;
+use AwemaPL\Storage\User\Sections\Images\Policies\ImagePolicy;
+use AwemaPL\Storage\User\Sections\Images\Repositories\Contracts\ImageRepository;
+use AwemaPL\Storage\User\Sections\Images\Repositories\EloquentImageRepository;
 use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
 use AwemaPL\Storage\User\Sections\Manufacturers\Policies\ManufacturerPolicy;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Policies\ProductPolicy;
+use AwemaPL\Storage\User\Sections\Variants\Models\Variant;
+use AwemaPL\Storage\User\Sections\Variants\Policies\VariantPolicy;
+use AwemaPL\Storage\User\Sections\Variants\Repositories\Contracts\VariantRepository;
+use AwemaPL\Storage\User\Sections\Variants\Repositories\EloquentVariantRepository;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\EloquentSettingRepository;
@@ -33,6 +51,10 @@ use AwemaPL\Storage\Contracts\Storage as StorageContract;
 use Illuminate\Support\Facades\Event;
 use AwemaPL\Storage\User\Sections\Products\Services\Contracts\Availability as AvailabilityContract;
 use AwemaPL\Storage\User\Sections\Products\Services\Availability;
+use AwemaPL\Storage\User\Sections\Descriptions\Services\Contracts\DescriptionType as DescriptionTypeContract;
+use AwemaPL\Storage\User\Sections\Descriptions\Services\DescriptionType;
+use AwemaPL\Storage\User\Sections\Features\Services\Contracts\FeatureType as FeatureTypeContract;
+use AwemaPL\Storage\User\Sections\Features\Services\FeatureType;
 
 class StorageServiceProvider extends AwemaProvider
 {
@@ -47,6 +69,11 @@ class StorageServiceProvider extends AwemaProvider
         Category::class => CategoryPolicy::class,
         Manufacturer::class=>ManufacturerPolicy::class,
         Product::class =>ProductPolicy::class,
+        CategoryProduct::class=>CategoryProductPolicy::class,
+        Description::class => DescriptionPolicy::class,
+        Variant::class=>VariantPolicy::class,
+        Image::class =>ImagePolicy::class,
+        Feature::class=>FeaturePolicy::class,
     ];
 
     public function boot()
@@ -99,6 +126,10 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(ManufacturerRepository::class, EloquentManufacturerRepository::class);
         $this->app->bind(ProductRepository::class, EloquentProductRepository::class);
         $this->app->bind(CategoryProductRepository::class, EloquentCategoryProductRepository::class);
+        $this->app->bind(DescriptionRepository::class, EloquentDescriptionRepository::class);
+        $this->app->bind(VariantRepository::class, EloquentVariantRepository::class);
+        $this->app->bind(ImageRepository::class, EloquentImageRepository::class);
+        $this->app->bind(FeatureRepository::class, EloquentFeatureRepository::class);
     }
 
     /**
@@ -109,6 +140,8 @@ class StorageServiceProvider extends AwemaProvider
     protected function registerServices()
     {
         $this->app->bind(AvailabilityContract::class, Availability::class);
+        $this->app->bind(DescriptionTypeContract::class, DescriptionType::class);
+        $this->app->bind(FeatureTypeContract::class, FeatureType::class);
     }
 
     /**

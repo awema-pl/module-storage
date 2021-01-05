@@ -56,7 +56,7 @@ class UpdateCategoryProduct extends FormRequest
     public function messages()
     {
         return [
-            'product_id.unique' => _p('storage::requests.user.category_product.messages.category_product_already_exist', 'This product is already in the category.'),
+            'product_id.unique' => _p('storage::requests.user.category_product.messages.category_product_already_exists', 'This product is already in the category.'),
         ];
     }
 }

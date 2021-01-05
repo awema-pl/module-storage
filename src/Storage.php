@@ -49,6 +49,18 @@ class Storage implements StorageContract
             if ($this->isActiveUserCategoryProductRoutes()) {
                 $this->userCategoryProductRoutes();
             }
+            if ($this->isActiveUserDescriptionRoutes()) {
+                $this->userDescriptionRoutes();
+            }
+            if ($this->isActiveUserVariantRoutes()) {
+                $this->userVariantRoutes();
+            }
+            if ($this->isActiveUserImageRoutes()) {
+                $this->userImageRoutes();
+            }
+            if ($this->isActiveUserFeatureRoutes()) {
+                $this->userFeatureRoutes();
+            }
         }
     }
 
@@ -241,6 +253,123 @@ class Storage implements StorageContract
     }
 
     /**
+     * User description routes
+     */
+    protected function userDescriptionRoutes()
+    {
+        $prefix = config('storage.routes.user.description.prefix');
+        $namePrefix = config('storage.routes.user.description.name_prefix');
+        $middleware = config('storage.routes.user.description.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@store')
+                ->name('store');
+            $this->router
+                ->get('/descriptions', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@delete')
+                ->name('delete');
+            $this->router
+                ->get('/select-type', '\AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers\DescriptionController@selectType')
+                ->name('select_type');
+        });
+    }
+
+    /**
+     * User variant routes
+     */
+    protected function userVariantRoutes()
+    {
+        $prefix = config('storage.routes.user.variant.prefix');
+        $namePrefix = config('storage.routes.user.variant.name_prefix');
+        $middleware = config('storage.routes.user.variant.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@store')
+                ->name('store');
+            $this->router
+                ->get('/variants', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@delete')
+                ->name('delete');
+            $this->router
+                ->get('/select-variant-id', '\AwemaPL\Storage\User\Sections\Variants\Http\Controllers\VariantController@selectVariantId')
+                ->name('select_variant_id');
+        });
+    }
+
+    /**
+     * User image routes
+     */
+    protected function userImageRoutes()
+    {
+        $prefix = config('storage.routes.user.image.prefix');
+        $namePrefix = config('storage.routes.user.image.name_prefix');
+        $middleware = config('storage.routes.user.image.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Images\Http\Controllers\ImageController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Images\Http\Controllers\ImageController@store')
+                ->name('store');
+            $this->router
+                ->get('/images', '\AwemaPL\Storage\User\Sections\Images\Http\Controllers\ImageController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Images\Http\Controllers\ImageController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Images\Http\Controllers\ImageController@delete')
+                ->name('delete');
+        });
+    }
+
+    /**
+     * User feature routes
+     */
+    protected function userFeatureRoutes()
+    {
+        $prefix = config('storage.routes.user.feature.prefix');
+        $namePrefix = config('storage.routes.user.feature.name_prefix');
+        $middleware = config('storage.routes.user.feature.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@store')
+                ->name('store');
+            $this->router
+                ->get('/features', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@delete')
+                ->name('delete');
+            $this->router
+                ->get('/select-type', '\AwemaPL\Storage\User\Sections\Features\Http\Controllers\FeatureController@selectType')
+                ->name('select_type');
+        });
+    }
+
+    /**
      * Can installation
      *
      * @return bool
@@ -350,6 +479,46 @@ class Storage implements StorageContract
     private function isActiveUserCategoryProductRoutes()
     {
         return config('storage.routes.user.category_product.active');
+    }
+
+    /**
+     * Is active user description routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserDescriptionRoutes()
+    {
+        return config('storage.routes.user.description.active');
+    }
+
+    /**
+     * Is active user variant routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserVariantRoutes()
+    {
+        return config('storage.routes.user.variant.active');
+    }
+
+    /**
+     * Is active user image routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserImageRoutes()
+    {
+        return config('storage.routes.user.image.active');
+    }
+
+    /**
+     * Is active user feature routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserFeatureRoutes()
+    {
+        return config('storage.routes.user.feature.active');
     }
 
     /**

@@ -1,35 +1,36 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Repositories;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Repositories;
 
-use AwemaPL\Storage\User\Sections\Products\Models\Product;
-use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
-use AwemaPL\Storage\User\Sections\Products\Scopes\EloquentProductScopes;
+use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Scopes\EloquentDescriptionScopes;
 use AwemaPL\Repository\Eloquent\BaseRepository;
-use AwemaPL\Storage\User\Sections\Products\Services\Contracts\Availability;
+use AwemaPL\Storage\User\Sections\Descriptions\Services\Contracts\Availability;
+use AwemaPL\Storage\User\Sections\Descriptions\Services\Contracts\DescriptionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class EloquentProductRepository extends BaseRepository implements ProductRepository
+class EloquentDescriptionRepository extends BaseRepository implements DescriptionRepository
 {
-    /** @var Availability $availability */
-    protected $availability;
+    /** @var DescriptionType $descriptionType */
+    protected $descriptionType;
 
     protected $searchable = [
 
     ];
 
-    public function __construct(Availability $availability)
+    public function __construct(DescriptionType $descriptionType)
     {
         parent::__construct();
-        $this->availability = $availability;
+        $this->descriptionType = $descriptionType;
     }
 
 
     public function entity()
     {
-        return Product::class;
+        return Description::class;
     }
 
     public function scope($request)
@@ -38,7 +39,7 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
         parent::scope($request);
 
         // apply custom scopes
-        $this->entity = (new EloquentProductScopes($request))->scope($this->entity);
+        $this->entity = (new EloquentDescriptionScopes($request))->scope($this->entity);
         return $this;
     }
 
@@ -51,16 +52,11 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     public function create(array $data)
     {
         $data['user_id'] = $data['user_id'] ?? Auth::id();
-       $product =  Product::create($data);
-       $product->categories()->attach($data['default_category_id'], [
-           'user_id' =>$data['user_id'],
-           'warehouse_id' =>$data['warehouse_id'],
-       ]);
-       return $product;
+        return Description::create($data);
     }
 
     /**
-     * Update product
+     * Update description
      *
      * @param array $data
      * @param int $id
@@ -71,19 +67,11 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     public function update(array $data, $id, $attribute = 'id')
     {
         unset($data['warehouse_id']);
-        $product = $this->find($id);
-        $defaultCategoryId = (int) $data['default_category_id'] ?? null;
-        if ($defaultCategoryId && $product->default_category_id !== $defaultCategoryId && !$product->categories->contains($defaultCategoryId) ){
-            $product->categories()->attach($data['default_category_id'], [
-                'user_id' =>$data['user_id'] ?? Auth::id(),
-                'warehouse_id' =>$product->warehouse_id,
-            ]);
-        }
         return parent::update($data, $id, $attribute);
     }
 
     /**
-     * Delete product
+     * Delete description
      *
      * @param int $id
      */
@@ -103,50 +91,17 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
     }
 
     /**
-     * Select availability
+     * Select type
      *
      * @return array
      */
-    public function selectAvailability(){
-        $availabilities = $this->availability->getAvailabilities();
+    public function selectType(){
+        $types = $this->descriptionType->getTypes();
         $data = [];
-        foreach ($availabilities as $availability){
+        foreach ($types as $type){
             array_push($data, [
-                'id' =>$availability['availability'],
-                'name' =>$availability['name'],
-            ]);
-        }
-        return $data;
-    }
-
-    /**
-     * Select product ID
-     *
-     * @param Request $request
-     * @return array
-     */
-    public function selectProductId($request){
-        /** @var Collection $manufacturers */
-        $excludeId = (int)$request->exclude_id;
-        $includeId = (int)$request->include_id;
-        $products = $this->scope($request)->isOwner()->where('warehouse_id', $request->warehouse_id)->smartPaginate();
-        $data = [];
-        foreach ($products as $product){
-            if (!$excludeId || $product->id !== $excludeId){
-                if ($product->id === $includeId){
-                    $includeId = null;
-                }
-                array_push($data, [
-                    'id' =>$product->getKey(),
-                    'name' =>$product->name,
-                ]);
-            }
-        }
-        if ($includeId){
-            $product = $this->find($includeId);
-            array_unshift($data, [
-                'id' =>$product->getKey(),
-                'name' =>$product->name,
+                'id' =>$type['type'],
+                'name' =>$type['name'],
             ]);
         }
         return $data;

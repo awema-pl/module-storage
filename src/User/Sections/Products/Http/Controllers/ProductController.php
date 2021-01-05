@@ -51,6 +51,7 @@ class ProductController extends Controller
         return EloquentProduct::collection(
             $this->products->scope($request)
                 ->isOwner()
+                ->with(['warehouse', 'defaultCategory', 'manufacturer'])
                 ->latest()->smartPaginate()
         );
     }

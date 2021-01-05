@@ -56,6 +56,55 @@ return [
                 "category_id" => "category",
                 "product_id" => "product"
             ]
+        ],
+        "description" => [
+            "messages" => [
+                "type_already_exists" => "This description type already exists."
+            ],
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "product_id" => "product",
+                "type" => "type",
+                "value" => "description"
+            ]
+        ],
+        "variant" => [
+            "messages" => [
+                "number_outside_range" => "The given number is outside the allowed range."
+            ],
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "product_id" => "product",
+                "name" => "name",
+                "ean" => "EAN",
+                "sku" => "SKU",
+                "stock" => "stock",
+                "availability" => "availability",
+                "brutto_price" => "brutto price",
+                "external_id" => "external ID"
+            ]
+        ],
+        "image" => [
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "product_id" => "product",
+                "variant_id" => "variant",
+                "url" => "Web address",
+                "external_id" => "external ID"
+            ]
+        ],
+        "feature" => [
+            "messages" => [
+                "feature_already_exist" => "This feature type already exists."
+            ],
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "product_id" => "product",
+                "variant_id" => "variant",
+                "name" => "name",
+                "value" => "feature",
+                "type" => "type"
+            ]
         ]
     ]
 ];

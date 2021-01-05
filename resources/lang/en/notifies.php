@@ -24,6 +24,23 @@ return [
             "success_added_category_product" => "Success added category product.",
             "success_updated_category_product" => "Success updated category product.",
             "success_deleted_category_product" => "Success deleted category product."
+        ],
+        "description" => [
+            "success_added_description" => "Success added description.",
+            "success_updated_description" => "Success updated description.",
+            "success_deleted_description" => "Success deleted description."
+        ],
+        "variant" => [
+            "success_added_variant" => "Success added variant.",
+            "success_updated_variant" => "Success updated variant."
+        ],
+        "image" => [
+            "success_added_image" => "Success added image."
+        ],
+        "feature" => [
+            "success_added_feature" => "Success added feature.",
+            "success_deleted_feature" => "Success deleted feature.",
+            "success_updated_feature" => "Success updated feature."
         ]
     ]
 ];

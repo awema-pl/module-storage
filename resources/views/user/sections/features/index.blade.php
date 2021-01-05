@@ -40,7 +40,9 @@
                                 </tb-column>
                                 <tb-column name="variant" label="{{ _p('storage::pages.user.feature.variant', 'Variant') }}">
                                     <template slot-scope="col">
-                                        @{{ col.data.variant.name }}
+                                        <template v-if="col.data.variant">
+                                            @{{ col.data.variant.name }}
+                                        </template>
                                     </template>
                                 </tb-column>
                                 <tb-column name="type_name" label="{{ _p('storage::pages.user.feature.type', 'Type') }}"></tb-column>
@@ -94,10 +96,9 @@
                      </fb-select>
                      <fb-input name="name" label="{{ _p('storage::pages.user.feature.name', 'Name') }}"></fb-input>
                     <fb-input name="value" label="{{ _p('storage::pages.user.feature.value', 'Value') }}"></fb-input>
-                     <fb-select name="type" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
+                     <fb-select name="type" :multiple="false" open-fetch options-value="id" options-name="name"
                                 :url="'{{ route('storage.user.feature.select_type') }}'"
-                                placeholder-text=" " label="{{ _p('storage::pages.user.feature.type', 'Typ') }}"
-                                :auto-fetch-value="'default'">
+                                placeholder-text=" " label="{{ _p('storage::pages.user.feature.type', 'Typ') }}">
                      </fb-select>
                  </div>
                  <div class="mt-10" v-if="AWEMA._store.state.forms['add'] && AWEMA._store.state.forms['add'].fields.product_id">
@@ -122,16 +123,16 @@
                 </fb-select>
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_feature'] && AWEMA._store.state.forms['edit_feature'].fields.warehouse_id">
                     <fb-select name="product_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_description'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id) + '&q=%s'"
+                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_feature'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editFeature.product && AWEMA._store.state.editFeature.product.id) + '&q=%s'"
                                placeholder-text=" " label="{{ _p('storage::pages.user.feature.product', 'Product') }}"
-                               :auto-fetch-value="AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id">
+                               :auto-fetch-value="AWEMA._store.state.editFeature.product && AWEMA._store.state.editFeature.product.id">
                     </fb-select>
                     <fb-input name="name" label="{{ _p('storage::pages.user.feature.name', 'Name') }}"></fb-input>
                     <fb-input name="value" label="{{ _p('storage::pages.user.feature.value', 'Value') }}"></fb-input>
                     <fb-select name="type" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
                                :url="'{{ route('storage.user.feature.select_type') }}'"
                                placeholder-text=" " label="{{ _p('storage::pages.user.feature.type', 'Typ') }}"
-                               :auto-fetch-value="AWEMA._store.state.editDescription.type">
+                               :auto-fetch-value="AWEMA._store.state.editFeature.type">
                     </fb-select>
                 </div>
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_feature'] && AWEMA._store.state.forms['edit_feature'].fields.product_id">

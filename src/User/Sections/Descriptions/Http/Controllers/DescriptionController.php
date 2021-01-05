@@ -1,43 +1,43 @@
 <?php
 
-namespace AwemaPL\Storage\User\Sections\Products\Http\Controllers;
+namespace AwemaPL\Storage\User\Sections\Descriptions\Http\Controllers;
 
-use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Auth\Controllers\Traits\RedirectsTo;
-use AwemaPL\Storage\User\Sections\Products\Http\Requests\StoreProduct;
-use AwemaPL\Storage\User\Sections\Products\Http\Requests\UpdateProduct;
-use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
-use AwemaPL\Storage\User\Sections\Products\Resources\EloquentProduct;
+use AwemaPL\Storage\User\Sections\Descriptions\Http\Requests\StoreDescription;
+use AwemaPL\Storage\User\Sections\Descriptions\Http\Requests\UpdateDescription;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Resources\EloquentDescription;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class ProductController extends Controller
+class DescriptionController extends Controller
 {
     use RedirectsTo, AuthorizesRequests;
 
-    /** @var ProductRepository $products */
-    protected $products;
+    /** @var DescriptionRepository $descriptions */
+    protected $descriptions;
 
     /** @var SettingRepository */
     protected $settings;
 
-    public function __construct(ProductRepository $products, SettingRepository $settings)
+    public function __construct(DescriptionRepository $descriptions, SettingRepository $settings)
     {
-        $this->products = $products;
+        $this->descriptions = $descriptions;
         $this->settings = $settings;
     }
 
     /**
-     * Display products
+     * Display descriptions
      *
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
-        return view('storage::user.sections.products.index');
+        return view('storage::user.sections.descriptions.index');
     }
 
     /**
@@ -48,42 +48,43 @@ class ProductController extends Controller
      */
     public function scope(Request $request)
     {
-        return EloquentProduct::collection(
-            $this->products->scope($request)
+        return EloquentDescription::collection(
+            $this->descriptions->scope($request)
                 ->isOwner()
+                ->with(['warehouse', 'product'])
                 ->latest()->smartPaginate()
         );
     }
 
     /**
-     * Create product
+     * Create description
      *
-     * @param StoreProduct $request
+     * @param StoreDescription $request
      * @return array
      * @throws \Exception
      */
-    public function store(StoreProduct $request)
+    public function store(StoreDescription $request)
     {
-          $this->products->create($request->all());
-        return notify(_p('storage::notifies.user.product.success_added_product', 'Success added product.'));
+          $this->descriptions->create($request->all());
+        return notify(_p('storage::notifies.user.description.success_added_description', 'Success added description.'));
     }
 
     /**
-     * Update product
+     * Update description
      *
-     * @param UpdateProduct $request
+     * @param UpdateDescription $request
      * @param $id
      * @return array
      */
-    public function update(UpdateProduct $request, $id)
+    public function update(UpdateDescription $request, $id)
     {
-        $this->authorize('isOwner', Product::find($id));
-        $this->products->update($request->all(), $id);
-        return notify(_p('storage::notifies.user.product.success_updated_product', 'Success updated product.'));
+        $this->authorize('isOwner', Description::find($id));
+        $this->descriptions->update($request->all(), $id);
+        return notify(_p('storage::notifies.user.description.success_updated_description', 'Success updated description.'));
     }
 
     /**
-     * Delete product
+     * Delete description
      *
      * @param $id
      * @return array
@@ -91,30 +92,19 @@ class ProductController extends Controller
      */
     public function delete($id)
     {
-        $this->authorize('isOwner', Product::find($id));
-        $this->products->delete($id);
-        return notify(_p('storage::notifies.user.product.success_deleted_product', 'Success deleted product.'));
+        $this->authorize('isOwner', Description::find($id));
+        $this->descriptions->delete($id);
+        return notify(_p('storage::notifies.user.description.success_deleted_description', 'Success deleted description.'));
     }
 
     /**
-     * Select availability
+     * Select type
      *
      * @param Request $request
      * @return JsonResponse
      */
-    public function selectAvailability(Request $request)
+    public function selectType(Request $request)
     {
-        return $this->ajax($this->products->selectAvailability());
-    }
-
-    /**
-     * Select product ID
-     *
-     * @param Request $request
-     * @return JsonResponse
-     */
-    public function selectProductId(Request $request)
-    {
-        return $this->ajax($this->products->selectProductId($request));
+        return $this->ajax($this->descriptions->selectType());
     }
 }

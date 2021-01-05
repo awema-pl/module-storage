@@ -134,12 +134,11 @@
                            placeholder-text=" " label="{{ _p('storage::pages.user.variant.warehouse', 'Warehouse') }}"
                            :auto-fetch-value="AWEMA._store.state.editVariant.warehouse && AWEMA._store.state.editVariant.warehouse.id">
                 </fb-select>
-
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_variant'] && AWEMA._store.state.forms['edit_variant'].fields.warehouse_id">
                     <fb-select name="product_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
-                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_description'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id) + '&q=%s'"
+                               :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_variant'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editVariant.product && AWEMA._store.state.editVariant.product.id) + '&q=%s'"
                                placeholder-text=" " label="{{ _p('storage::pages.user.variant.product', 'Product') }}"
-                               :auto-fetch-value="AWEMA._store.state.editDescription.product && AWEMA._store.state.editDescription.product.id">
+                               :auto-fetch-value="AWEMA._store.state.editVariant.product && AWEMA._store.state.editVariant.product.id">
                     </fb-select>
                     <fb-input name="name" label="{{ _p('storage::pages.user.variant.name', 'Name') }}"></fb-input>
                     <fb-input name="ean" label="{{ _p('storage::pages.user.variant.ean', 'EAN') }}"></fb-input>
