@@ -41,6 +41,9 @@ return [
             "success_added_feature" => "Success added feature.",
             "success_deleted_feature" => "Success deleted feature.",
             "success_updated_feature" => "Success updated feature."
+        ],
+        "source" => [
+            "success_added_source" => "Success added source."
         ]
     ]
 ];

@@ -11,5 +11,6 @@ return [
     "descriptions" => "Descriptions",
     "variants" => "Variants",
     "images" => "Images",
-    "features" => "Features"
+    "features" => "Features",
+    "sources" => "Sources"
 ];

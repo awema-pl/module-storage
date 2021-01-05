@@ -105,6 +105,19 @@ return [
                 "value" => "feature",
                 "type" => "type"
             ]
+        ],
+        "source" => [
+            "messages" => [
+                "source_already_exist" => "This source already exists."
+            ],
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "sourceable_type" => "source type",
+                "sourceable_id" => "source",
+                "stock" => "stock",
+                "availability" => "availability",
+                "brutto_price" => "brutto price"
+            ]
         ]
     ]
 ];

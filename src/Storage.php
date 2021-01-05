@@ -61,6 +61,9 @@ class Storage implements StorageContract
             if ($this->isActiveUserFeatureRoutes()) {
                 $this->userFeatureRoutes();
             }
+            if ($this->isActiveSourceRoutes()) {
+                $this->sourceRoutes();
+            }
         }
     }
 
@@ -370,6 +373,45 @@ class Storage implements StorageContract
     }
 
     /**
+     * Source routes
+     */
+    protected function sourceRoutes()
+    {
+        $prefix = config('storage.routes.user.source.prefix');
+        $namePrefix = config('storage.routes.user.source.name_prefix');
+        $middleware = config('storage.routes.user.source.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@index')
+                ->name('index');
+            $this->router
+                ->get('/product-targets', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@scope')
+                ->name('scope');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@store')
+                ->name('store');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@destroy')
+                ->name('destroy');
+            $this->router
+                ->get('/select-sourceable-type', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@selectSourceableType')
+                ->name('select_sourceable_type');
+            $this->router
+                ->get('/select-sourceable-id', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@selectSourceableId')
+                ->name('select_sourceable_id');
+            $this->router
+                ->post('/import-products/{id?}', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@importProducts')
+                ->name('import_product');
+            $this->router
+                ->post('/update-products/{id?}', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@updateProducts')
+                ->name('update_product');
+        });
+    }
+
+    /**
      * Can installation
      *
      * @return bool
@@ -519,6 +561,16 @@ class Storage implements StorageContract
     private function isActiveUserFeatureRoutes()
     {
         return config('storage.routes.user.feature.active');
+    }
+
+    /**
+     * Is active source routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveSourceRoutes()
+    {
+        return config('storage.routes.user.source.active');
     }
 
     /**

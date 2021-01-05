@@ -129,6 +129,16 @@ return [
                     'verified'
                 ]
             ],
+            'source' => [
+                'active' => true,
+                'prefix' => '/storage/sources',
+                'name_prefix' => 'storage.user.source.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
         ],
     ],
 
@@ -173,6 +183,7 @@ return [
             'storage_images' => 'storage_images',
             'storage_features' => 'storage_features',
             'storage_variants' => 'storage_variants',
+            'storage_sources' => 'storage_sources',
         ]
     ],
 ];

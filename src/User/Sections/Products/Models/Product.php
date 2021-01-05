@@ -5,6 +5,7 @@ namespace AwemaPL\Storage\User\Sections\Products\Models;
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
 use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
+use AwemaPL\Storage\User\Sections\Sources\Models\Source;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,7 @@ class Product extends Model implements ProductContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'name', 'ean','sku','stock','availability',
+       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'source_id', 'name', 'ean','sku','stock','availability',
        'brutto_price','tax_rate', 'external_id',
     ];
 
@@ -38,6 +39,7 @@ class Product extends Model implements ProductContract
         'warehouse_id' => 'integer',
         'default_category_id' => 'integer',
         'manufacturer_id' => 'integer',
+        'source_id' => 'integer',
         'stock' => 'integer',
         'brutto_price' => 'float',
         'tax_rate' => 'integer',
@@ -95,6 +97,15 @@ class Product extends Model implements ProductContract
      */
     public function manufacturer(){
         return $this->belongsTo(Manufacturer::class);
+    }
+
+    /**
+     * Get the source that owns the product.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function source(){
+        return $this->belongsTo(Source::class);
     }
 
     /**

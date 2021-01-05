@@ -51,5 +51,10 @@ return [
             'success_updated_feature' => 'Pomyślnie zapisano cechę.',
             'success_deleted_feature' => 'Pomyślnie usunięto cechę.',
         ],
+        'source' => [
+            'success_added_source' => 'Pomyślnie dodano źródło.',
+            'success_updated_source' => 'Pomyślnie zapisano źródło.',
+            'success_deleted_source' => 'Pomyślnie usunięto źródło.',
+        ],
     ],
 ];

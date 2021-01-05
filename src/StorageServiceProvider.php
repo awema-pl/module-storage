@@ -1,8 +1,6 @@
 <?php
 
 namespace AwemaPL\Storage;
-
-
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Policies\CategoryPolicy;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
@@ -25,6 +23,8 @@ use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
 use AwemaPL\Storage\User\Sections\Manufacturers\Policies\ManufacturerPolicy;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Policies\ProductPolicy;
+use AwemaPL\Storage\User\Sections\Sources\Repositories\Contracts\SourceRepository;
+use AwemaPL\Storage\User\Sections\Sources\Repositories\EloquentSourceRepository;
 use AwemaPL\Storage\User\Sections\Variants\Models\Variant;
 use AwemaPL\Storage\User\Sections\Variants\Policies\VariantPolicy;
 use AwemaPL\Storage\User\Sections\Variants\Repositories\Contracts\VariantRepository;
@@ -55,6 +55,10 @@ use AwemaPL\Storage\User\Sections\Descriptions\Services\Contracts\DescriptionTyp
 use AwemaPL\Storage\User\Sections\Descriptions\Services\DescriptionType;
 use AwemaPL\Storage\User\Sections\Features\Services\Contracts\FeatureType as FeatureTypeContract;
 use AwemaPL\Storage\User\Sections\Features\Services\FeatureType;
+use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoImporter as XmlceneoImporterContract;
+use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\XmlceneoImporter;
+use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater as XmlceneoUpdaterContract;
+use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\XmlceneoUpdater;
 
 class StorageServiceProvider extends AwemaProvider
 {
@@ -130,6 +134,7 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(VariantRepository::class, EloquentVariantRepository::class);
         $this->app->bind(ImageRepository::class, EloquentImageRepository::class);
         $this->app->bind(FeatureRepository::class, EloquentFeatureRepository::class);
+        $this->app->bind(SourceRepository::class, EloquentSourceRepository::class);
     }
 
     /**
@@ -142,6 +147,8 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(AvailabilityContract::class, Availability::class);
         $this->app->bind(DescriptionTypeContract::class, DescriptionType::class);
         $this->app->bind(FeatureTypeContract::class, FeatureType::class);
+        $this->app->bind(XmlceneoImporterContract::class, XmlceneoImporter::class);
+        $this->app->bind(XmlceneoUpdaterContract::class, XmlceneoUpdater::class);
     }
 
     /**

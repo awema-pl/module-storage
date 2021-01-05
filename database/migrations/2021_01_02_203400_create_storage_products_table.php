@@ -49,6 +49,13 @@ class CreateStorageProductsTable extends Migration
                 ->constrained(config('storage.database.tables.storage_manufacturers'))
             ->nullOnDelete();
         });
+
+        Schema::table(config('storage.database.tables.storage_products'), function (Blueprint $table) {
+            $table->foreignId('source_id')
+                ->nullable()
+                ->constrained(config('storage.database.tables.storage_sources'))
+                ->nullOnDelete();
+        });
     }
 
     public function down()
@@ -58,6 +65,7 @@ class CreateStorageProductsTable extends Migration
             $table->dropForeign(['warehouse_id']);
             $table->dropForeign(['category_id']);
             $table->dropForeign(['manufacturer_id']);
+            $table->dropForeign(['source_id']);
         });
 
         Schema::drop(config('storage.database.tables.storage_products'));

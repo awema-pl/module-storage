@@ -56,6 +56,11 @@ return [
                         'link' => '/storage/features',
                         'key' => 'storage::menus.features',
                     ],
+                    [
+                        'name' => 'Sources',
+                        'link' => '/storage/sources',
+                        'key' => 'storage::menus.sources',
+                    ],
                 ],
                 'children' => [
                     [
@@ -102,6 +107,11 @@ return [
                         'name' => 'Features',
                         'link' => '/storage/features',
                         'key' => 'storage::menus.features',
+                    ],
+                    [
+                        'name' => 'Sources',
+                        'link' => '/storage/sources',
+                        'key' => 'storage::menus.sources',
                     ],
                 ],
             ]

@@ -264,6 +264,46 @@ return [
             "types" => [
                 "weight" => "weight"
             ]
+        ],
+        "source" => [
+            "meta_title" => "Sources",
+            "meta_description" => "User product sources in the application.",
+            "headline" => "Sources",
+            "adding_source" => "Adding source",
+            "sources" => "Sources",
+            "warehouse" => "Warehouse",
+            "sourceable_type" => "Source type",
+            "no_connection_source" => "No connection to source",
+            "source_name" => "Source name",
+            "created_at" => "Created at",
+            "options" => "Options",
+            "edit" => "Edit",
+            "delete" => "Delete",
+            "add" => "Add",
+            "source_products" => "Source of products",
+            "select_sourceable_type" => "Select the type of source",
+            "select_source" => "Select a source",
+            "source_editing" => "Source editing",
+            "save" => "Save",
+            "are_you_sure_delete" => "Are you sure delete?",
+            "confirm" => "Confirm",
+            "types" => [
+                "xmlceneo" => "XML Ceneo"
+            ],
+            "importing_products" => "Importing products?",
+            "overwrite_active" => "Active data overwriting",
+            "import_products" => "Import products",
+            "overwrite_stock" => "Overwrite the stock",
+            "overwrite_availability" => "Overwrite availability",
+            "overwrite_brutto_price" => "Overwrite the brutto price",
+            "are_you_sure_import_products" => "Are you sure to import the products?",
+            "update_products" => "Update products",
+            "updating_products" => "Updating products",
+            "update" => "Update",
+            "stock" => "Stock",
+            "availability" => "Availability",
+            "brutto_price" => "Brutto price",
+            "please_select_properties_update" => "Please select the product properties to be updated."
         ]
     ]
 ];

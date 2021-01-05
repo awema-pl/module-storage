@@ -12,4 +12,5 @@ return [
     'variants' => 'Warianty',
     'images' => 'Obrazki',
     'features' => 'Cechy',
+    'sources' => 'Źródła',
 ];

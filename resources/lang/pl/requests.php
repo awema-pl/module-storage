@@ -125,5 +125,18 @@ return [
                 'feature_already_exist' =>'Ta cecha już istnieje.',
             ]
         ],
+        'source'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'sourceable_type' => 'typ źródła',
+                'sourceable_id' => 'źródło',
+                'stock' => 'stan magazynowy',
+                'availability'=> 'dostępność',
+                'brutto_price' =>'cena brutto'
+            ],
+            'messages'=>[
+                'source_already_exist' =>'To źródło już istnieje.',
+            ]
+        ],
     ],
 ];
