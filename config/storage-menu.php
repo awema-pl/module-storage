@@ -61,6 +61,11 @@ return [
                         'link' => '/storage/sources',
                         'key' => 'storage::menus.sources',
                     ],
+                    [
+                        'name' => 'Duplicate products',
+                        'link' => '/storage/duplicate-products',
+                        'key' => 'storage::menus.duplicate_products',
+                    ],
                 ],
                 'children' => [
                     [
@@ -112,6 +117,11 @@ return [
                         'name' => 'Sources',
                         'link' => '/storage/sources',
                         'key' => 'storage::menus.sources',
+                    ],
+                    [
+                        'name' => 'Duplicate products',
+                        'link' => '/storage/duplicate-products',
+                        'key' => 'storage::menus.duplicate_products',
                     ],
                 ],
             ]

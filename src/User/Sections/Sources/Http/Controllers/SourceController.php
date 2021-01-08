@@ -7,6 +7,8 @@ use AwemaPL\Storage\User\Sections\Sources\Http\Requests\ImportProductSource;
 use AwemaPL\Storage\User\Sections\Sources\Http\Requests\StoreSource;
 use AwemaPL\Storage\User\Sections\Sources\Http\Requests\UpdateProductSource;
 use AwemaPL\Storage\User\Sections\Sources\Http\Requests\UpdateSource;
+use AwemaPL\Storage\User\Sections\Sources\Jobs\ImportProductJob;
+use AwemaPL\Storage\User\Sections\Sources\Jobs\UpdateProductJob;
 use AwemaPL\Storage\User\Sections\Sources\Models\Source;
 use AwemaPL\Storage\User\Sections\Sources\Repositories\Contracts\SourceRepository;
 use AwemaPL\Storage\User\Sections\Sources\Resources\EloquentSource;
@@ -129,7 +131,9 @@ class SourceController extends Controller
      */
     public function importProducts(ImportProductSource $request, $id)
     {
-
+        $source = Source::find($id);
+        dispatch(new ImportProductJob($source, $request->all()));
+        return notify(_p('storage::notifies.user.source.successfully_started_importing_products', 'You successfully started importing products.'));
     }
 
     /**
@@ -140,6 +144,8 @@ class SourceController extends Controller
      */
     public function updateProducts(UpdateProductSource $request, $id)
     {
-
+        $source = Source::find($id);
+        dispatch(new UpdateProductJob($source, $request->all()));
+        return notify(_p('storage::notifies.user.source.successfully_started_updating_products', 'You successfully started updating products.'));
     }
 }

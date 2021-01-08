@@ -114,7 +114,7 @@
                     </fb-select>
                     <fb-select name="product_id" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"
                                :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['edit_category_product'].fields.warehouse_id + '&include_id=' + (AWEMA._store.state.editCategoryProduct.product && AWEMA._store.state.editCategoryProduct.product.id) + '&q=%s'"
-                               placeholder-text=" " label="{{ _p('storage::pages.user.category_product.category', 'Category') }}"
+                               placeholder-text=" " label="{{ _p('storage::pages.user.category_product.product', 'Product') }}"
                                :auto-fetch-value="AWEMA._store.state.editCategoryProduct.product && AWEMA._store.state.editCategoryProduct.product.id">
                     </fb-select>
                 </div>

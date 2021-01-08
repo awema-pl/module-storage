@@ -52,6 +52,15 @@ interface ManufacturerRepository
     public function find($id, $columns = ['*']);
 
     /**
+     * First or update a record matching the attributes, and fill it with values.
+     *
+     * @param  array  $attributes
+     * @param  array  $values
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public function firstOrCreate(array $attributes, array $values);
+
+    /**
      * Select manufacturer ID
      *
      * @param Request $request

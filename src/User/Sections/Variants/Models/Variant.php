@@ -25,7 +25,7 @@ class Variant extends Model implements VariantContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'product_id', 'name', 'ean','sku','stock','availability',
+       'user_id', 'warehouse_id', 'product_id','active', 'name', 'ean','sku','stock','availability',
        'brutto_price', 'external_id',
     ];
 
@@ -38,6 +38,7 @@ class Variant extends Model implements VariantContract
         'user_id' => 'integer',
         'warehouse_id' => 'integer',
         'product_id' => 'integer',
+        'active' => 'boolean',
         'stock' => 'integer',
         'brutto_price' => 'float',
     ];

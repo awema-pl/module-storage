@@ -4,6 +4,7 @@ namespace AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Models;
 
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoImporter;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater;
+use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Source as SourceContract;
 use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Sourceable;
 use AwemaPL\Xml\User\Sections\Ceneosources\Models\Ceneosource;
 
@@ -12,7 +13,7 @@ class Xmlceneo extends Ceneosource implements Sourceable
     /** @var XmlceneoImporter $importer */
     protected $importer;
 
-    /** @var XmlceneoImporter $updater */
+    /** @var XmlceneoUpdater $updater */
     protected $updater;
 
     /**
@@ -28,19 +29,21 @@ class Xmlceneo extends Ceneosource implements Sourceable
     /**
      * Import products
      *
+     * @param SourceContract $source
      * @param array $options
      */
-    public function importProducts($options=[]): void{
-        $this->getImporter()->importProducts($this, $options);
+    public function importProducts(SourceContract $source, $options=[]): void{
+        $this->getImporter()->importProducts($source, $options);
     }
 
     /**
      * Update products
      *
+     * @param SourceContract $source
      * @param array $options
      */
-    public function updateProducts($options=[]): void{
-        $this->getUpdater()->updateProducts($this, $options);
+    public function updateProducts(SourceContract $source, $options=[]): void{
+        $this->getUpdater()->updateProducts($source, $options);
     }
 
     /**

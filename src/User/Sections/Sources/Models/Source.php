@@ -3,11 +3,12 @@
 namespace AwemaPL\Storage\User\Sections\Sources\Models;
 
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
+use AwemaPL\Task\User\Sections\Statuses\Models\Contracts\Taskable;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Source as SourceContract;
 
-class Source extends Model implements SourceContract
+class Source extends Model implements SourceContract, Taskable
 {
 
     use EncryptableDbAttribute;
@@ -20,7 +21,7 @@ class Source extends Model implements SourceContract
      *
      * @var array
      */
-    protected $fillable = ['user_id', 'warehouse_id','sourceable_type', 'sourceable_id'];
+    protected $fillable = ['user_id', 'warehouse_id','sourceable_type', 'sourceable_id', 'settings'];
 
     /**
      * The attributes that should be cast.
@@ -31,6 +32,7 @@ class Source extends Model implements SourceContract
         'user_id' =>'integer',
         'warehouse_id' =>'integer',
         'sourceable_id' =>'integer',
+        'settings' =>'array',
     ];
 
     /**

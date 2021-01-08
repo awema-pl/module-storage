@@ -43,7 +43,10 @@ return [
             "success_updated_feature" => "Success updated feature."
         ],
         "source" => [
-            "success_added_source" => "Success added source."
+            "success_added_source" => "Success added source.",
+            "successfully_started_updating_products" => "You successfully started updating products.",
+            "successfully_started_importing_products" => "You successfully started importing products.",
+            "success_updated_source" => "Success updated source."
         ]
     ]
 ];

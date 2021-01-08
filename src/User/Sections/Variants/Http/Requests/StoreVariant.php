@@ -26,6 +26,7 @@ class StoreVariant extends FormRequest
         return [
             'warehouse_id' => 'required|integer',
             'product_id' => 'required|integer',
+            'active' => 'required|boolean',
             'name' => 'required|string|max:255',
             'ean' => 'nullable|string|max:255',
             'sku' => 'nullable|string|max:255',
@@ -47,6 +48,7 @@ class StoreVariant extends FormRequest
         return [
             'warehouse_id' => _p('storage::requests.user.variant.attributes.warehouse_id', 'warehouse'),
             'product_id' =>  _p('storage::requests.user.variant.attributes.product_id', 'product'),
+            'active' =>  _p('storage::requests.user.variant.attributes.active', 'active'),
             'name' =>  _p('storage::requests.user.variant.attributes.name', 'name'),
             'ean' => _p('storage::requests.user.variant.attributes.ean', 'EAN'),
             'sku' =>  _p('storage::requests.user.variant.attributes.sku', 'SKU'),

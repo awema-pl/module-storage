@@ -26,7 +26,7 @@ class Image extends Model implements ImageContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'product_id', 'variant_id', 'url', 'external_id',
+       'user_id', 'warehouse_id','product_id', 'variant_id', 'source_id', 'url', 'main', 'external_id',
     ];
 
     /**
@@ -39,6 +39,8 @@ class Image extends Model implements ImageContract
         'warehouse_id' => 'integer',
         'product_id' => 'integer',
         'variant_id' => 'integer',
+        'source_id' => 'integer',
+        'main' =>'boolean',
     ];
 
     /**

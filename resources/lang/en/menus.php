@@ -12,5 +12,6 @@ return [
     "variants" => "Variants",
     "images" => "Images",
     "features" => "Features",
-    "sources" => "Sources"
+    "sources" => "Sources",
+    "duplicate_products" => "Duplicate products"
 ];

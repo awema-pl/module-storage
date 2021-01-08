@@ -104,6 +104,11 @@
                            placeholder-text=" " label="{{ _p('storage::pages.user.source.select_source', 'Select a source') }}">
                 </fb-select>
             </div>
+            <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.source.settings', 'Settings') }}</h5>
+            <div class="mt-10">
+                <fb-input name="settings.manufacturer_attribute_name" size-sm label="{{ _p('storage::pages.user.source.manufacturer_attribute_name', 'Manufacturer attribute name') }}"></fb-input>
+                <fb-input name="settings.default_tax_rate" :value="'23'" type="number" min="0" max="100" size-sm label="{{ _p('storage::pages.user.source.default_tax_rate', 'Default tax rate') }}"></fb-input>
+            </div>
         </form-builder>
     </modal-window>
 
@@ -153,6 +158,11 @@
                                placeholder-text=" " label="{{ _p('storage::pages.user.source.select_source', 'Select a source') }}"
                                :auto-fetch-value="AWEMA._store.state.editSource.sourceable_id">
                     </fb-select>
+                </div>
+                <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.source.settings', 'Settings') }}</h5>
+                <div class="mt-10">
+                    <fb-input name="settings.manufacturer_attribute_name" size-sm label="{{ _p('storage::pages.user.source.manufacturer_attribute_name', 'Manufacturer attribute name') }}"></fb-input>
+                    <fb-input name="settings.default_tax_rate" type="number" min="0" max="100" size-sm label="{{ _p('storage::pages.user.source.default_tax_rate', 'Default tax rate') }}"></fb-input>
                 </div>
             </div>
         </form-builder>

@@ -52,6 +52,7 @@ return [
                 'warehouse_id' => 'magazyn',
                 'default_category_id' => 'kategoria domyślna',
                 'manufacturer_id' => 'producent',
+                'active' => 'aktywny',
                 'name' => 'nazwa',
                 'ean' => 'EAN',
                 'sku' => 'SKU',
@@ -90,6 +91,7 @@ return [
             'attributes' => [
                 'warehouse_id' => 'magazyn',
                 'product_id' => 'produkt',
+                'active' => 'aktywny',
                 'name' => 'nazwa',
                 'ean' => 'EAN',
                 'sku' => 'SKU',
@@ -108,6 +110,7 @@ return [
                 'product_id' => 'produkt',
                 'variant_id' => 'produkt',
                 'url' => 'adres www',
+                'main' => 'Główny',
                 'external_id'=>'zewnętrzny ID',
             ],
             'messages'=>[]
@@ -132,10 +135,25 @@ return [
                 'sourceable_id' => 'źródło',
                 'stock' => 'stan magazynowy',
                 'availability'=> 'dostępność',
-                'brutto_price' =>'cena brutto'
+                'brutto_price' =>'cena brutto',
+                'settings' => [
+                    'manufacturer_attribute_name' =>'nazwa atrybutu producenta',
+                    'default_tax_rate' =>'domyślna stawka podatku',
+                ]
             ],
             'messages'=>[
                 'source_already_exist' =>'To źródło już istnieje.',
+                'number_outside_range' =>'Podana liczba nie mieści się w dozwolonym przedziale.',
+            ]
+        ],
+        'duplicate_product'=>[
+            'attributes' => [
+                'warehouse_id' => 'magazyn',
+                'duplicate_product_id' => 'duplikat produktu',
+                'produkt' => 'produkt',
+            ],
+            'messages'=>[
+                'duplicate_product_and_product_not_same' => 'Duplikat produktu i produkt nie mogą być takie same.',
             ]
         ],
     ],

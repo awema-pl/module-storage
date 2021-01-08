@@ -44,7 +44,8 @@ return [
                 "external_id" => "external ID",
                 "category_id" => "category",
                 "manufacturer_id" => "manufacturer",
-                "default_category_id" => "default category"
+                "default_category_id" => "default category",
+                "active" => "active"
             ]
         ],
         "category_product" => [
@@ -90,7 +91,8 @@ return [
                 "product_id" => "product",
                 "variant_id" => "variant",
                 "url" => "Web address",
-                "external_id" => "external ID"
+                "external_id" => "external ID",
+                "main" => "Main"
             ]
         ],
         "feature" => [
@@ -108,7 +110,8 @@ return [
         ],
         "source" => [
             "messages" => [
-                "source_already_exist" => "This source already exists."
+                "source_already_exist" => "This source already exists.",
+                "number_outside_range" => "The given number is outside the allowed range."
             ],
             "attributes" => [
                 "warehouse_id" => "warehouse",
@@ -116,7 +119,17 @@ return [
                 "sourceable_id" => "source",
                 "stock" => "stock",
                 "availability" => "availability",
-                "brutto_price" => "brutto price"
+                "brutto_price" => "brutto price",
+                "settings" => [
+                    "manufacturer_attribute_name" => "manufacturer attribute name",
+                    "default_tax_rate" => "default tax rate"
+                ]
+            ]
+        ],
+        "duplicate_product" => [
+            "attributes" => [
+                "warehouse_id" => "warehouse",
+                "duplicate_product_id" => "duplicate product"
             ]
         ]
     ]

@@ -139,6 +139,16 @@ return [
                     'verified'
                 ]
             ],
+            'duplicate_product' => [
+                'active' => true,
+                'prefix' => '/storage/duplicate-products',
+                'name_prefix' => 'storage.user.duplicate_product.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
         ],
     ],
 
@@ -184,6 +194,7 @@ return [
             'storage_features' => 'storage_features',
             'storage_variants' => 'storage_variants',
             'storage_sources' => 'storage_sources',
+            'storage_duplicate_products' => 'storage_duplicate_products',
         ]
     ],
 ];

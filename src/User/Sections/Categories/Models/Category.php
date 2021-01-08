@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\Categories\Models;
 
+use AwemaPL\Storage\Common\Exceptions\StorageException;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
@@ -22,7 +23,7 @@ class Category extends Model implements CategoryContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'name', 'parent_id', 'external_id',
+       'user_id', 'warehouse_id', 'name', 'parent_id', 'source_id', 'external_id',
     ];
 
     /**
@@ -34,6 +35,7 @@ class Category extends Model implements CategoryContract
         'user_id' => 'integer',
         'warehouse_id' => 'integer',
         'parent_id' => 'integer',
+        'source_id' => 'integer',
     ];
 
     /**
@@ -51,6 +53,22 @@ class Category extends Model implements CategoryContract
     public function getTable()
     {
         return config('storage.database.tables.storage_categories');
+    }
+
+    /**
+     * Bootstrap the model and its traits.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+        self::updating(function(Model $model){
+            if ($model->getKey() === $model->parent_id){
+                throw new StorageException('Category and parent category cannot be the same.', StorageException::ERROR_SAME_VALUES, 409, null,
+                    _p('storage::exceptions.user.category.category_and_parent_category_not_same', 'Category and parent category cannot be the same.'), null, false);
+            }
+        });
     }
 
     /**

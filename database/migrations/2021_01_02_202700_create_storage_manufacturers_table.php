@@ -31,6 +31,13 @@ class CreateStorageManufacturersTable extends Migration
         Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
             $table->unique(['warehouse_id', 'name'], 'YKXV281P8U52DCJJ3QQKJU');
         });
+
+        Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
+            $table->foreignId('source_id')
+                ->nullable()
+                ->constrained(config('storage.database.tables.storage_sources'))
+                ->onDelete('cascade');
+        });
     }
 
     public function down()

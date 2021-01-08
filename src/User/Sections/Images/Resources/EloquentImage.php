@@ -23,8 +23,9 @@ class EloquentImage extends JsonResource
             'product' => EloquentProduct::make($this->product),
             'variant' => EloquentVariant::make($this->variant),
             'url' => $this->url,
+            'main' => $this->main,
             'external_id' => $this->external_id,
-            'created_at' =>$this->created_at->format('Y-m-d H:i:s'),
+            'created_at' =>optional($this->created_at)->format('Y-m-d H:i:s'),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace AwemaPL\Storage\User\Sections\Products\Models\Contracts;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 interface Product
 {
@@ -41,4 +42,33 @@ interface Product
      * @return BelongsToMany
      */
     public function categories();
+
+    /**
+     * Get all of the descriptions for the product.
+     *
+     * @return HasMany
+     */
+    public function descriptions();
+
+
+    /**
+     * Get all of the variants for the product.
+     *
+     * @return HasMany
+     */
+    public function variants();
+
+    /**
+     * Get all of the images for the product.
+     *
+     * @return HasMany
+     */
+    public function images();
+
+    /**
+     * Get all of the features for the product.
+     *
+     * @return HasMany
+     */
+    public function features();
 }

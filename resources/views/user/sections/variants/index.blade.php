@@ -36,6 +36,18 @@
                                         @{{ col.data.product.name }}
                                     </template>
                                 </tb-column>
+                                <tb-column name="active" label="{{ _p('storage::pages.user.variant.active', 'Active') }}">
+                                    <template slot-scope="col">
+                                        <div class="cl-caption">
+                                            <template v-if="col.data.active">
+                                                {{ _p('storage::pages.user.variant.yes', 'Yes') }}
+                                            </template>
+                                            <template v-else>
+                                                {{ _p('storage::pages.user.variant.no', 'No') }}
+                                            </template>
+                                        </div>
+                                    </template>
+                                </tb-column>
                                 <tb-column name="name" label="{{ _p('storage::pages.user.variant.name', 'Name') }}">
                                     <template slot-scope="col">
                                         <div>@{{ col.data.name }}</div>
@@ -109,6 +121,7 @@
                                 :url="'{{ route('storage.user.product.select_product_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
                                 placeholder-text=" " label="{{ _p('storage::pages.user.variant.product', 'Product') }}">
                      </fb-select>
+                     <fb-switcher name="active" label="{{ _p('storage::pages.user.variant.active', 'Active') }}"></fb-switcher>
                      <fb-input name="name" label="{{ _p('storage::pages.user.variant.name', 'Name') }}"></fb-input>
                      <fb-input name="ean" label="{{ _p('storage::pages.user.variant.ean', 'EAN') }}"></fb-input>
                      <fb-input name="sku" label="{{ _p('storage::pages.user.variant.sku', 'SKU') }}"></fb-input>
@@ -140,6 +153,7 @@
                                placeholder-text=" " label="{{ _p('storage::pages.user.variant.product', 'Product') }}"
                                :auto-fetch-value="AWEMA._store.state.editVariant.product && AWEMA._store.state.editVariant.product.id">
                     </fb-select>
+                    <fb-switcher name="active" label="{{ _p('storage::pages.user.variant.active', 'Active') }}"></fb-switcher>
                     <fb-input name="name" label="{{ _p('storage::pages.user.variant.name', 'Name') }}"></fb-input>
                     <fb-input name="ean" label="{{ _p('storage::pages.user.variant.ean', 'EAN') }}"></fb-input>
                     <fb-input name="sku" label="{{ _p('storage::pages.user.variant.sku', 'SKU') }}"></fb-input>

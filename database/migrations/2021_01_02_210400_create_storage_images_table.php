@@ -12,6 +12,7 @@ class CreateStorageImagesTable extends Migration
         Schema::create(config('storage.database.tables.storage_images'), function (Blueprint $table) {
             $table->id();
             $table->text('url');
+            $table->boolean('main');
             $table->string('external_id')->nullable()->index();
             $table->timestamps();
         });
@@ -38,6 +39,13 @@ class CreateStorageImagesTable extends Migration
             $table->foreignId('variant_id')
                 ->nullable()
                 ->constrained(config('storage.database.tables.storage_variants'))
+                ->onDelete('cascade');
+        });
+
+        Schema::table(config('storage.database.tables.storage_images'), function (Blueprint $table) {
+            $table->foreignId('source_id')
+                ->nullable()
+                ->constrained(config('storage.database.tables.storage_sources'))
                 ->onDelete('cascade');
         });
     }

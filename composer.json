@@ -32,6 +32,7 @@
         "awema-pl/module-navigation": "dev-master",
         "awema-pl/module-page-map": "dev-master",
         "awema-pl/module-permission": "dev-master",
+        "awema-pl/module-task": "dev-master",
         "awema-pl/module-repository": "dev-master",
         "awema-pl/module-sticky-params": "dev-master",
         "awema-pl/module-system-notify": "dev-master",
@@ -172,7 +173,15 @@
             "options": {
                 "symlink": true
             }
-        },        {
+        },
+        {
+            "type": "path",
+            "url": "../Task",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
             "type": "path",
             "url": "../Repository",
             "options": {

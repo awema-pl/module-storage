@@ -29,6 +29,7 @@ class EloquentSource extends JsonResource
                 return $sourceTypes->getName(get_class($this->sourceable));
             }),
             'source_name' => optional($this->sourceable)->getName(),
+            'settings' => $this->settings,
             'created_at' =>$this->created_at->format('Y-m-d H:i:s'),
         ];
     }

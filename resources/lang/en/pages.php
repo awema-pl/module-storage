@@ -146,7 +146,10 @@ return [
                 "unavailable" => "unavailable"
             ],
             "information" => "Information",
-            "default_category" => "Default category"
+            "default_category" => "Default category",
+            "active" => "Active",
+            "yes" => "Yes",
+            "no" => "No"
         ],
         "category_product" => [
             "meta_title" => "Products in categories",
@@ -217,7 +220,10 @@ return [
             "edit_variant" => "Edit variant",
             "save" => "Save",
             "are_you_sure_delete" => "Are you sure delete?",
-            "confirm" => "Confirm"
+            "confirm" => "Confirm",
+            "active" => "Active",
+            "yes" => "Yes",
+            "no" => "No"
         ],
         "image" => [
             "meta_title" => "Images",
@@ -238,7 +244,10 @@ return [
             "confirm" => "Confirm",
             "add_image" => "Add image",
             "edit_image" => "Edit image",
-            "image" => "Image"
+            "image" => "Image",
+            "main" => "Main",
+            "yes" => "Yes",
+            "no" => "No"
         ],
         "feature" => [
             "meta_title" => "Features",
@@ -303,7 +312,28 @@ return [
             "stock" => "Stock",
             "availability" => "Availability",
             "brutto_price" => "Brutto price",
-            "please_select_properties_update" => "Please select the product properties to be updated."
+            "please_select_properties_update" => "Please select the product properties to be updated.",
+            "settings" => "Settings",
+            "manufacturer_attribute_name" => "Manufacturer attribute name",
+            "default_tax_rate" => "Default tax rate"
+        ],
+        "duplicate_product" => [
+            "meta_title" => "Duplicate products",
+            "meta_description" => "Duplicate products of the warehouse user in the system.",
+            "headline" => "Duplicate products",
+            "add_duplicate_product" => "Add product",
+            "duplicate_products" => "Duplicate products",
+            "warehouse" => "Warehouse",
+            "product" => "Product",
+            "duplicate_product" => "Duplicate product",
+            "options" => "Options",
+            "edit" => "Edit",
+            "delete" => "Delete",
+            "add" => "Add",
+            "edit_duplicate_product" => "Edit product",
+            "save" => "Save",
+            "are_you_sure_delete" => "Are you sure delete?",
+            "confirm" => "Confirm"
         ]
     ]
 ];

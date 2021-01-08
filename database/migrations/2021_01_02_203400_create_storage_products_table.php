@@ -14,6 +14,7 @@ class CreateStorageProductsTable extends Migration
         $availability = app(Availability::class);
         Schema::create(config('storage.database.tables.storage_products'), function (Blueprint $table) use (&$availability) {
             $table->id();
+            $table->boolean('active')->default(false)->index();
             $table->string('name');
             $table->string('ean')->nullable()->index();
             $table->string('sku')->nullable()->index();
@@ -54,7 +55,7 @@ class CreateStorageProductsTable extends Migration
             $table->foreignId('source_id')
                 ->nullable()
                 ->constrained(config('storage.database.tables.storage_sources'))
-                ->nullOnDelete();
+                ->onDelete('cascade');
         });
     }
 

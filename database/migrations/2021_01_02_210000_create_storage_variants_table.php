@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use AwemaPL\Storage\User\Sections\Products\Services\Contracts\Availability;
 
 class CreateStorageVariantsTable extends Migration
 {
@@ -11,8 +12,9 @@ class CreateStorageVariantsTable extends Migration
     {
         /** @var Availability $availability */
         $availability = app(Availability::class);
-        Schema::create(config('storage.database.tables.storage_variants'), function (Blueprint $table) {
+        Schema::create(config('storage.database.tables.storage_variants'), function (Blueprint $table) use (&$availability){
             $table->id();
+            $table->boolean('active')->default(false)->index();
             $table->string('name');
             $table->string('ean')->nullable()->index();
             $table->string('sku')->nullable()->index();

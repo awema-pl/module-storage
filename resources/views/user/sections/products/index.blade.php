@@ -31,22 +31,36 @@
                                         @{{ col.data.warehouse.name }}
                                     </template>
                                 </tb-column>
+                                <tb-column name="active" label="{{ _p('storage::pages.user.product.active', 'Active') }}">
+                                    <template slot-scope="col">
+                                        <div class="cl-caption">
+                                            <template v-if="col.data.active">
+                                                {{ _p('storage::pages.user.product.yes', 'Yes') }}
+                                            </template>
+                                            <template v-else>
+                                                {{ _p('storage::pages.user.product.no', 'No') }}
+                                            </template>
+                                        </div>
+                                    </template>
+                                </tb-column>
                                 <tb-column name="name" label="{{ _p('storage::pages.user.product.name', 'Name') }}">
                                     <template slot-scope="col">
-                                        <div>@{{ col.data.name }}</div>
-                                        <div class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.product.default_category', 'Default category') }}:</span> @{{ col.data.default_category.crumbs }}
-                                        </div>
-                                        <div v-if="col.data.manufacturer" class="tf-size-small">
-                                            <span class="cl-caption">{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}:</span> @{{ col.data.manufacturer.name }}
-                                        </div>
-                                        <div class="tf-size-small">
-                                            <span v-if="col.data.ean">
-                                                <span class="cl-caption">{{ _p('storage::pages.user.product.ean', 'EAN') }}:</span> @{{ col.data.ean }}
-                                            </span>
-                                            <span v-if="col.data.sku" :class="{'ml-4': col.data.ean}">
-                                                <span class="cl-caption">{{ _p('storage::pages.user.product.sku', 'SKU') }}:</span> @{{ col.data.sku }}
-                                            </span>
+                                        <div style="max-width: 350px;">
+                                            <div>@{{ col.data.name }}</div>
+                                            <div class="tf-size-small">
+                                                <span class="cl-caption">{{ _p('storage::pages.user.product.default_category', 'Default category') }}:</span> @{{ col.data.default_category.crumbs }}
+                                            </div>
+                                            <div v-if="col.data.manufacturer" class="tf-size-small">
+                                                <span class="cl-caption">{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}:</span> @{{ col.data.manufacturer.name }}
+                                            </div>
+                                            <div class="tf-size-small">
+                                                <span v-if="col.data.ean">
+                                                    <span class="cl-caption">{{ _p('storage::pages.user.product.ean', 'EAN') }}:</span> @{{ col.data.ean }}
+                                                </span>
+                                                <span v-if="col.data.sku" :class="{'ml-4': col.data.ean}">
+                                                    <span class="cl-caption">{{ _p('storage::pages.user.product.sku', 'SKU') }}:</span> @{{ col.data.sku }}
+                                                </span>
+                                            </div>
                                         </div>
                                     </template>
                                 </tb-column>
@@ -117,6 +131,7 @@
                                 :url="'{{ route('storage.user.manufacturer.select_manufacturer_id') }}?warehouse_id=' + AWEMA._store.state.forms['add'].fields.warehouse_id + '&q=%s'"
                                 placeholder-text=" " label="{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}">
                      </fb-select>
+                     <fb-switcher name="active" label="{{ _p('storage::pages.user.product.active', 'Active') }}"></fb-switcher>
                      <fb-input name="name" label="{{ _p('storage::pages.user.product.name', 'Name') }}"></fb-input>
                      <fb-input name="ean" label="{{ _p('storage::pages.user.product.ean', 'EAN') }}"></fb-input>
                      <fb-input name="sku" label="{{ _p('storage::pages.user.product.sku', 'SKU') }}"></fb-input>
@@ -155,6 +170,7 @@
                                placeholder-text=" " label="{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}"
                                :auto-fetch-value="AWEMA._store.state.editProduct.manufacturer && AWEMA._store.state.editProduct.manufacturer.id">
                     </fb-select>
+                    <fb-switcher name="active" label="{{ _p('storage::pages.user.product.active', 'Active') }}"></fb-switcher>
                     <fb-input name="name" label="{{ _p('storage::pages.user.product.name', 'Name') }}"></fb-input>
                     <fb-input name="ean" label="{{ _p('storage::pages.user.product.ean', 'EAN') }}"></fb-input>
                     <fb-input name="sku" label="{{ _p('storage::pages.user.product.sku', 'SKU') }}"></fb-input>

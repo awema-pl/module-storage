@@ -55,7 +55,7 @@ class UpdateCategory extends FormRequest
     public function messages()
     {
         return [
-            'parent_id.not_in' => _p('storage::requests.user.category.messages.current_category_not_be_parent_category', 'The current category cannot be a parent category.'),
+            'duplicate_product.not_in' => _p('storage::requests.user.duplicate_product.messages.duplicate_product_and_product_not_same', 'Duplicate product and product cannot be the same.'),
         ];
     }
 }

@@ -20,7 +20,7 @@ class Manufacturer extends Model implements ManufacturerContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'name', 'image_url',
+       'user_id', 'warehouse_id', 'name', 'image_url', 'source_id'
     ];
 
     /**
@@ -31,6 +31,7 @@ class Manufacturer extends Model implements ManufacturerContract
     protected $casts = [
         'user_id' => 'integer',
         'warehouse_id' => 'integer',
+        'source_id' => 'integer',
     ];
 
     /**

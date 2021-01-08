@@ -3,6 +3,7 @@
 namespace AwemaPL\Storage;
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Policies\CategoryPolicy;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Policies\DuplicateProductPolicy;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Policies\CategoryProductPolicy;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Repositories\Contracts\CategoryProductRepository;
@@ -11,6 +12,9 @@ use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
 use AwemaPL\Storage\User\Sections\Descriptions\Policies\DescriptionPolicy;
 use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
 use AwemaPL\Storage\User\Sections\Descriptions\Repositories\EloquentDescriptionRepository;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Models\DuplicateProduct;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Repositories\Contracts\DuplicateProductRepository;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Repositories\EloquentDuplicateProductRepository;
 use AwemaPL\Storage\User\Sections\Features\Models\Feature;
 use AwemaPL\Storage\User\Sections\Features\Policies\FeaturePolicy;
 use AwemaPL\Storage\User\Sections\Features\Repositories\Contracts\FeatureRepository;
@@ -23,6 +27,8 @@ use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
 use AwemaPL\Storage\User\Sections\Manufacturers\Policies\ManufacturerPolicy;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Policies\ProductPolicy;
+use AwemaPL\Storage\User\Sections\Sources\Models\Source;
+use AwemaPL\Storage\User\Sections\Sources\Policies\SourcePolicy;
 use AwemaPL\Storage\User\Sections\Sources\Repositories\Contracts\SourceRepository;
 use AwemaPL\Storage\User\Sections\Sources\Repositories\EloquentSourceRepository;
 use AwemaPL\Storage\User\Sections\Variants\Models\Variant;
@@ -78,6 +84,8 @@ class StorageServiceProvider extends AwemaProvider
         Variant::class=>VariantPolicy::class,
         Image::class =>ImagePolicy::class,
         Feature::class=>FeaturePolicy::class,
+        Source::class =>SourcePolicy::class,
+        DuplicateProduct::class =>DuplicateProductPolicy::class,
     ];
 
     public function boot()
@@ -135,6 +143,7 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(ImageRepository::class, EloquentImageRepository::class);
         $this->app->bind(FeatureRepository::class, EloquentFeatureRepository::class);
         $this->app->bind(SourceRepository::class, EloquentSourceRepository::class);
+        $this->app->bind(DuplicateProductRepository::class, EloquentDuplicateProductRepository::class);
     }
 
     /**

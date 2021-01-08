@@ -2,6 +2,8 @@
 
 namespace AwemaPL\Storage\User\Sections\Sources\Models\Contracts;
 
+use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Source as SourceContract;
+
 interface Sourceable
 {
     /**
@@ -21,14 +23,16 @@ interface Sourceable
     /**
      * Import products
      *
+     * @param SourceContract $source
      * @param array $options
      */
-    public function importProducts($options=[]): void;
+    public function importProducts(SourceContract $source, $options=[]): void;
 
     /**
      * Update products
      *
+     * @param SourceContract $source
      * @param array $options
      */
-    public function updateProducts($options=[]): void;
+    public function updateProducts(SourceContract $source, $options=[]): void;
 }

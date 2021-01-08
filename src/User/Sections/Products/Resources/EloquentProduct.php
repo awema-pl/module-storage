@@ -26,6 +26,7 @@ class EloquentProduct extends JsonResource
             'warehouse' => EloquentWarehouse::make($this->warehouse),
             'default_category' => EloquentCategory::make($this->defaultCategory),
             'manufacturer' => EloquentManufacturer::make($this->manufacturer),
+            'active' => $this->active,
             'name' => $this->name,
             'ean' => $this->ean,
             'sku' => $this->sku,

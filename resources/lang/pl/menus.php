@@ -13,4 +13,5 @@ return [
     'images' => 'Obrazki',
     'features' => 'Cechy',
     'sources' => 'Źródła',
+    'duplicate_products' => 'Duplikaty produktów',
 ];

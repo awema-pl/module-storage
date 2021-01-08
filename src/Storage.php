@@ -64,6 +64,9 @@ class Storage implements StorageContract
             if ($this->isActiveSourceRoutes()) {
                 $this->sourceRoutes();
             }
+            if ($this->isActiveUserDuplicateProductRoutes()) {
+                $this->userDuplicateProductRoutes();
+            }
         }
     }
 
@@ -412,6 +415,33 @@ class Storage implements StorageContract
     }
 
     /**
+     * User duplicate product routes
+     */
+    protected function userDuplicateProductRoutes()
+    {
+        $prefix = config('storage.routes.user.duplicate_product.prefix');
+        $namePrefix = config('storage.routes.user.duplicate_product.name_prefix');
+        $middleware = config('storage.routes.user.duplicate_product.middleware');
+        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
+            $this->router
+                ->get('/', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@index')
+                ->name('index');
+            $this->router
+                ->post('/', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@store')
+                ->name('store');
+            $this->router
+                ->get('/products', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@scope')
+                ->name('scope');
+            $this->router
+                ->patch('{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@update')
+                ->name('update');
+            $this->router
+                ->delete('{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@delete')
+                ->name('delete');
+        });
+    }
+
+    /**
      * Can installation
      *
      * @return bool
@@ -571,6 +601,16 @@ class Storage implements StorageContract
     private function isActiveSourceRoutes()
     {
         return config('storage.routes.user.source.active');
+    }
+
+    /**
+     * Is active user duplicate product routes
+     *
+     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     */
+    private function isActiveUserDuplicateProductRoutes()
+    {
+        return config('storage.routes.user.duplicate_product.active');
     }
 
     /**

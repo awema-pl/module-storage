@@ -4,13 +4,18 @@ namespace AwemaPL\Storage\User\Sections\Products\Models;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
+use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
+use AwemaPL\Storage\User\Sections\Features\Models\Feature;
+use AwemaPL\Storage\User\Sections\Images\Models\Image;
 use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
 use AwemaPL\Storage\User\Sections\Sources\Models\Source;
+use AwemaPL\Storage\User\Sections\Variants\Models\Variant;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use AwemaPL\Storage\User\Sections\Products\Models\Contracts\Product as ProductContract;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Product extends Model implements ProductContract
 {
@@ -25,7 +30,7 @@ class Product extends Model implements ProductContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'source_id', 'name', 'ean','sku','stock','availability',
+       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'source_id','active', 'name', 'ean','sku','stock','availability',
        'brutto_price','tax_rate', 'external_id',
     ];
 
@@ -40,6 +45,7 @@ class Product extends Model implements ProductContract
         'default_category_id' => 'integer',
         'manufacturer_id' => 'integer',
         'source_id' => 'integer',
+        'active' => 'boolean',
         'stock' => 'integer',
         'brutto_price' => 'float',
         'tax_rate' => 'integer',
@@ -116,5 +122,41 @@ class Product extends Model implements ProductContract
     public function categories()
     {
         return $this->belongsToMany(Category::class, config('storage.database.tables.storage_category_product'))->withTimestamps();;
+    }
+
+    /**
+     * Get all of the descriptions for the product.
+     *
+     * @return HasMany
+     */
+    public function descriptions(){
+        return $this->hasMany(Description::class);
+    }
+
+    /**
+     * Get all of the variants for the product.
+     *
+     * @return HasMany
+     */
+    public function variants(){
+        return $this->hasMany(Variant::class);
+    }
+
+    /**
+     * Get all of the images for the product.
+     *
+     * @return HasMany
+     */
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
+
+    /**
+     * Get all of the features for the product.
+     *
+     * @return HasMany
+     */
+    public function features(){
+        return $this->hasMany(Feature::class);
     }
 }

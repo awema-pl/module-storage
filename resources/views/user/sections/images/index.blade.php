@@ -52,7 +52,25 @@
                                         </template>
                                     </template>
                                 </tb-column>
-                                <tb-column name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></tb-column>
+                                <tb-column name="main" label="{{ _p('storage::pages.user.image.main', 'Main') }}">
+                                    <template slot-scope="col">
+                                        <div class="cl-caption">
+                                            <template v-if="col.data.main">
+                                                {{ _p('storage::pages.user.image.yes', 'Yes') }}
+                                            </template>
+                                            <template v-else>
+                                                {{ _p('storage::pages.user.image.no', 'No') }}
+                                            </template>
+                                        </div>
+                                    </template>
+                                </tb-column>
+                                <tb-column name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}">
+                                    <template slot-scope="col">
+                                        <div class="cl-caption tf-size-small" style="max-width: 200px; overflow-wrap: break-word;">
+                                            @{{ col.data.external_id }}
+                                        </div>
+                                    </template>
+                                </tb-column>
                                 <tb-column name="created_at" label="{{ _p('storage::pages.user.image.created_at', 'Created at') }}"></tb-column>
                                 <tb-column name="manage" label="{{ _p('storage::pages.user.image.options', 'Options')  }}">
                                     <template slot-scope="col">
@@ -100,6 +118,7 @@
                                 placeholder-text=" " label="{{ _p('storage::pages.user.image.product', 'Product') }}">
                      </fb-select>
                      <fb-input name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}"></fb-input>
+                     <fb-switcher name="main" label="{{ _p('storage::pages.user.image.main', 'Main') }}"></fb-switcher>
                     <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>
                  </div>
                  <div class="mt-10" v-if="AWEMA._store.state.forms['add'] && AWEMA._store.state.forms['add'].fields.product_id">
@@ -130,6 +149,7 @@
                                :auto-fetch-value="AWEMA._store.state.editImage.product && AWEMA._store.state.editImage.product.id">
                     </fb-select>
                     <fb-input name="url" label="{{ _p('storage::pages.user.image.url', 'Web address') }}"></fb-input>
+                    <fb-switcher name="main" label="{{ _p('storage::pages.user.image.main', 'Main') }}"></fb-switcher>
                     <fb-input name="external_id" label="{{ _p('storage::pages.user.image.external_id', 'External ID') }}"></fb-input>
                 </div>
                 <div class="mt-10" v-if="AWEMA._store.state.forms['edit_image'] && AWEMA._store.state.forms['edit_image'].fields.product_id">

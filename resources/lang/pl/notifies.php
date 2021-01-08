@@ -55,6 +55,8 @@ return [
             'success_added_source' => 'Pomyślnie dodano źródło.',
             'success_updated_source' => 'Pomyślnie zapisano źródło.',
             'success_deleted_source' => 'Pomyślnie usunięto źródło.',
+            'successfully_started_importing_products'=>'Pomyślnie rozpoczęto importowanie produktów.',
+            'successfully_started_updating_products'=>'Pomyślnie rozpoczęto aktualizację produktów.'
         ],
     ],
 ];

@@ -12,6 +12,7 @@ class CreateStorageSourcesTable extends Migration
         Schema::create(config('storage.database.tables.storage_sources'), function (Blueprint $table) {
             $table->id();
             $table->morphs('sourceable', '7CH7W1WBH47EPWFBA8987R');
+            $table->json('settings')->nullable();
             $table->timestamps();
         });
 

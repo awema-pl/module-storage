@@ -50,6 +50,16 @@ interface ProductRepository
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
      */
     public function find($id, $columns = ['*']);
+    
+    /**
+     * Add basic where clauses and execute single the query.
+     *
+     * @param array $conditions
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function firstWhere(array $conditions, array $columns = ['*']);
 
     /**
      * Select availability
@@ -65,4 +75,14 @@ interface ProductRepository
      * @return array
      */
     public function selectProductId($request);
+
+    /**
+     * Exists by external ID
+     *
+     * @param int $warehouseId
+     * @param string $externalId
+     * @param int|null $sourceId
+     * @return bool
+     */
+    public function existsByExternalId(int $warehouseId, string $externalId, int $sourceId = null):bool;
 }

@@ -151,4 +151,19 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
         }
         return $data;
     }
+
+    /**
+     * Exists by external ID
+     *
+     * @param int $warehouseId
+     * @param string $externalId
+     * @param int|null $sourceId
+     * @return bool
+     */
+    public function existsByExternalId(int $warehouseId, string $externalId, int $sourceId = null):bool{
+        return Product::where('warehouse_id', $warehouseId)
+            ->where('external_id', $externalId)
+            ->where('source_id', $sourceId)
+            ->exists();
+    }
 }

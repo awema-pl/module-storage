@@ -28,6 +28,7 @@ class StoreImage extends FormRequest
             'product_id' => 'required|integer',
             'variant_id' => 'nullable|integer',
             'url' => 'required|string|max:65535',
+            'main' => 'required|boolean',
             'external_id' => 'nullable|string|max:255',
         ];
     }
@@ -45,6 +46,7 @@ class StoreImage extends FormRequest
             'product_id' =>  _p('storage::requests.user.image.attributes.product_id', 'product'),
             'variant_id' =>  _p('storage::requests.user.image.attributes.variant_id', 'variant'),
             'url' =>  _p('storage::requests.user.image.attributes.url', 'Web address'),
+            'main' =>  _p('storage::requests.user.image.attributes.main', 'Main'),
             'external_id' =>  _p('storage::requests.user.image.attributes.external_id', 'external ID'),
         ];
     }
