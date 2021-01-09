@@ -52,6 +52,16 @@ interface DuplicateProductRepository
     public function find($id, $columns = ['*']);
 
     /**
+     * Add basic where clauses and execute the query.
+     *
+     * @param array $conditions
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findWhere(array $conditions, array $columns = ['*']);
+
+    /**
      * First or update a record matching the attributes, and fill it with values.
      *
      * @param  array  $attributes
@@ -59,4 +69,11 @@ interface DuplicateProductRepository
      * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function firstOrCreate(array $attributes, array $values);
+
+    /**
+     * Add basic where clauses and execute the query.
+     *
+     * @param array $conditions
+     */
+    public function deleteWhere(array $conditions);
 }

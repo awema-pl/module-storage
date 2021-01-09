@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers;
 
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Jobs\GenerateDuplicateProductsJob;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Models\DuplicateProduct;
 use AwemaPL\Storage\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Auth\Controllers\Traits\RedirectsTo;
@@ -9,6 +10,11 @@ use AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Requests\StoreDuplicate
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Requests\UpdateDuplicateProduct;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Repositories\Contracts\DuplicateProductRepository;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Resources\EloquentDuplicateProduct;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator;
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
+use AwemaPL\Storage\User\Sections\Warehouses\Models\Contracts\Warehouse;
+use AwemaPL\Storage\User\Sections\Warehouses\Repositories\Contracts\WarehouseRepository;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,13 +27,25 @@ class DuplicateProductController extends Controller
     /** @var DuplicateProductRepository $duplicateProducts */
     protected $duplicateProducts;
 
+    /** @var ProductRepository $products */
+    protected $products;
+
+    /** @var WarehouseRepository $warehouses */
+    protected $warehouses;
+
     /** @var SettingRepository */
     protected $settings;
 
-    public function __construct(DuplicateProductRepository $duplicateProducts, SettingRepository $settings)
+    /** @var ProductDuplicateGenerator $generator */
+    protected $generator;
+
+    public function __construct(DuplicateProductRepository $duplicateProducts, ProductRepository $products, WarehouseRepository $warehouses, SettingRepository $settings, ProductDuplicateGenerator $generator)
     {
         $this->duplicateProducts = $duplicateProducts;
+        $this->products = $products;
+        $this->warehouses = $warehouses;
         $this->settings = $settings;
+        $this->generator = $generator;
     }
 
     /**
@@ -98,13 +116,33 @@ class DuplicateProductController extends Controller
     }
 
     /**
-     * Select duplicate product ID
+     * Generate duplicate by product
      *
-     * @param Request $request
-     * @return JsonResponse
+     * @param $id
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function selectDuplicateProductId(Request $request)
+    public function generateDuplicateByProduct($id)
     {
-        return $this->ajax($this->duplicateProducts->selectDuplicateProductId($request));
+        $product = $this->products->find($id);
+        $this->authorize('isOwner', $product);
+        $this->generator->generate($product);
+        return notify(_p('storage::notifies.user.duplicate_product.success_generated_duplicate_product', 'Successfully generated duplicate product.'));
+    }
+
+    /**
+     * Generate duplicate by warehouse
+     *
+     * @param $id
+     * @return array
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function generateDuplicateByWarehouse($id)
+    {
+        /** @var Warehouse $warehouse */
+        $warehouse = $this->warehouses->find($id);
+        $this->authorize('isOwner', $warehouse);
+        dispatch(new GenerateDuplicateProductsJob($warehouse));
+        return notify(_p('storage::notifies.user.duplicate_product.success_started_duplicat_generation', 'Duplicate generation started successfully.'));
     }
 }

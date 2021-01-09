@@ -17,6 +17,7 @@ class EloquentWarehouse extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'duplicate_product_settings' => $this->duplicate_products,
             'created_at' =>$this->created_at->format('Y-m-d H:i:s'),
         ];
     }

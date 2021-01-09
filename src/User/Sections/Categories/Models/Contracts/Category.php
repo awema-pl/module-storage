@@ -21,6 +21,13 @@ interface Category
     public function warehouse();
 
     /**
+     * Get the source that owns the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function source();
+
+    /**
      * Get the parent category that owns the category.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

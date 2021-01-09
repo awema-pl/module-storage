@@ -388,7 +388,7 @@ class Storage implements StorageContract
                 ->get('/', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@index')
                 ->name('index');
             $this->router
-                ->get('/product-targets', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@scope')
+                ->get('/sources', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@scope')
                 ->name('scope');
             $this->router
                 ->post('/', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@store')
@@ -399,6 +399,9 @@ class Storage implements StorageContract
             $this->router
                 ->delete('{id?}', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@destroy')
                 ->name('destroy');
+            $this->router
+                ->get('/select-source-id', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@selectSourceId')
+                ->name('select_source_id');
             $this->router
                 ->get('/select-sourceable-type', '\AwemaPL\Storage\User\Sections\Sources\Http\Controllers\SourceController@selectSourceableType')
                 ->name('select_sourceable_type');
@@ -430,7 +433,7 @@ class Storage implements StorageContract
                 ->post('/', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@store')
                 ->name('store');
             $this->router
-                ->get('/products', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@scope')
+                ->get('/duplicate-products', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@scope')
                 ->name('scope');
             $this->router
                 ->patch('{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@update')
@@ -438,6 +441,12 @@ class Storage implements StorageContract
             $this->router
                 ->delete('{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@delete')
                 ->name('delete');
+            $this->router
+                ->post('/generate-duplicate-by-product/{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@generateDuplicateByProduct')
+                ->name('generate_duplicate_by_product');
+            $this->router
+                ->post('/generate-duplicate-by-warehouse/{id?}', '\AwemaPL\Storage\User\Sections\DuplicateProducts\Http\Controllers\DuplicateProductController@generateDuplicateByWarehouse')
+                ->name('generate_duplicate_by_warehouse');
         });
     }
 

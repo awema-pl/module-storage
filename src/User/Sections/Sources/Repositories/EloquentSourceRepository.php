@@ -8,6 +8,7 @@ use AwemaPL\Storage\User\Sections\Sources\Models\Source;
 use AwemaPL\Storage\User\Sections\Sources\Scopes\EloquentSourceScopes;
 use AwemaPL\Repository\Eloquent\BaseRepository;
 use AwemaPL\Storage\User\Sections\Sources\Services\SourceTypes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use \Illuminate\Database\Eloquent\Model;
 use \Illuminate\Database\Eloquent\Collection;
@@ -19,6 +20,7 @@ class EloquentSourceRepository extends BaseRepository implements SourceRepositor
     private $sourceTypes;
 
     protected $searchable = [
+        'warehouse_id'
     ];
 
     public function __construct(SourceTypes $sourceTypes)
@@ -90,6 +92,31 @@ class EloquentSourceRepository extends BaseRepository implements SourceRepositor
     }
 
     /**
+     * Select source ID
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function selectSourceId($request){
+        /** @var \Illuminate\Support\Collection $categories */
+        $excludeId = (int)$request->exclude_id;
+        $sources = $this->scope($request)->isOwner()->with(['sourceable'])->smartPaginate();
+        $data = [];
+        /** @var Source $source */
+        foreach ($sources as $source){
+            if (!$excludeId || $source->id !== $excludeId){
+                /** @var Sourceable $sourceable */
+                $sourceable = $source->sourceable;
+                array_push($data, [
+                    'id' =>$source->getKey(),
+                    'name' =>$sourceable->getName(),
+                ]);
+            }
+        }
+        return $data;
+    }
+
+    /**
      * Select sourceable type
      *
      * @return array
@@ -125,4 +152,5 @@ class EloquentSourceRepository extends BaseRepository implements SourceRepositor
         }
         return $data;
     }
+
 }

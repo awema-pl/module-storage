@@ -25,6 +25,8 @@ class StoreWarehouse extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
+            'duplicate_product_settings.external_id' =>'required|boolean',
+            'duplicate_product_settings.ean' => 'required|boolean',
         ];
     }
 
@@ -38,6 +40,8 @@ class StoreWarehouse extends FormRequest
     {
         return [
             'name' => _p('storage::requests.user.warehouse.attributes.name', 'name'),
+            'duplicate_product_settings.external_id' => _p('storage::requests.user.warehouse.attributes.duplicate_products.external_id', 'generate duplicate products via external ID'),
+            'duplicate_product_settings.ean' => _p('storage::requests.user.warehouse.attributes.duplicate_products.ean', 'generate duplicate products via EAN'),
         ];
     }
 

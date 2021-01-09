@@ -88,6 +88,9 @@
                                             <button type="submit" slot="toggler" class="btn">
                                                 {{_p('storage::pages.user.product.options', 'Options')}}
                                             </button>
+                                            <cm-button @click="AWEMA._store.commit('setData', {param: 'generateDuplicateProduct', data: col.data}); AWEMA.emit('modal::generate_duplicate_product:open')">
+                                                {{_p('storage::pages.user.product.generate_duplicate', 'Generate duplicates')}}
+                                            </cm-button>
                                             <cm-button @click="AWEMA._store.commit('setData', {param: 'editProduct', data: col.data}); AWEMA.emit('modal::edit_product:open')">
                                                 {{_p('storage::pages.user.product.edit', 'Edit')}}
                                             </cm-button>
@@ -145,6 +148,15 @@
                      <fb-input name="external_id" label="{{ _p('storage::pages.user.product.external_id', 'External ID') }}"></fb-input>
                  </div>
             </div>
+        </form-builder>
+    </modal-window>
+
+    <modal-window name="generate_duplicate_product" class="modal_formbuilder" title="{{  _p('storage::pages.user.product.are_you_sure_generate_duplicate', 'Are you sure generate duplicates?') }}">
+        <form-builder :edited="true" url="{{route('storage.user.duplicate_product.generate_duplicate_by_product') }}/{id}" method="post"
+                      @sended="AWEMA.emit('content::products_table:update')"
+                      send-text="{{ _p('storage::pages.user.product.confirm', 'Confirm') }}" store-data="generateDuplicateProduct"
+                      disabled-dialog>
+
         </form-builder>
     </modal-window>
 

@@ -103,6 +103,17 @@ class SourceController extends Controller
     }
 
     /**
+     * Select source ID
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function selectSourceId(Request $request)
+    {
+        return $this->ajax($this->sources->selectSourceId($request));
+    }
+
+    /**
      * Select source type
      *
      * @return JsonResponse
@@ -145,7 +156,9 @@ class SourceController extends Controller
     public function updateProducts(UpdateProductSource $request, $id)
     {
         $source = Source::find($id);
-        dispatch(new UpdateProductJob($source, $request->all()));
+        $options = $request->all();
+        $options['generate_duplicate_product']= true;
+        dispatch(new UpdateProductJob($source, $options));
         return notify(_p('storage::notifies.user.source.successfully_started_updating_products', 'You successfully started updating products.'));
     }
 }

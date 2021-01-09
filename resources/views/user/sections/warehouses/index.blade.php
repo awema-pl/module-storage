@@ -7,6 +7,8 @@
 
 @endpush
 
+@section('body_class', 'storage_warehouses')
+
 @section('title')
     {{ _p('storage::pages.user.warehouse.headline', 'Warehouses') }}
 @endsection
@@ -34,6 +36,9 @@
                                             <button type="submit" slot="toggler" class="btn">
                                                 {{_p('storage::pages.user.warehouse.options', 'Options')}}
                                             </button>
+                                            <cm-button @click="AWEMA._store.commit('setData', {param: 'generateDuplicateProductWarehouse', data: col.data}); AWEMA.emit('modal::generate_duplicate_product_warehouse:open')">
+                                                {{_p('storage::pages.user.warehouse.generate_duplicate_product', 'Generate duplicate products')}}
+                                            </cm-button>
                                             <cm-button @click="AWEMA._store.commit('setData', {param: 'editWarehouse', data: col.data}); AWEMA.emit('modal::edit_warehouse:open')">
                                                 {{_p('storage::pages.user.warehouse.edit', 'Edit')}}
                                             </cm-button>
@@ -65,7 +70,21 @@
                       @sended="AWEMA.emit('content::warehouses_table:update')">
              <div v-if="AWEMA._store.state.forms['add']">
                  <fb-input name="name" label="{{ _p('storage::pages.user.warehouse.name', 'Name') }}"></fb-input>
+                 <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.warehouse.duplicate_product_settings', 'Duplicate product settings') }}</h5>
+                 <div class="mt-15">
+                     <fb-switcher name="duplicate_product_settings.external_id" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_external_id', 'Generate duplicates via external ID.') }}"></fb-switcher>
+                     <fb-switcher name="duplicate_product_settings.ean" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_ean', 'Generate duplicates via EAN.') }}"></fb-switcher>
+                 </div>
             </div>
+        </form-builder>
+    </modal-window>
+
+    <modal-window name="generate_duplicate_product_warehouse" class="modal_formbuilder" title="{{  _p('storage::pages.user.warehouse.are_you_sure_generate_duplicate_products', 'Are you sure generate duplicate products?') }}">
+        <form-builder :edited="true" url="{{route('storage.user.duplicate_product.generate_duplicate_by_warehouse') }}/{id}" method="post"
+                      @sended="AWEMA.emit('content::products_table:update')"
+                      send-text="{{ _p('storage::pages.user.warehouse.confirm', 'Confirm') }}" store-data="generateDuplicateProductWarehouse"
+                      disabled-dialog>
+
         </form-builder>
     </modal-window>
 
@@ -75,6 +94,11 @@
                       send-text="{{ _p('storage::pages.user.warehouse.save', 'Save') }}" store-data="editWarehouse">
             <div v-if="AWEMA._store.state.forms['edit_warehouse']">
                 <fb-input name="name" label="{{ _p('storage::pages.user.warehouse.name', 'Name') }}"></fb-input>
+                <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.warehouse.duplicate_product_settings', 'Duplicate product settings') }}</h5>
+                <div class="mt-15">
+                    <fb-switcher name="duplicate_products.external_id" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_external_id', 'Generate duplicates via external ID.') }}"></fb-switcher>
+                    <fb-switcher name="duplicate_products.ean" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_ean', 'Generate duplicates via EAN.') }}"></fb-switcher>
+                </div>
             </div>
         </form-builder>
     </modal-window>

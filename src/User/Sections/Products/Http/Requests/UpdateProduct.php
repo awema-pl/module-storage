@@ -33,7 +33,7 @@ class UpdateProduct extends FormRequest
             'sku' => 'nullable|string|max:255',
             'stock' => 'required|integer',
             'availability' => 'nullable|string|max:255',
-            'brutto_price' => 'required|integer|between:0,99999999.9999',
+            'brutto_price' => 'required|between:0,99999999.9999',
             'tax_rate' => 'required|integer|between:0,100',
             'external_id' => 'nullable|string|max:255',
         ];

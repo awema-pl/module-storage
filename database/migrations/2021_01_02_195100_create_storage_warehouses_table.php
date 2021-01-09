@@ -12,6 +12,7 @@ class CreateStorageWarehousesTable extends Migration
         Schema::create(config('storage.database.tables.storage_warehouses'), function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->json('duplicate_products')->nullable();
             $table->timestamps();
         });
 

@@ -8,6 +8,7 @@ use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Models\Xmlceneo;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoImporter as XmlceneoImporterContract;
 use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
 use AwemaPL\Storage\User\Sections\Descriptions\Services\DescriptionType;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator;
 use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\Contracts\ManufacturerRepository;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
@@ -42,6 +43,9 @@ class XmlceneoImporter implements XmlceneoImporterContract
     /** @var CategoryRepository $categories */
     private $categories;
 
+    /** @var ProductDuplicateGenerator $productDuplicateGenerator */
+    protected $productDuplicateGenerator;
+
     /** @var DataExtractor $dataExtractor */
     private $dataExtractor;
 
@@ -54,11 +58,12 @@ class XmlceneoImporter implements XmlceneoImporterContract
     /** @var array $tempCategoryIds */
     private $tempCategoryIds;
 
-    public function __construct(ProductRepository $products, ManufacturerRepository $manufacturers, CategoryRepository $categories)
+    public function __construct(ProductRepository $products, ManufacturerRepository $manufacturers, CategoryRepository $categories, ProductDuplicateGenerator $productDuplicateGenerator)
     {
         $this->products = $products;
         $this->manufacturers = $manufacturers;
         $this->categories = $categories;
+        $this->productDuplicateGenerator = $productDuplicateGenerator;
         $this->tempManufacturerIds = [];
         $this->tempCategoryIds = [];
     }
@@ -73,13 +78,14 @@ class XmlceneoImporter implements XmlceneoImporterContract
     {
         $this->setSource($source);
         $products = $this->getXmlceneoClient()->all();
-        /** @var Response $product */
-        foreach ($products as $product) {
-            $xml = $product->xml();
+        /** @var Response $productResponse */
+        foreach ($products as $productResponse) {
+            $xml = $productResponse->xml();
             $externalId = $this->getDataExtractor()->getId($xml);
             if (!$this->products->existsByExternalId($source->warehouse->id, $externalId, $source->getKey())) {
                 dump('import product ' . $externalId);
-                $this->importProduct($externalId, $xml);
+                $product = $this->importProduct($externalId, $xml);
+                $this->productDuplicateGenerator->generate($product);
             }
         }
     }
@@ -89,6 +95,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
      *
      * @param string $externalId
      * @param SimpleXMLElement $xml
+     * @return Product
      */
     public function importProduct(string $externalId, SimpleXMLElement $xml)
     {
@@ -122,6 +129,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
         }
         $product->active = true;
         $product->save();
+        return $product;
     }
 
     /**

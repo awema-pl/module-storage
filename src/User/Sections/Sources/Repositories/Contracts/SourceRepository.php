@@ -52,6 +52,14 @@ interface SourceRepository
     public function find($id, $columns = ['*']);
 
     /**
+     * Select source ID
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function selectSourceId($request);
+
+    /**
      * Select sourceable type
      *
      * @return array

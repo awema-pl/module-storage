@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\DuplicateProducts\Repositories;
 
+use AwemaPL\Repository\Criteria\FindWhere;
 use AwemaPL\Storage\Common\Exceptions\StorageException;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Models\DuplicateProduct;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Repositories\Contracts\DuplicateProductRepository;
@@ -77,5 +78,21 @@ class EloquentDuplicateProductRepository extends BaseRepository implements Dupli
      */
     public function find($id, $columns = ['*']){
         return parent::find($id, $columns);
+    }
+
+    /**
+     * Add basic where clauses and execute the query.
+     *
+     * @param array $conditions
+     */
+    public function deleteWhere(array $conditions){
+
+        if ($conditions){
+            $query = DuplicateProduct::query();
+            foreach ($conditions as $key => $value){
+                $query->where($key, $value);
+            }
+            $query->delete();
+        }
     }
 }

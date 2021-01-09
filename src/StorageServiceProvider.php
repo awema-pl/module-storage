@@ -65,6 +65,8 @@ use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoImp
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\XmlceneoImporter;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater as XmlceneoUpdaterContract;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\XmlceneoUpdater;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator as ProductDuplicateGeneratorContract;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\ProductDuplicateGenerator;
 
 class StorageServiceProvider extends AwemaProvider
 {
@@ -158,6 +160,7 @@ class StorageServiceProvider extends AwemaProvider
         $this->app->bind(FeatureTypeContract::class, FeatureType::class);
         $this->app->bind(XmlceneoImporterContract::class, XmlceneoImporter::class);
         $this->app->bind(XmlceneoUpdaterContract::class, XmlceneoUpdater::class);
+        $this->app->bind(ProductDuplicateGeneratorContract::class, ProductDuplicateGenerator::class);
     }
 
     /**

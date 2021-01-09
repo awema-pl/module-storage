@@ -7,6 +7,6 @@ use AwemaPL\Repository\Scopes\ScopesAbstract;
 class EloquentSourceScopes extends ScopesAbstract
 {
     protected $scopes = [
-
+        'q' =>SearchSource::class,
     ];
 }

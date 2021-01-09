@@ -29,21 +29,21 @@ class CreateStorageManufacturersTable extends Migration
         });
 
         Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
-            $table->unique(['warehouse_id', 'name'], 'YKXV281P8U52DCJJ3QQKJU');
-        });
-
-        Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
             $table->foreignId('source_id')
                 ->nullable()
                 ->constrained(config('storage.database.tables.storage_sources'))
                 ->onDelete('cascade');
+        });
+
+        Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
+            $table->unique(['warehouse_id', 'name', 'source_id'], 'YKXV281P8U52DCJJ3QQKJU');
         });
     }
 
     public function down()
     {
         Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {
-            $table->dropUnique(['warehouse_id', 'name']);
+            $table->dropUnique(['warehouse_id', 'name', 'source_id']);
         });
 
         Schema::table(config('storage.database.tables.storage_manufacturers'), function (Blueprint $table) {

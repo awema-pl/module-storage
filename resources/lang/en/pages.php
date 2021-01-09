@@ -37,7 +37,13 @@ return [
             "edit_warehouse" => "Edit warehouse",
             "save" => "Save",
             "are_you_sure_delete" => "Are you sure delete?",
-            "confirm" => "Confirm"
+            "confirm" => "Confirm",
+            "generate_duplicate_product" => "Generate duplicate products",
+            "are_you_sure_generate_duplicate_products" => "Are you sure generate duplicate products?",
+            "duplicate_products" => "Duplicate products",
+            "generate_duplicates_via_external_id" => "Generate duplicates via external ID.",
+            "generate_duplicates_via_ean" => "Generate duplicates via EAN.",
+            "duplicate_product_settings" => "Duplicate product settings"
         ],
         "category" => [
             "meta_title" => "Shops",
@@ -149,7 +155,9 @@ return [
             "default_category" => "Default category",
             "active" => "Active",
             "yes" => "Yes",
-            "no" => "No"
+            "no" => "No",
+            "generate_duplicate" => "Generate duplicates",
+            "are_you_sure_generate_duplicate" => "Are you sure generate duplicates?"
         ],
         "category_product" => [
             "meta_title" => "Products in categories",

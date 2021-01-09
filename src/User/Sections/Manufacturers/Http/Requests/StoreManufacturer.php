@@ -27,7 +27,8 @@ class StoreManufacturer extends FormRequest
         return [
             'warehouse_id' => 'required|integer',
             'name' => ['required', 'string', 'max:255', Rule::unique(config('storage.database.tables.storage_manufacturers'))->where(function ($query) {
-                return $query->where('warehouse_id', $this->warehouse_id);
+                return $query->where('warehouse_id', $this->warehouse_id)
+                    ->where('source_id', $this->source_id);
             })],
             'image_url' => 'nullable|string|max:255',
         ];

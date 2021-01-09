@@ -47,6 +47,10 @@ return [
             "successfully_started_updating_products" => "You successfully started updating products.",
             "successfully_started_importing_products" => "You successfully started importing products.",
             "success_updated_source" => "Success updated source."
+        ],
+        "duplicate_product" => [
+            "success_generated_duplicate_product" => "Successfully generated duplicate product.",
+            "success_started_duplicat_generation" => "Duplicate generation started successfully."
         ]
     ]
 ];

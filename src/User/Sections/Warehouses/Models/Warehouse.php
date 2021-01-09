@@ -2,9 +2,12 @@
 
 namespace AwemaPL\Storage\User\Sections\Warehouses\Models;
 
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Task\User\Sections\Statuses\Models\Contracts\Taskable;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Contracts\Warehouse as WarehouseContract;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Warehouse extends Model implements WarehouseContract
 {
@@ -19,7 +22,7 @@ class Warehouse extends Model implements WarehouseContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'name'
+       'user_id', 'name', 'duplicate_product_settings'
     ];
 
     /**
@@ -29,6 +32,7 @@ class Warehouse extends Model implements WarehouseContract
      */
     protected $casts = [
         'user_id' => 'integer',
+        'duplicate_product_settings' =>'array',
     ];
 
     /**
@@ -55,6 +59,15 @@ class Warehouse extends Model implements WarehouseContract
      */
     public function user(){
         return $this->belongsTo(config('auth.providers.users.model'));
+    }
+
+    /**
+     * Get all of the products for the product.
+     *
+     * @return HasMany
+     */
+    public function products(){
+        return $this->hasMany(Product::class);
     }
 
 }

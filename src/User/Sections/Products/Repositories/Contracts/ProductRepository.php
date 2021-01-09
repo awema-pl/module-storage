@@ -50,14 +50,24 @@ interface ProductRepository
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
      */
     public function find($id, $columns = ['*']);
-    
+
+    /**
+     * Add basic where clauses and execute the query.
+     *
+     * @param array $conditions
+     * @param array $columns
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function findWhere(array $conditions, array $columns = ['*']);
+
     /**
      * Add basic where clauses and execute single the query.
      *
      * @param array $conditions
      * @param array $columns
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Model|null
      */
     public function firstWhere(array $conditions, array $columns = ['*']);
 

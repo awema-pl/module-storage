@@ -4,7 +4,11 @@ return [
     "user" => [
         "warehouse" => [
             "attributes" => [
-                "name" => "Name"
+                "name" => "Name",
+                "duplicate_products" => [
+                    "external_id" => "generate duplicate products via external ID",
+                    "ean" => "generate duplicate products via EAN"
+                ]
             ]
         ],
         "category" => [

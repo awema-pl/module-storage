@@ -58,5 +58,13 @@ return [
             'successfully_started_importing_products'=>'Pomyślnie rozpoczęto importowanie produktów.',
             'successfully_started_updating_products'=>'Pomyślnie rozpoczęto aktualizację produktów.'
         ],
+        'duplicate_product' => [
+            'success_added_duplicate_product' => 'Pomyślnie dodano duplikat produktu.',
+            'success_updated_duplicate_product' => 'Pomyślnie zapisano duplikat produktu.',
+            'success_deleted_duplicate_product' => 'Pomyślnie usunięto duplikat produktu.',
+            'success_generated_duplicate_product' =>'Pomyślnie wygenerowano duplikaty produktu.',
+            'success_started_duplicat_generation' =>'Pomyślnie rozpoczęto generowanie duplikatów.'
+        ],
+
     ],
 ];

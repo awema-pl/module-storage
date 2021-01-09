@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class EloquentCategoryRepository extends BaseRepository implements CategoryRepository
 {
     protected $searchable = [
-
+        'warehouse_id','source_id',
     ];
 
     public function entity()
@@ -94,7 +94,7 @@ class EloquentCategoryRepository extends BaseRepository implements CategoryRepos
         /** @var Collection $categories */
         $excludeId = (int)$request->exclude_id;
         $includeId = (int)$request->include_id;
-        $categories = $this->scope($request)->isOwner()->where('warehouse_id', $request->warehouse_id)->smartPaginate();
+        $categories = $this->scope($request)->isOwner()->smartPaginate();
        $data = [];
         foreach ($categories as $category){
             if (!$excludeId || $category->id !== $excludeId){

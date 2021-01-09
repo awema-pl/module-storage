@@ -4,6 +4,7 @@ namespace AwemaPL\Storage\User\Sections\Categories\Models;
 
 use AwemaPL\Storage\Common\Exceptions\StorageException;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Storage\User\Sections\Sources\Models\Source;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -88,6 +89,15 @@ class Category extends Model implements CategoryContract
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
+    }
+
+    /**
+     * Get the source that owns the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function source(){
+        return $this->belongsTo(Source::class);
     }
 
     /**

@@ -23,6 +23,10 @@ return [
         'warehouse'=>[
             'attributes' => [
                 'name' => 'nazwa',
+                'duplicate_product_settings' => [
+                    'external_id' =>'generuj duplikaty produktów przez zewnętrzny ID',
+                    'ean' =>'generuj duplikaty produktów przez EAN',
+                ]
             ],
             'messages'=>[]
         ],

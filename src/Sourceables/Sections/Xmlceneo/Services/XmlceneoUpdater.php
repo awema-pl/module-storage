@@ -5,13 +5,16 @@ namespace AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Models\Xmlceneo;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater as XmlceneoUpdaterContract;
 use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator;
 use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\Contracts\ManufacturerRepository;
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
 use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Source as SourceContract;
 use AwemaPL\Xml\Client\Readers\Requests\Contracts\Ceneo as CeneoContract;
 use AwemaPL\Xml\Client\Readers\Responses\Response;
 use AwemaPL\Xml\Client\XmlClient;
 use AwemaPL\Xml\User\Sections\Ceneosources\Services\Contracts\DataExtractor;
+use Illuminate\Database\Eloquent\Model;
 use SimpleXMLElement;
 
 class XmlceneoUpdater implements XmlceneoUpdaterContract
@@ -28,15 +31,19 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
     /** @var ProductRepository $products */
     private $products;
 
+    /** @var ProductDuplicateGenerator $productDuplicateGenerator */
+    protected $productDuplicateGenerator;
+
     /** @var DataExtractor $dataExtractor */
     private $dataExtractor;
 
     /** @var array $options */
     private $options;
 
-    public function __construct(ProductRepository $products)
+    public function __construct(ProductRepository $products, ProductDuplicateGenerator $productDuplicateGenerator)
     {
         $this->products = $products;
+        $this->productDuplicateGenerator = $productDuplicateGenerator;
     }
     
     /**
@@ -49,11 +56,14 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
         $this->setSource($source);
         $this->setOptions($options);
         $products = $this->getXmlceneoClient()->all();
-        /** @var Response $product */
-        foreach ($products as $product) {
-            $xml = $product->xml();
+        /** @var Response $productResponse */
+        foreach ($products as $productResponse) {
+            $xml = $productResponse->xml();
             $externalId = $this->getDataExtractor()->getId($xml);
-            $this->updateProduct($externalId, $xml);
+            $product = $this->updateProduct($externalId, $xml);
+            if ($product && $this->getOption('generate_duplicate_product')){
+                $this->productDuplicateGenerator->generate($product);
+            }
         }
     }
 
@@ -62,6 +72,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
      *
      * @param string $externalId
      * @param SimpleXMLElement $xml
+     * @return Product|Model|null
      */
     public function updateProduct(string $externalId, SimpleXMLElement $xml)
     {
@@ -79,6 +90,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
                 $product->update($data);
             }
         }
+        return $product;
     }
 
     /**
@@ -156,5 +168,16 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
     private function canUpdate(string $element): bool
     {
         return (bool) $this->options[$element] ?? false;
+    }
+
+    /**
+     * Get option
+     *
+     * @param $key
+     * @param null $default
+     * @return mixed|null
+     */
+    private function getOption($key, $default = null){
+        return $this->options[$key] ?? $default;
     }
 }
