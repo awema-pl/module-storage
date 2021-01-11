@@ -7,7 +7,7 @@ return [
                 "name" => "Name",
                 "duplicate_products" => [
                     "external_id" => "generate duplicate products via external ID",
-                    "ean" => "generate duplicate products via EAN"
+                    "gtin" => "generate duplicate products via GTIN"
                 ]
             ]
         ],
@@ -39,7 +39,7 @@ return [
             "attributes" => [
                 "warehouse_id" => "warehouse",
                 "name" => "name",
-                "ean" => "EAN",
+                "gtin" => "GTIN",
                 "sku" => "SKU",
                 "stock" => "stock",
                 "availability" => "availability",
@@ -81,7 +81,7 @@ return [
                 "warehouse_id" => "warehouse",
                 "product_id" => "product",
                 "name" => "name",
-                "ean" => "EAN",
+                "gtin" => "GTIN",
                 "sku" => "SKU",
                 "stock" => "stock",
                 "availability" => "availability",

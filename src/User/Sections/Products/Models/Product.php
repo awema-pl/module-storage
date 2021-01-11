@@ -30,7 +30,7 @@ class Product extends Model implements ProductContract
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'source_id','active', 'name', 'ean','sku','stock','availability',
+       'user_id', 'warehouse_id', 'default_category_id', 'manufacturer_id', 'source_id','active', 'name', 'gtin','sku','stock','availability',
        'brutto_price','tax_rate', 'external_id',
     ];
 

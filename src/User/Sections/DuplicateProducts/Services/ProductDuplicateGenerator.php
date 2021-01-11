@@ -104,7 +104,7 @@ class ProductDuplicateGenerator implements ProductDuplicateGeneratorContract
         $checkProduct = [];
         foreach ($this->getActiveSettings() as $key => $active) {
             $checkProduct['id'] = $productId;
-            if ($key === 'ean') {
+            if ($key === 'gtin') {
                 $checkProduct[$key] = $product->$key;
             }
             else if ($key === 'external_id') {
@@ -151,10 +151,10 @@ class ProductDuplicateGenerator implements ProductDuplicateGeneratorContract
             array_push($checkedProductIds, $checkProduct['id']);
             $searchProducts = collect();
             foreach ($this->getActiveSettings() as $key => $active) {
-                if ($key === 'ean' && $checkProduct['ean']) {
+                if ($key === 'gtin' && $checkProduct['gtin']) {
                     $searchProducts = $searchProducts->merge($this->products->findWhere([
                         'warehouse_id' => $this->product->warehouse_id,
-                        'ean' => $checkProduct['ean'],
+                        'gtin' => $checkProduct['gtin'],
                     ]));
                 } else if ($key === 'external_id' && $checkProduct['external_id']) {
                     $searchProducts = $searchProducts->merge($this->products->findWhere([

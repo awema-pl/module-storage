@@ -105,7 +105,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
         $defaultCategoryId = array_pop($categoryIds);
         $product = $this->products->create([
             'name' => $this->getProductName($xml),
-            'ean' => $this->dataExtractor->getAttrubuteValue('EAN', $attributes, true),
+            'gtin' => $this->dataExtractor->getAttrubuteValue('GTIN', $attributes, true),
             'sku' => $this->dataExtractor->getAttrubuteValue('SKU', $attributes, true),
             'stock' => $this->dataExtractor->getStock($xml),
             'availability' => $this->dataExtractor->getAvailability($xml),

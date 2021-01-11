@@ -25,7 +25,7 @@ return [
                 'name' => 'nazwa',
                 'duplicate_product_settings' => [
                     'external_id' =>'generuj duplikaty produktów przez zewnętrzny ID',
-                    'ean' =>'generuj duplikaty produktów przez EAN',
+                    'gtin' =>'generuj duplikaty produktów przez GTIN',
                 ]
             ],
             'messages'=>[]
@@ -58,7 +58,7 @@ return [
                 'manufacturer_id' => 'producent',
                 'active' => 'aktywny',
                 'name' => 'nazwa',
-                'ean' => 'EAN',
+                'gtin' => 'GTIN',
                 'sku' => 'SKU',
                 'stock' => 'stan magazynowy',
                 'availability' => 'dostępność',
@@ -97,7 +97,7 @@ return [
                 'product_id' => 'produkt',
                 'active' => 'aktywny',
                 'name' => 'nazwa',
-                'ean' => 'EAN',
+                'gtin' => 'GTIN',
                 'sku' => 'SKU',
                 'stock' => 'stan magazynowy',
                 'availability' => 'dostępność',

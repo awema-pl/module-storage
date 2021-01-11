@@ -28,7 +28,7 @@ class EloquentVariant extends JsonResource
             'product' => EloquentProduct::make($this->product),
             'active' => $this->active,
             'name' => $this->name,
-            'ean' => $this->ean,
+            'gtin' => $this->gtin,
             'sku' => $this->sku,
             'stock' => $this->stock,
             'availability' => $this->availability,

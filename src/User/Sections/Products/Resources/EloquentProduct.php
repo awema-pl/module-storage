@@ -28,7 +28,7 @@ class EloquentProduct extends JsonResource
             'manufacturer' => EloquentManufacturer::make($this->manufacturer),
             'active' => $this->active,
             'name' => $this->name,
-            'ean' => $this->ean,
+            'gtin' => $this->gtin,
             'sku' => $this->sku,
             'stock' => $this->stock,
             'availability' => $this->availability,

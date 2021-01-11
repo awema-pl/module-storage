@@ -42,7 +42,7 @@ return [
             "are_you_sure_generate_duplicate_products" => "Are you sure generate duplicate products?",
             "duplicate_products" => "Duplicate products",
             "generate_duplicates_via_external_id" => "Generate duplicates via external ID.",
-            "generate_duplicates_via_ean" => "Generate duplicates via EAN.",
+            "generate_duplicates_via_gtin" => "Generate duplicates via GTIN.",
             "duplicate_product_settings" => "Duplicate product settings"
         ],
         "category" => [
@@ -93,7 +93,7 @@ return [
             "products" => "Product",
             "warehouse" => "Warehouse",
             "name" => "Name",
-            "ean" => "EAN",
+            "gtin" => "GTIN",
             "sku" => "SKU",
             "category" => "Category",
             "stock" => "Stock",
@@ -213,7 +213,7 @@ return [
             "warehouse" => "Warehouse",
             "product" => "Product",
             "name" => "Name",
-            "ean" => "EAN",
+            "gtin" => "GTIN",
             "sku" => "SKU",
             "information" => "Information",
             "stock" => "Stock",

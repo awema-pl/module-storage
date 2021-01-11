@@ -16,7 +16,7 @@ class CreateStorageProductsTable extends Migration
             $table->id();
             $table->boolean('active')->default(false)->index();
             $table->string('name');
-            $table->string('ean')->nullable()->index();
+            $table->string('gtin')->nullable()->index();
             $table->string('sku')->nullable()->index();
             $table->integer('stock');
             $table->string('availability')->default($availability->getDefault())->index();

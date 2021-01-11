@@ -26,7 +26,7 @@ class UpdateWarehouse extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'duplicate_product_settings.external_id' =>'required|boolean',
-            'duplicate_product_settings.ean' => 'required|boolean',
+            'duplicate_product_settings.gtin' => 'required|boolean',
         ];
     }
 
@@ -41,7 +41,7 @@ class UpdateWarehouse extends FormRequest
         return [
             'name' => _p('storage::requests.user.warehouse.attributes.name', 'name'),
             'duplicate_products.external_id' => _p('storage::requests.user.warehouse.attributes.duplicate_product_settings.external_id', 'generate duplicate products via external ID'),
-            'duplicate_products.ean' => _p('storage::requests.user.warehouse.attributes.duplicate_product_settings.ean', 'generate duplicate products via EAN'),
+            'duplicate_products.gtin' => _p('storage::requests.user.warehouse.attributes.duplicate_product_settings.gtin', 'generate duplicate products via GTIN'),
         ];
     }
 

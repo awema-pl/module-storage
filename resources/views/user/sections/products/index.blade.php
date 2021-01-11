@@ -54,10 +54,10 @@
                                                 <span class="cl-caption">{{ _p('storage::pages.user.product.manufacturer', 'Manufacturer') }}:</span> @{{ col.data.manufacturer.name }}
                                             </div>
                                             <div class="tf-size-small">
-                                                <span v-if="col.data.ean">
-                                                    <span class="cl-caption">{{ _p('storage::pages.user.product.ean', 'EAN') }}:</span> @{{ col.data.ean }}
+                                                <span v-if="col.data.gtin">
+                                                    <span class="cl-caption">{{ _p('storage::pages.user.product.gtin', 'GTIN') }}:</span> @{{ col.data.gtin }}
                                                 </span>
-                                                <span v-if="col.data.sku" :class="{'ml-4': col.data.ean}">
+                                                <span v-if="col.data.sku" :class="{'ml-4': col.data.gtin}">
                                                     <span class="cl-caption">{{ _p('storage::pages.user.product.sku', 'SKU') }}:</span> @{{ col.data.sku }}
                                                 </span>
                                             </div>
@@ -136,7 +136,7 @@
                      </fb-select>
                      <fb-switcher name="active" label="{{ _p('storage::pages.user.product.active', 'Active') }}"></fb-switcher>
                      <fb-input name="name" label="{{ _p('storage::pages.user.product.name', 'Name') }}"></fb-input>
-                     <fb-input name="ean" label="{{ _p('storage::pages.user.product.ean', 'EAN') }}"></fb-input>
+                     <fb-input name="gtin" label="{{ _p('storage::pages.user.product.gtin', 'GTIN') }}"></fb-input>
                      <fb-input name="sku" label="{{ _p('storage::pages.user.product.sku', 'SKU') }}"></fb-input>
                      <fb-input name="stock" type="number" min="0" label="{{ _p('storage::pages.user.product.stock', 'Stock') }}"></fb-input>
                      <fb-select name="availability" :multiple="false" open-fetch options-value="id" options-name="name"
@@ -184,7 +184,7 @@
                     </fb-select>
                     <fb-switcher name="active" label="{{ _p('storage::pages.user.product.active', 'Active') }}"></fb-switcher>
                     <fb-input name="name" label="{{ _p('storage::pages.user.product.name', 'Name') }}"></fb-input>
-                    <fb-input name="ean" label="{{ _p('storage::pages.user.product.ean', 'EAN') }}"></fb-input>
+                    <fb-input name="gtin" label="{{ _p('storage::pages.user.product.gtin', 'GTIN') }}"></fb-input>
                     <fb-input name="sku" label="{{ _p('storage::pages.user.product.sku', 'SKU') }}"></fb-input>
                     <fb-input name="stock" type="number" min="0" label="{{ _p('storage::pages.user.product.stock', 'Stock') }}"></fb-input>
                     <fb-select name="availability" :multiple="false" open-fetch auto-fetch options-value="id" options-name="name"

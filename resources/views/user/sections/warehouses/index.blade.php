@@ -73,7 +73,7 @@
                  <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.warehouse.duplicate_product_settings', 'Duplicate product settings') }}</h5>
                  <div class="mt-15">
                      <fb-switcher name="duplicate_product_settings.external_id" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_external_id', 'Generate duplicates via external ID.') }}"></fb-switcher>
-                     <fb-switcher name="duplicate_product_settings.ean" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_ean', 'Generate duplicates via EAN.') }}"></fb-switcher>
+                     <fb-switcher name="duplicate_product_settings.gtin" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_gtin', 'Generate duplicates via GTIN.') }}"></fb-switcher>
                  </div>
             </div>
         </form-builder>
@@ -97,7 +97,7 @@
                 <h5 class="cl-caption mt-20 mb-0">{{ _p('storage::pages.user.warehouse.duplicate_product_settings', 'Duplicate product settings') }}</h5>
                 <div class="mt-15">
                     <fb-switcher name="duplicate_products.external_id" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_external_id', 'Generate duplicates via external ID.') }}"></fb-switcher>
-                    <fb-switcher name="duplicate_products.ean" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_ean', 'Generate duplicates via EAN.') }}"></fb-switcher>
+                    <fb-switcher name="duplicate_products.gtin" label="{{ _p('storage::pages.user.warehouse.generate_duplicates_via_gtin', 'Generate duplicates via GTIN.') }}"></fb-switcher>
                 </div>
             </div>
         </form-builder>
