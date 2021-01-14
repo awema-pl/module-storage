@@ -6,6 +6,8 @@ use AwemaPL\Storage\User\Sections\Products\Repositories\EloquentProductRepositor
 use AwemaPL\Storage\Sections\Options\Http\Requests\UpdateOption;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Generator;
+use Illuminate\Support\LazyCollection;
 
 interface ProductRepository
 {
@@ -95,4 +97,20 @@ interface ProductRepository
      * @return bool
      */
     public function existsByExternalId(int $warehouseId, string $externalId, int $sourceId = null):bool;
+
+    /**
+     * Get active by warehouse cursor
+     *
+     * @param int $warehouseId
+     * @return LazyCollection
+     */
+    public function getActiveByWarehouseCursor(int $warehouseId): LazyCollection;
+
+    /**
+     * Count active by warehouse
+     *
+     * @param int $warehouseId
+     * @return int
+     */
+    public function countActiveByWarehouse(int $warehouseId): int;
 }

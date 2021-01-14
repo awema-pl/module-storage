@@ -161,4 +161,5 @@ class Category extends Model implements CategoryContract
         }
         return $parentCategories;
     }
+
 }

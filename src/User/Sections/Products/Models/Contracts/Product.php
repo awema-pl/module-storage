@@ -71,4 +71,26 @@ interface Product
      * @return HasMany
      */
     public function features();
+
+    /**
+     * The categories that belong to the product.
+     *
+     * @return BelongsToMany
+     */
+    public function duplicates();
+
+    /**
+     * Get category IDs
+     *
+     * @return array
+     */
+    public function getCategoryIds();
+
+    /**
+     * Get feature by name
+     *
+     * @param string $name
+     * @return string|null
+     */
+    public function getFeatureByName(string $name): ?string;
 }

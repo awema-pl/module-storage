@@ -5,6 +5,7 @@ namespace AwemaPL\Storage\User\Sections\Products\Models;
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\CategoriesProducts\Models\CategoryProduct;
 use AwemaPL\Storage\User\Sections\Descriptions\Models\Description;
+use AwemaPL\Storage\User\Sections\DuplicateProducts\Models\DuplicateProduct;
 use AwemaPL\Storage\User\Sections\Features\Models\Feature;
 use AwemaPL\Storage\User\Sections\Images\Models\Image;
 use AwemaPL\Storage\User\Sections\Manufacturers\Models\Manufacturer;
@@ -158,5 +159,38 @@ class Product extends Model implements ProductContract
      */
     public function features(){
         return $this->hasMany(Feature::class);
+    }
+
+    /**
+     * The categories that belong to the product.
+     *
+     * @return BelongsToMany
+     */
+    public function duplicates()
+    {
+        return $this->belongsToMany(Product::class, config('storage.database.tables.storage_duplicate_products'), 'duplicate_product_id')->withTimestamps();;
+    }
+
+    /**
+     * Get category IDs
+     *
+     * @return array
+     */
+    public function getCategoryIds(){
+        return CategoryProduct::where('product_id', $this->id)->get('category_id')->pluck('category_id')->toArray();
+    }
+
+    /**
+     * Get feature by name
+     *
+     * @param string $name
+     * @return string|null
+     */
+    public function getFeatureByName(string $name): ?string{
+        $feature = $this->features()->where('name', $name)->first();
+        if ($feature){
+            return (string) $feature->value;
+        }
+        return null;
     }
 }

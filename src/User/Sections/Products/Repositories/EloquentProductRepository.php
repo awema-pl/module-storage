@@ -10,6 +10,8 @@ use AwemaPL\Storage\User\Sections\Products\Services\Contracts\Availability;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Generator;
+use Illuminate\Support\LazyCollection;
 
 class EloquentProductRepository extends BaseRepository implements ProductRepository
 {
@@ -166,4 +168,29 @@ class EloquentProductRepository extends BaseRepository implements ProductReposit
             ->where('source_id', $sourceId)
             ->exists();
     }
+
+    /**
+     * Get active by warehouse cursor
+     *
+     * @param int $warehouseId
+     * @return LazyCollection
+     */
+    public function getActiveByWarehouseCursor(int $warehouseId): LazyCollection{
+        return Product::where('warehouse_id', $warehouseId)
+            ->where('active', true)
+            ->cursor();
+    }
+    
+    /**
+     * Count active by warehouse
+     *
+     * @param int $warehouseId
+     * @return int
+     */
+    public function countActiveByWarehouse(int $warehouseId): int{
+        return Product::where('warehouse_id', $warehouseId)
+            ->where('active', true)
+            ->count();
+    }
+    
 }
