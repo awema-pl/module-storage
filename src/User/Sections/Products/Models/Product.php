@@ -184,12 +184,12 @@ class Product extends Model implements ProductContract
      * Get feature by name
      *
      * @param string $name
-     * @return string|null
+     * @return Feature|null
      */
-    public function getFeatureByName(string $name): ?string{
+    public function getFeatureByName(string $name): ?Feature{
         $feature = $this->features()->where('name', $name)->first();
         if ($feature){
-            return (string) $feature->value;
+            return $feature;
         }
         return null;
     }

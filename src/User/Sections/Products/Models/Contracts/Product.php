@@ -3,6 +3,7 @@
 namespace AwemaPL\Storage\User\Sections\Products\Models\Contracts;
 
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
+use AwemaPL\Storage\User\Sections\Features\Models\Feature;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -90,7 +91,7 @@ interface Product
      * Get feature by name
      *
      * @param string $name
-     * @return string|null
+     * @return Feature|null
      */
-    public function getFeatureByName(string $name): ?string;
+    public function getFeatureByName(string $name): ?Feature;
 }
