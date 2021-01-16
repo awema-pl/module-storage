@@ -36,7 +36,7 @@ class ImportProductJob implements ShouldQueue
 
     public function __construct(SourceContract $source, array $options = [])
     {
-        $this->addStatus(self::TYPE, self::TYPE_KEY, $source, true);
+        $this->addStatus(self::TYPE, self::TYPE_KEY, $source, true, $source->user_id);
         $this->source = $source;
         $this->options = $options;
     }

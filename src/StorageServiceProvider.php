@@ -1,6 +1,8 @@
 <?php
 
 namespace AwemaPL\Storage;
+use AwemaPL\Storage\Console\Commands\ImportProductCommand;
+use AwemaPL\Storage\Console\Commands\UpdateProductCommand;
 use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Categories\Policies\CategoryPolicy;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Policies\DuplicateProductPolicy;
@@ -101,6 +103,7 @@ class StorageServiceProvider extends AwemaProvider
         app('storage')->menuMerge();
         app('storage')->mergePermissions();
         $this->registerPolicies();
+        $this->registerCommands();
         Event::subscribe(EventSubscriber::class);
         parent::boot();
     }
@@ -203,5 +206,16 @@ class StorageServiceProvider extends AwemaProvider
     {
         $kernel = $this->app->make(\Illuminate\Contracts\Http\Kernel::class);
         $kernel->pushMiddleware(GlobalMiddleware::class);
+    }
+
+    /**
+     * Register commands
+     */
+    private function registerCommands()
+    {
+        $this->commands([
+            ImportProductCommand::class,
+            UpdateProductCommand::class,
+        ]);
     }
 }
