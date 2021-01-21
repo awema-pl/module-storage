@@ -41,16 +41,11 @@ class CreateStorageDuplicateProductsTable extends Migration
         Schema::table(config('storage.database.tables.storage_duplicate_products'), function (Blueprint $table) {
             $table->unique(['duplicate_product_id', 'product_id'], '8UGXL33G1R7PNWKICKRNLE');
         });
-
-        DB::statement('ALTER TABLE '.config('storage.database.tables.storage_duplicate_products').' ADD CONSTRAINT UFAFC3MBGTWYXJQKGVTGR0 CHECK (duplicate_product_id != product_id);');
     }
 
     public function down()
     {
-        Schema::table(config('storage.database.tables.storage_duplicate_products'), function (Blueprint $table) {
-            DB::statement('ALTER TABLE '.config('storage.database.tables.storage_duplicate_products').' DROP CONSTRAINT UFAFC3MBGTWYXJQKGVTGR0;');
-        });
-
+     
         Schema::table(config('storage.database.tables.storage_duplicate_products'), function (Blueprint $table) {
             $table->dropUnique(['duplicate_product_id', 'product_id']);
         });

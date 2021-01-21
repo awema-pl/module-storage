@@ -35,17 +35,11 @@ class CreateStorageCategoriesTable extends Migration
                 ->constrained(config('storage.database.tables.storage_sources'))
                 ->onDelete('cascade');
         });
-
-        DB::statement('ALTER TABLE '.config('storage.database.tables.storage_categories').' ADD CONSTRAINT QK2T0F7JI74353OA05H4SE CHECK (id != parent_id);');
     }
 
     public function down()
     {
-        Schema::table(config('storage.database.tables.storage_categories'), function (Blueprint $table) {
-            DB::statement('ALTER TABLE '.config('storage.database.tables.storage_categories').' DROP CONSTRAINT QK2T0F7JI74353OA05H4SE;');
-        });
-
-        Schema::table(config('storage.database.tables.storage_categories'), function (Blueprint $table) {
+             Schema::table(config('storage.database.tables.storage_categories'), function (Blueprint $table) {
             $table->dropForeign(['user_id']);
             $table->dropForeign(['warehouse_id']);
         });
