@@ -168,7 +168,7 @@ class Product extends Model implements ProductContract
      */
     public function duplicates()
     {
-        return $this->belongsToMany(Product::class, config('storage.database.tables.storage_duplicate_products'), 'duplicate_product_id')->withTimestamps();;
+        return $this->belongsToMany(Product::class, config('storage.database.tables.storage_duplicate_products'), 'duplicate_product_id')->withTimestamps();
     }
 
     /**
