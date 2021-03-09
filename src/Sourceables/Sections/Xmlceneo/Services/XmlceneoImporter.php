@@ -274,6 +274,12 @@ class XmlceneoImporter implements XmlceneoImporterContract
         foreach (explode('/', $crumbs) as $crumb) {
             $externalId .= $externalId ? '/' : '';
             $externalId .= $crumb;
+            $externalIdLimit = $externalId;
+            if (mb_strlen($externalIdLimit) > 255){
+                $externalIdLimit = strrev($externalIdLimit);
+                $externalIdLimit = Str::limit($externalIdLimit, 252, '');
+                $externalIdLimit = '...' .  strrev($externalIdLimit);
+            }
             $category = $this->categories->firstOrCreate([
                 'source_id' => $this->source->getKey(),
                 'external_id' => $externalId,
