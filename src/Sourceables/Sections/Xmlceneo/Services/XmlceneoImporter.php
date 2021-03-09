@@ -282,7 +282,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
             }
             $category = $this->categories->firstOrCreate([
                 'source_id' => $this->source->getKey(),
-                'external_id' => $externalId,
+                'external_id' => $externalIdLimit,
                 'parent_id' => $parentId,
             ], [
                 'name' => $crumb,
