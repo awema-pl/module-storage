@@ -86,6 +86,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
             if (!$this->products->existsByExternalId($source->warehouse->id, $externalId, $source->getKey())) {
                 dump('import product ' . $externalId);
                 $product = $this->importProduct($externalId, $xml);
+                dump('imported product ' . $externalId);
                 $this->productDuplicateGenerator->generate($product);
             }
         }
@@ -101,9 +102,13 @@ class XmlceneoImporter implements XmlceneoImporterContract
     public function importProduct(string $externalId, SimpleXMLElement $xml)
     {
         $attributes = $this->getDataExtractor()->getAttributes($xml);
+        dump('1');
         $manufacturerId = $this->importManufacturerId($attributes);
+        dump('2');
         $categoryIds = $this->importCategories($this->getDataExtractor()->getCat($xml));
+        dump('3');
         $defaultCategoryId = array_pop($categoryIds);
+        dump('4');
         $product = $this->products->create([
             'name' => $this->getProductName($xml),
             'gtin' => $this->dataExtractor->getAttrubuteValue('GTIN', $attributes, true),
@@ -120,9 +125,13 @@ class XmlceneoImporter implements XmlceneoImporterContract
             'source_id' => $this->source->getKey(),
         ]);
         try{
+            dump('5');
             $this->importCategoriesProducts($categoryIds, $product);
+            dump('6');
             $this->importDescription($this->getDataExtractor()->getDescription($xml), $product);
+            dump('7');
             $this->importImages($this->getDataExtractor()->getImages($xml), $product);
+            dump('8');
             $this->importFeatures($attributes, $product);
         } catch (Throwable $exception){
             $product->delete();
