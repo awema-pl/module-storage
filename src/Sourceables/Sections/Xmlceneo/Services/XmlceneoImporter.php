@@ -277,12 +277,9 @@ class XmlceneoImporter implements XmlceneoImporterContract
             $externalId .= $crumb;
             $externalIdLimit = $externalId;
             if (mb_strlen($externalIdLimit) > 255){
-                dump('1 $externalIdLimit: ' . $externalIdLimit);
-                $externalIdLimit = strrev($externalIdLimit);
-                dump('2 $externalIdLimit: ' . $externalIdLimit);
+                $externalIdLimit = $this->mb_strrev($externalIdLimit);
                 $externalIdLimit = Str::limit($externalIdLimit, 252, '');
-                dump('3 $externalIdLimit: ' . $externalIdLimit);
-                $externalIdLimit = '...' .  strrev($externalIdLimit);
+                $externalIdLimit = '...' .  $this->mb_strrev($externalIdLimit);
                 dump('4 $externalIdLimit: ' . $externalIdLimit);
             }
             $category = $this->categories->firstOrCreate([
@@ -300,6 +297,25 @@ class XmlceneoImporter implements XmlceneoImporterContract
         }
         $this->tempCategoryIds[$crumbs] = $categoryIds;
         return $this->tempCategoryIds[$crumbs];
+    }
+
+    /**
+     * String reverse
+     *
+     * @param $string
+     * @param null $encoding
+     * @return string
+     */
+    private function mb_strrev ($string, $encoding = null) {
+        if ($encoding === null) {
+            $encoding = mb_detect_encoding($string);
+        }
+        $length   = mb_strlen($string, $encoding);
+        $reversed = '';
+        while ($length-- > 0) {
+            $reversed .= mb_substr($string, $length, 1, $encoding);
+        }
+        return $reversed;
     }
 
     /**
