@@ -82,6 +82,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
         foreach ($products as $productResponse) {
             $xml = $productResponse->xml();
             $externalId = $this->getDataExtractor()->getId($xml);
+            dump('exist by external ID product ' . $externalId);
             if (!$this->products->existsByExternalId($source->warehouse->id, $externalId, $source->getKey())) {
                 dump('import product ' . $externalId);
                 $product = $this->importProduct($externalId, $xml);
