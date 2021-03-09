@@ -264,8 +264,8 @@ class XmlceneoImporter implements XmlceneoImporterContract
     public function importCategories($crumbs)
     {
         if (!$crumbs) {
-            throw new StorageException(_p('storage::exceptions.sourceable.xmlceneo.no_product_category', 'No product category.'));
-        }
+            $crumbs = _p('storage::business.sourceable.xmlceneo.no_category', 'No category');
+       }
         if (isset($this->tempCategoryIds[$crumbs])) {
             return $this->tempCategoryIds[$crumbs];
         }
