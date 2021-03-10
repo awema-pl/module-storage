@@ -273,6 +273,9 @@ class XmlceneoImporter implements XmlceneoImporterContract
         $parentId = null;
         $externalId = '';
         foreach (explode('/', $crumbs) as $crumb) {
+            if (!$crumb){
+                continue;
+            }
             $externalId .= $externalId ? '/' : '';
             $externalId .= $crumb;
             $externalIdLimit = $externalId;
