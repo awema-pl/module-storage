@@ -5,6 +5,7 @@ namespace AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Models\Xmlceneo;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater as XmlceneoUpdaterContract;
 use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
+use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator;
 use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\Contracts\ManufacturerRepository;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
@@ -30,7 +31,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
 
     /** @var ProductRepository $products */
     private $products;
-
+    
     /** @var ProductDuplicateGenerator $productDuplicateGenerator */
     protected $productDuplicateGenerator;
 
@@ -89,8 +90,52 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
                 dump('update product ' . $externalId);
                 $product->update($data);
             }
+            if ($this->canUpdate('description')){
+                $this->updateDescription($product, $xml);
+            }
+            if ($this->canUpdate('features')){
+                $this->updateFeatures($product, $xml);
+            }
         }
         return $product;
+    }
+
+    /**
+     * Update description
+     * 
+     * @param Model $product
+     * @param SimpleXMLElement $xmlProduct
+     */
+    private function updateDescription(Model $product, SimpleXMLElement $xmlProduct){
+        $contentDescription = $this->dataExtractor->getDescription($xmlProduct);
+        $product->descriptions()->update([
+            'value' =>$contentDescription, 
+        ]);
+    }
+
+    /**
+     * Update features
+     *
+     * @param Model $product
+     * @param SimpleXMLElement $xmlProduct
+     */
+    private function updateFeatures(Model $product, SimpleXMLElement $xmlProduct){
+        $attributes = $this->dataExtractor->getAttributes($xmlProduct);
+        $data = [];
+        $product->features()->forceDelete();
+        foreach ($attributes as $attribute){
+            array_push($data, [
+                'name' => $attribute['name'],
+                'value' => $attribute['value'],
+                'user_id' =>$this->source->user_id,
+                'warehouse_id' =>$this->source->warehouse_id,
+                'product_id' =>$product->getKey(),
+                'created_at' =>now(),
+            ]);
+        }
+        if ($data){
+            $product->features()->insert($data);
+        }
     }
 
     /**

@@ -283,7 +283,6 @@ class XmlceneoImporter implements XmlceneoImporterContract
                 $externalIdLimit = $this->mb_strrev($externalIdLimit);
                 $externalIdLimit = Str::limit($externalIdLimit, 252, '');
                 $externalIdLimit = '...' .  $this->mb_strrev($externalIdLimit);
-                dump('4 $externalIdLimit: ' . $externalIdLimit);
             }
             $category = $this->categories->firstOrCreate([
                 'source_id' => $this->source->getKey(),

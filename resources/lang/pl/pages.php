@@ -312,6 +312,8 @@ return [
             'stock' => 'Stany magazynowe',
             'availability' => 'Dostępności',
             'brutto_price' => 'Ceny brutto',
+            'features' => 'Cechy',
+            'description' => 'Opis',
             'are_you_sure_delete' => 'Czy na pewno usunąć?',
             'add' => 'Dodaj',
             'save' => 'Zapisz',

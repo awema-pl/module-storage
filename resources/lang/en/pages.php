@@ -323,7 +323,9 @@ return [
             "please_select_properties_update" => "Please select the product properties to be updated.",
             "settings" => "Settings",
             "manufacturer_attribute_name" => "Manufacturer attribute name",
-            "default_tax_rate" => "Default tax rate"
+            "default_tax_rate" => "Default tax rate",
+            "features" => "Features",
+            "description" => "Description"
         ],
         "duplicate_product" => [
             "meta_title" => "Duplicate products",
