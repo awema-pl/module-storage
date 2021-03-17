@@ -28,6 +28,8 @@ class UpdateProductSource extends FormRequest
             'stock' => 'required|boolean',
             'availability' => 'required|boolean',
             'brutto_price' => 'required|boolean',
+            'description' =>'nullable|boolean',
+            'features' =>'nullable|boolean',
         ];
     }
 
@@ -43,6 +45,8 @@ class UpdateProductSource extends FormRequest
             'stock' => _p('storage::requests.user.source.attributes.stock', 'stock'),
             'availability' => _p('storage::requests.user.source.attributes.availability', 'availability'),
             'brutto_price' => _p('storage::requests.user.source.attributes.brutto_price', 'brutto price'),
+            'description' => _p('storage::requests.user.source.attributes.description', 'description'),
+            'features' => _p('storage::requests.user.source.attributes.features', 'features'),
         ];
     }
 
