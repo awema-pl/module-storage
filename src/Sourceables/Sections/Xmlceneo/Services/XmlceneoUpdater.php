@@ -212,7 +212,8 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
      */
     private function canUpdate(string $element): bool
     {
-        return (bool) $this->options[$element] ?? false;
+        $optionValue = $this->options[$element] ?? false;
+        return (bool) $optionValue;
     }
 
     /**
