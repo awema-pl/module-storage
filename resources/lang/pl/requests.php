@@ -140,6 +140,9 @@ return [
                 'stock' => 'stan magazynowy',
                 'availability'=> 'dostępność',
                 'brutto_price' =>'cena brutto',
+                'name' => 'nazwa',
+                'description' => 'opis',
+                'features' => 'cechy',
                 'settings' => [
                     'manufacturer_attribute_name' =>'nazwa atrybutu producenta',
                     'default_tax_rate' =>'domyślna stawka podatku',

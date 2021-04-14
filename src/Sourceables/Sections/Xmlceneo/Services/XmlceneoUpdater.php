@@ -90,6 +90,9 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
                 dump('update product ' . $externalId);
                 $product->update($data);
             }
+            if ($this->canUpdate('name')){
+                $this->updateName($product, $xml);
+            }
             if ($this->canUpdate('description')){
                 $this->updateDescription($product, $xml);
             }
@@ -100,6 +103,19 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
         return $product;
     }
 
+    /**
+     * Update name
+     *
+     * @param Model $product
+     * @param SimpleXMLElement $xmlProduct
+     */
+    private function updateName(Model $product, SimpleXMLElement $xmlProduct){
+        $name = $this->dataExtractor->getName($xmlProduct);
+        $product->update([
+            'name' =>$name,
+        ]);
+    }
+    
     /**
      * Update description
      * 

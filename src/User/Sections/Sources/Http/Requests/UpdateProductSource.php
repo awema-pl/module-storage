@@ -28,6 +28,7 @@ class UpdateProductSource extends FormRequest
             'stock' => 'required|boolean',
             'availability' => 'required|boolean',
             'brutto_price' => 'required|boolean',
+            'name' =>'nullable|boolean',
             'description' =>'nullable|boolean',
             'features' =>'nullable|boolean',
         ];
@@ -45,6 +46,7 @@ class UpdateProductSource extends FormRequest
             'stock' => _p('storage::requests.user.source.attributes.stock', 'stock'),
             'availability' => _p('storage::requests.user.source.attributes.availability', 'availability'),
             'brutto_price' => _p('storage::requests.user.source.attributes.brutto_price', 'brutto price'),
+            'name' => _p('storage::requests.user.source.attributes.name', 'name'),
             'description' => _p('storage::requests.user.source.attributes.description', 'description'),
             'features' => _p('storage::requests.user.source.attributes.features', 'features'),
         ];

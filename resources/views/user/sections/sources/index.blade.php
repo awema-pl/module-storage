@@ -1,3 +1,4 @@
+
 @extends('indigo-layout::main')
 
 @section('meta_title', _p('storage::pages.user.source.meta_title', 'Sources') . ' - ' . config('app.name'))
@@ -130,8 +131,9 @@
                 <fb-switcher name="stock" label="{{ _p('storage::pages.user.source.stock', 'Stock') }}"></fb-switcher>
                 <fb-switcher name="availability" label="{{ _p('storage::pages.user.source.availability', 'Availability') }}"></fb-switcher>
                 <fb-switcher name="brutto_price" label="{{ _p('storage::pages.user.source.brutto_price', 'Brutto price') }}"></fb-switcher>
-                <fb-switcher name="features" label="{{ _p('storage::pages.user.source.features', 'Features') }}"></fb-switcher>
+                <fb-switcher name="name" label="{{ _p('storage::pages.user.source.name', 'Name') }}"></fb-switcher>
                 <fb-switcher name="description" label="{{ _p('storage::pages.user.source.description', 'Description') }}"></fb-switcher>
+                <fb-switcher name="features" label="{{ _p('storage::pages.user.source.features', 'Features') }}"></fb-switcher>
             </div>
         </form-builder>
     </modal-window>
