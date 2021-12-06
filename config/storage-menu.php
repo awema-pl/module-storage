@@ -7,7 +7,6 @@ return [
         'sidebar' =>[
             [
                 'name' => 'Storage',
-                'link' => '/storage/warehouses',
                 'icon' => 'speed',
                 'key' => 'storage::menus.storage',
                 'children_top' => [
@@ -60,6 +59,7 @@ return [
                         'name' => 'Sources',
                         'link' => '/storage/sources',
                         'key' => 'storage::menus.sources',
+                        'class' => 'awema-spa-ignore',
                     ],
                     [
                         'name' => 'Duplicate products',
@@ -117,6 +117,7 @@ return [
                         'name' => 'Sources',
                         'link' => '/storage/sources',
                         'key' => 'storage::menus.sources',
+                        'class' => 'awema-spa-ignore',
                     ],
                     [
                         'name' => 'Duplicate products',
