@@ -7,7 +7,7 @@ return [
         'sidebar' =>[
             [
                 'name' => 'Storage',
-                'icon' => 'speed',
+                'icon' => 'storage',
                 'link' => '/storage/sources',
                 'class' => 'awema-spa-ignore',
                 'key' => 'storage::menus.storage',
