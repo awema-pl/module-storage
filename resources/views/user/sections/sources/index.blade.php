@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    @include('task::user.sections.statuses.processes', ['types'=>['import_products_to_warehouse','update_products_to_warehouse']])
+    @include('task::user.sections.statuses.processes', ['name'=>'storage.sources','types'=>['import_products_to_warehouse','update_products_to_warehouse']])
 @endsection
 
 @section('modals')
