@@ -83,7 +83,7 @@ class XmlceneoImporter implements XmlceneoImporterContract
             $xml = $productResponse->xml();
             $externalId = $this->getDataExtractor()->getId($xml);
             dump('exist by external ID product ' . $externalId);
-            if (strlen($externalId) <=255 && !$this->products->existsByExternalId($source->warehouse->id, $externalId, $source->getKey())) {
+            if (!$this->products->existsByExternalId($source->warehouse->id, $externalId, $source->getKey())) {
                 dump('import product ' . $externalId);
                 $product = $this->importProduct($externalId, $xml);
                 $this->productDuplicateGenerator->generate($product);

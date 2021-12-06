@@ -80,7 +80,7 @@
             </div>
         </div>
     </div>
-    <task-status class="mt-15" :types="['import_products_to_warehouse','update_products_to_warehouse']" url="{{ route('task.user.status.widget')}}"></task-status>
+    @include('task::user.sections.statuses.processes', ['types'=>['import_products_to_warehouse','update_products_to_warehouse']])
 @endsection
 
 @section('modals')
