@@ -8,6 +8,8 @@ return [
             [
                 'name' => 'Storage',
                 'icon' => 'speed',
+                'link' => '/storage/sources',
+                'class' => 'awema-spa-ignore',
                 'key' => 'storage::menus.storage',
                 'children_top' => [
                     [
