@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\Sources\Models;
 
+use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Warehouses\Models\Warehouse;
 use AwemaPL\Task\User\Sections\Statuses\Models\Contracts\Taskable;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
@@ -66,4 +67,19 @@ class Source extends Model implements SourceContract, Taskable
     public function warehouse(){
         return $this->belongsTo(Warehouse::class);
     }
+
+
+    /**
+     * Category tree
+     *
+     * @return void
+     */
+    public function categoryTree()
+    {
+        return Category::where('source_id', $this->getKey())
+            ->with('children')
+            ->whereNull('parent_id')
+            ->get(['id', 'name', 'parent_id', 'source_id']);
+    }
+
 }

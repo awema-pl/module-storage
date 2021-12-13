@@ -2,6 +2,7 @@
 
 namespace AwemaPL\Storage\User\Sections\Categories\Models;
 
+use AwemaPL\ProductIntegrator\User\Sections\CategoryMappings\Models\CategoryMapping;
 use AwemaPL\Storage\Common\Exceptions\StorageException;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Sources\Models\Source;
@@ -18,13 +19,16 @@ class Category extends Model implements CategoryContract
     /** @var array The attributes that should be encrypted/decrypted */
     protected $encryptable = [];
 
+    /** @var int $integrationId */
+    public static $integrationId;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-       'user_id', 'warehouse_id', 'name', 'parent_id', 'source_id', 'external_id',
+        'user_id', 'warehouse_id', 'name', 'parent_id', 'source_id', 'external_id',
     ];
 
     /**
@@ -64,8 +68,8 @@ class Category extends Model implements CategoryContract
     public static function boot()
     {
         parent::boot();
-        self::updating(function(Model $model){
-            if ($model->getKey() === $model->parent_id){
+        self::updating(function (Model $model) {
+            if ($model->getKey() === $model->parent_id) {
                 throw new StorageException('Category and parent category cannot be the same.', StorageException::ERROR_SAME_VALUES, 409, null,
                     _p('storage::exceptions.user.category.category_and_parent_category_not_same', 'Category and parent category cannot be the same.'), null, false);
             }
@@ -77,7 +81,8 @@ class Category extends Model implements CategoryContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(config('auth.providers.users.model'));
     }
 
@@ -96,8 +101,19 @@ class Category extends Model implements CategoryContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function source(){
+    public function source()
+    {
         return $this->belongsTo(Source::class);
+    }
+
+    /**
+     * Get the product integrator category mappings that owns the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function productIntegratorCategoryMappings()
+    {
+        return $this->hasOne(CategoryMapping::class, 'category_id');
     }
 
     /**
@@ -105,8 +121,54 @@ class Category extends Model implements CategoryContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function parent(){
+    public function parent()
+    {
         return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    /**
+     * Get the my children category that owns the category.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+
+    /**
+     * Recursive, loads all descendants
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tree()
+    {
+        return $this->children()->select(['id', 'name', 'parent_id', 'source_id'])->with(['tree' => function ($query) {
+            $query->select(['id', 'name', 'parent_id', 'source_id']);
+        }, 'productIntegratorCategoryMappings' => function ($query) {
+            $query->select(['id', 'target_category_id', 'include_subcategories', 'category_id']);
+            $query->where('integration_id', static::$integrationId);
+        }]);
+
+    }
+
+    /**
+     * Recursive, loads all descendants
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public static function getTree(int $integrationId, int $sourceId)
+    {
+        static::$integrationId = $integrationId;
+        return Category::where('source_id', $sourceId)
+            ->with(['tree', 'productIntegratorCategoryMappings' => function ($query) use (&$integrationId) {
+                $query->select(['id', 'target_category_id', 'include_subcategories', 'category_id', 'integration_id']);
+                $query->where('integration_id', $integrationId);
+            }])
+            ->whereNull('parent_id')
+            ->get(['id', 'name', 'parent_id', 'source_id'])
+            ->toArray();
     }
 
     /**
@@ -114,7 +176,8 @@ class Category extends Model implements CategoryContract
      *
      * @return string
      */
-    public function crumbs(){
+    public function crumbs()
+    {
         $parentCrumbs = $this->parentCrumbs();
         $parentCrumbs .= !empty($parentCrumbs) ? '/' : '';
         return $parentCrumbs . $this->name;
@@ -125,8 +188,9 @@ class Category extends Model implements CategoryContract
      *
      * @return string
      */
-    public function parentCrumbs(){
-        return $this->getParentCategories()->reduce(function($crumbs, $parentCategory){
+    public function parentCrumbs()
+    {
+        return $this->getParentCategories()->reduce(function ($crumbs, $parentCategory) {
             return sprintf('%s%s%s', $parentCategory->name, !empty($crumbs) ? '/' : '', $crumbs);
         }, '');
     }
@@ -136,7 +200,8 @@ class Category extends Model implements CategoryContract
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function products(){
+    public function products()
+    {
         return $this->belongsToMany(Product::class, config('storage.database.tables.storage_category_product'));
     }
 
@@ -145,12 +210,13 @@ class Category extends Model implements CategoryContract
      *
      * @return Collection
      */
-    public function getParentCategories(){
+    public function getParentCategories()
+    {
         $parentCategories = collect();
         $parent = $this->parent;
-        for($i = 0 ; $i < 30 ; $i++){ // instead while loop
-            if ($parent){
-                if ($parent->id === $parent->parent_id){
+        for ($i = 0; $i < 30; $i++) { // instead while loop
+            if ($parent) {
+                if ($parent->id === $parent->parent_id) {
                     throw new \InvalidArgumentException("Category ID is equal to parent category ID ($parent->id).");
                 }
                 $parentCategories->push($parent);

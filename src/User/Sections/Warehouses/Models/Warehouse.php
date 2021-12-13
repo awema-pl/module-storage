@@ -2,7 +2,9 @@
 
 namespace AwemaPL\Storage\User\Sections\Warehouses\Models;
 
+use AwemaPL\Storage\User\Sections\Categories\Models\Category;
 use AwemaPL\Storage\User\Sections\Products\Models\Product;
+use AwemaPL\Storage\User\Sections\Sources\Models\Source;
 use AwemaPL\Task\User\Sections\Statuses\Models\Contracts\Taskable;
 use betterapp\LaravelDbEncrypter\Traits\EncryptableDbAttribute;
 use Illuminate\Database\Eloquent\Model;
@@ -70,4 +72,13 @@ class Warehouse extends Model implements WarehouseContract
         return $this->hasMany(Product::class);
     }
 
+    /**
+     * Get all of the sources for the product.
+     *
+     * @return HasMany
+     */
+    public function sources()
+    {
+        return $this->hasMany(Source::class);
+    }
 }
