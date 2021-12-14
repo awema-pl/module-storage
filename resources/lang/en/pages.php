@@ -325,7 +325,8 @@ return [
             "manufacturer_attribute_name" => "Manufacturer attribute name",
             "default_tax_rate" => "Default tax rate",
             "features" => "Features",
-            "description" => "Description"
+            "description" => "Description",
+            "name" => "Name"
         ],
         "duplicate_product" => [
             "meta_title" => "Duplicate products",
