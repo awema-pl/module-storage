@@ -107,6 +107,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
             $this->canUpdate('brutto_price') ? $data['brutto_price'] = $this->getDataExtractor()->getBruttoPrice($xml) : null;
             if ($data){
                 dump('update product ' . $externalId);
+                $data['updated_at'] = now();
                 $product->update($data);
             }
             if ($this->canUpdate('name')){
