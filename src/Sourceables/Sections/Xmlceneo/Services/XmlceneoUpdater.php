@@ -4,11 +4,11 @@ namespace AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services;
 
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Models\Xmlceneo;
 use AwemaPL\Storage\Sourceables\Sections\Xmlceneo\Services\Contracts\XmlceneoUpdater as XmlceneoUpdaterContract;
+use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Categories\Repositories\Contracts\CategoryRepository;
 use AwemaPL\Storage\User\Sections\Descriptions\Repositories\Contracts\DescriptionRepository;
 use AwemaPL\Storage\User\Sections\DuplicateProducts\Services\Contracts\ProductDuplicateGenerator;
 use AwemaPL\Storage\User\Sections\Manufacturers\Repositories\Contracts\ManufacturerRepository;
-use AwemaPL\Storage\User\Sections\Products\Models\Product;
 use AwemaPL\Storage\User\Sections\Products\Repositories\Contracts\ProductRepository;
 use AwemaPL\Storage\User\Sections\Sources\Models\Contracts\Source as SourceContract;
 use AwemaPL\Xml\Client\Readers\Requests\Contracts\Ceneo as CeneoContract;
@@ -41,6 +41,9 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
     /** @var array $options */
     private $options;
 
+    /** @var Carbon $updateStartedAt */
+    private $updateStartedAt;
+
     public function __construct(ProductRepository $products, ProductDuplicateGenerator $productDuplicateGenerator)
     {
         $this->products = $products;
@@ -54,6 +57,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
      * @param array $options
      */
     public function updateProducts(SourceContract $source, $options=[]): void{
+        $this->updateStartedAt = now();
         $this->setSource($source);
         $this->setOptions($options);
         $products = $this->getXmlceneoClient()->all();
@@ -65,6 +69,21 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
             if ($product && $this->getOption('generate_duplicate_product')){
                 $this->productDuplicateGenerator->generate($product);
             }
+        }
+        $this->setZeroNotUpdatedStocks();
+    }
+
+    /**
+     * Set zero not updated stocks
+     */
+    private function setZeroNotUpdatedStocks()
+    {
+        $dateStartedString = $this->importStartedAt->toDateTimeString();
+        $stocks = Product::where('source_id', $this->source->id)->where('updated_at', '<', $dateStartedString)->cursor();
+        foreach ($stocks as $stock) {
+            $stock->stock = 0;
+            $stock->updated_at = now();
+            $stock->save();
         }
     }
 
