@@ -78,7 +78,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
      */
     private function setZeroNotUpdatedStocks()
     {
-        $dateStartedString = $this->importStartedAt->toDateTimeString();
+        $dateStartedString = $this->updateStartedAt->toDateTimeString();
         $stocks = Product::where('source_id', $this->source->id)->where('updated_at', '<', $dateStartedString)->cursor();
         foreach ($stocks as $stock) {
             $stock->stock = 0;
