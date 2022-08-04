@@ -57,7 +57,7 @@ class XmlceneoUpdater implements XmlceneoUpdaterContract
      * @param array $options
      */
     public function updateProducts(SourceContract $source, $options=[]): void{
-        $this->updateStartedAt = now();
+        $this->updateStartedAt = now()->subMinute();
         $this->setSource($source);
         $this->setOptions($options);
         $products = $this->getXmlceneoClient()->all();
